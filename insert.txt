@@ -36,7 +36,37 @@ insert into Groups_data Values (8,'group8','club',8);
 insert into Groups_data Values (9,'group9','club',9);
 insert into Groups_data Values (10,'group10','club',10);
 
+INSERT INTO Sales_data VALUES (1, CURTIME(),1,10,1);
+INSERT INTO Sales_data VALUES (2, CURTIME(),2,10,2);
+INSERT INTO Sales_data VALUES (3, CURTIME(),3,10,3);
+INSERT INTO Sales_data VALUES (4, CURTIME(),4,10,4);
+INSERT INTO Sales_data VALUES (5, CURTIME(),5,10,5);
+INSERT INTO Sales_data VALUES (6, CURTIME(),6,10,6);
+INSERT INTO Sales_data VALUES (7, CURTIME(),7,10,7);
+INSERT INTO Sales_data VALUES (8, CURTIME(),8,10,8);
+INSERT INTO Sales_data VALUES (9, CURTIME(),9,10,9);
+INSERT INTO Sales_data VALUES (10, CURTIME(),10,10,10);
+
+
+INSERT INTO Messages_data VALUES (1, CURDATE(),'Subject1','Content1', 1, 2);
+INSERT INTO Messages_data VALUES (2, CURDATE(),'Subject2','Content2', 2, 3);
+INSERT INTO Messages_data VALUES (3, CURDATE(),'Subject3','Content3', 3, 4);
+INSERT INTO Messages_data VALUES (4, CURDATE(),'Subject4','Content4', 4, 5);
+INSERT INTO Messages_data VALUES (5, CURDATE(),'Subject5','Content5', 5, 6);
+INSERT INTO Messages_data VALUES (6, CURDATE(),'Subject6','Content6', 6, 7);
+INSERT INTO Messages_data VALUES (7, CURDATE(),'Subject7','Content7', 7, 8);
+INSERT INTO Messages_data VALUES (8, CURDATE(),'Subject8','Content8', 8, 9);
+INSERT INTO Messages_data VALUES (9, CURDATE(),'Subject9','Content9', 9, 10);
+INSERT INTO Messages_data VALUES (10, CURDATE(),'Subject10','Content10', 10, 1);
 
 
 
-
+INSERT INTO Advertisements_data VALUES (2, 100000000,'Car',CURDATE(),'Company1','Car1', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (3, 100000000,'Car',CURDATE(),'Company1','Car2', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (4, 100000001,'Car',CURDATE(),'Company2','Car3', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (5, 100000002,'House',CURDATE(),'Company3','House1', 'NEW HOUSE ITS GREAT', 100000, 10);
+INSERT INTO Advertisements_data VALUES (6, 100000004,'Boat',CURDATE(),'Company4','Boat1', 'NEW BOAT ITS GREAT', 100, 10);
+INSERT INTO Advertisements_data VALUES (7, 100000004,'Car',CURDATE(),'Company5','Car4', 'NEW CAR ITS GREAT', 1010, 10);
+INSERT INTO Advertisements_data VALUES (8, 100000006,'Phone',CURDATE(),'Company2','Phone1', 'NEW PHONE ITS GREAT', 200, 10);
+INSERT INTO Advertisements_data VALUES (9, 100000007,'Phone',CURDATE(),'Company4','Phone2', 'NEW PHONE ITS GREAT', 500, 10);
+INSERT INTO Advertisements_data VALUES (10, 100000008,'Phone',CURDATE(),'Company5','Phone3', 'NEW PHONE ITS GREAT', 500, 10);
