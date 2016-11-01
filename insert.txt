@@ -1,0 +1,42 @@
+INSERT INTO `Employee_data` VALUES (100000000,'EmployeeLast1','EmployeeFirst1','Address1','C1','S1',12345,'999-999-9999','2016-11-01',10),(100000001,'EmployeeLast2','EmployeeFirst2','Address1','C2','S2',10001,'999-999-9998','2016-11-01',10),(100000002,'EmployeeLast3','EmployeeFirst3','Address3','C3','S3',10002,'999-999-9997','2016-11-01',10),(100000003,'EmployeeLast4','EmployeeFirst4','Address4','C4','S4',10003,'999-999-9996','2016-11-01',10),(100000004,'EmployeeLast5','EmployeeFirst5','Address5','C5','S5',10004,'999-999-9995','2016-11-01',10),(100000005,'EmployeeLast6','EmployeeFirst6','Address6','C6','S6',10005,'999-999-9994','2016-11-01',10),(100000006,'EmployeeLast7','EmployeeFirst7','Address7','C7','S7',10006,'999-999-9993','2016-11-01',10),(100000007,'EmployeeLast8','EmployeeFirst8','Address8','C8','S8',10007,'999-999-9992','2016-11-01',10),(100000008,'EmployeeLast9','EmployeeFirst9','Address9','C9','S9',10008,'999-999-9991','2016-11-01',10),(100000009,'EmployeeLast10','EmployeeFirst10','Address10','C1','S1',10009,'999-999-9990','2016-11-01',10);
+
+
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(1,CURDATE(),100000001);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(2,CURDATE(),100000002);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(3,CURDATE(),100000003);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(4,CURDATE(),100000004);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(5,CURDATE(),100000005);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(6,CURDATE(),100000006);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(7,CURDATE(),100000007);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(8,CURDATE(),100000008);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(9,CURDATE(),100000009);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(10,CURDATE(),100000010);
+
+
+insert into User Values (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','preference1',5,1);
+insert into User Values (2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','preference2',6,2);
+insert into User Values (3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','preference3',4,3);
+insert into User Values (4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','preference4',5,4);
+insert into User Values (5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','preference5',7,5);
+insert into User Values (6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','preference6',8,6);
+insert into User Values (7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','preference7',4,7);
+insert into User Values (8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','preference8',1,8);
+insert into User Values (9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','preference9',9,9);
+insert into User Values (10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','preference10',5,10);
+
+
+insert into Groups_data Values (1,'group1','club',1);
+insert into Groups_data Values (2,'group2','club',2);
+insert into Groups_data Values (3,'group3','club',3);
+insert into Groups_data Values (4,'group4','club',4);
+insert into Groups_data Values (5,'group5','club',5);
+insert into Groups_data Values (6,'group6','club',6);
+insert into Groups_data Values (7,'group7','club',7);
+insert into Groups_data Values (8,'group8','club',8);
+insert into Groups_data Values (9,'group9','club',9);
+insert into Groups_data Values (10,'group10','club',10);
+
+
+
+
+
