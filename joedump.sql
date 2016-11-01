@@ -77,6 +77,7 @@ CREATE TABLE `Advertisements_data` (
 
 LOCK TABLES `Advertisements_data` WRITE;
 /*!40000 ALTER TABLE `Advertisements_data` DISABLE KEYS */;
+INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-01','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-01','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-01','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-01','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-01','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-01','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-01','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-01','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-01','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-01','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
 /*!40000 ALTER TABLE `Advertisements_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,6 +108,7 @@ CREATE TABLE `Comments_data` (
 
 LOCK TABLES `Comments_data` WRITE;
 /*!40000 ALTER TABLE `Comments_data` DISABLE KEYS */;
+INSERT INTO `Comments_data` VALUES (1,1,'2016-11-01','content1',1),(2,2,'2016-11-01','content2',2),(3,3,'2016-11-01','content3',3),(4,4,'2016-11-01','content4',4),(5,5,'2016-11-01','content5',5),(6,6,'2016-11-01','content6',6),(7,7,'2016-11-01','content7',7),(8,8,'2016-11-01','content8',8),(9,9,'2016-11-01','content9',9),(10,10,'2016-11-01','content10',10);
 /*!40000 ALTER TABLE `Comments_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,6 +140,7 @@ CREATE TABLE `Employee_data` (
 
 LOCK TABLES `Employee_data` WRITE;
 /*!40000 ALTER TABLE `Employee_data` DISABLE KEYS */;
+INSERT INTO `Employee_data` VALUES (100000000,'EmployeeLast1','EmployeeFirst1','Address1','C1','S1',12345,'999-999-9999','2016-11-01',10),(100000001,'EmployeeLast2','EmployeeFirst2','Address1','C2','S2',10001,'999-999-9998','2016-11-01',10),(100000002,'EmployeeLast3','EmployeeFirst3','Address3','C3','S3',10002,'999-999-9997','2016-11-01',10),(100000003,'EmployeeLast4','EmployeeFirst4','Address4','C4','S4',10003,'999-999-9996','2016-11-01',10),(100000004,'EmployeeLast5','EmployeeFirst5','Address5','C5','S5',10004,'999-999-9995','2016-11-01',10),(100000005,'EmployeeLast6','EmployeeFirst6','Address6','C6','S6',10005,'999-999-9994','2016-11-01',10),(100000006,'EmployeeLast7','EmployeeFirst7','Address7','C7','S7',10006,'999-999-9993','2016-11-01',10),(100000007,'EmployeeLast8','EmployeeFirst8','Address8','C8','S8',10007,'999-999-9992','2016-11-01',10),(100000008,'EmployeeLast9','EmployeeFirst9','Address9','C9','S9',10008,'999-999-9991','2016-11-01',10),(100000009,'EmployeeLast10','EmployeeFirst10','Address10','C1','S1',10009,'999-999-9990','2016-11-01',10);
 /*!40000 ALTER TABLE `Employee_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,6 +167,7 @@ CREATE TABLE `Friends` (
 
 LOCK TABLES `Friends` WRITE;
 /*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
+INSERT INTO `Friends` VALUES (10,1),(1,2),(2,3),(3,4),(4,5),(5,6),(6,7),(7,8),(8,9),(9,10);
 /*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,6 +223,7 @@ CREATE TABLE `Joins` (
 
 LOCK TABLES `Joins` WRITE;
 /*!40000 ALTER TABLE `Joins` DISABLE KEYS */;
+INSERT INTO `Joins` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
 /*!40000 ALTER TABLE `Joins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,6 +255,7 @@ CREATE TABLE `Messages_data` (
 
 LOCK TABLES `Messages_data` WRITE;
 /*!40000 ALTER TABLE `Messages_data` DISABLE KEYS */;
+INSERT INTO `Messages_data` VALUES (1,'2016-11-01','Subject1','Content1',1,2),(2,'2016-11-01','Subject2','Content2',2,3),(3,'2016-11-01','Subject3','Content3',3,4),(4,'2016-11-01','Subject4','Content4',4,5),(5,'2016-11-01','Subject5','Content5',5,6),(6,'2016-11-01','Subject6','Content6',6,7),(7,'2016-11-01','Subject7','Content7',7,8),(8,'2016-11-01','Subject8','Content8',8,9),(9,'2016-11-01','Subject9','Content9',9,10),(10,'2016-11-01','Subject10','Content10',10,1);
 /*!40000 ALTER TABLE `Messages_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,6 +285,7 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
+INSERT INTO `Pages` VALUES (1,1,1,10),(2,2,2,16),(3,3,3,17),(4,4,4,3),(5,5,5,10),(6,6,6,6),(7,7,7,7),(8,8,8,9),(9,9,9,17),(10,10,10,10);
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,6 +314,7 @@ CREATE TABLE `Posts_data` (
 
 LOCK TABLES `Posts_data` WRITE;
 /*!40000 ALTER TABLE `Posts_data` DISABLE KEYS */;
+INSERT INTO `Posts_data` VALUES (1,1,'2016-11-01','content1',4),(2,2,'2016-11-01','content2',5),(3,3,'2016-11-01','content3',4),(4,4,'2016-11-01','content4',2),(5,5,'2016-11-01','content5',7),(6,6,'2016-11-01','content6',42),(7,7,'2016-11-01','content7',9),(8,8,'2016-11-01','content8',11),(9,9,'2016-11-01','content9',31),(10,10,'2016-11-01','content10',6);
 /*!40000 ALTER TABLE `Posts_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -334,6 +342,7 @@ CREATE TABLE `Requests_friends` (
 
 LOCK TABLES `Requests_friends` WRITE;
 /*!40000 ALTER TABLE `Requests_friends` DISABLE KEYS */;
+INSERT INTO `Requests_friends` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
 /*!40000 ALTER TABLE `Requests_friends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,6 +373,7 @@ CREATE TABLE `Sales_data` (
 
 LOCK TABLES `Sales_data` WRITE;
 /*!40000 ALTER TABLE `Sales_data` DISABLE KEYS */;
+INSERT INTO `Sales_data` VALUES (1,'2016-11-01 17:07:26',1,10,1),(2,'2016-11-01 17:07:26',2,10,2),(3,'2016-11-01 17:07:26',3,10,3),(4,'2016-11-01 17:07:26',4,10,4),(5,'2016-11-01 17:07:26',5,10,5),(6,'2016-11-01 17:07:26',6,10,6),(7,'2016-11-01 17:07:26',7,10,7),(8,'2016-11-01 17:07:26',8,10,8),(9,'2016-11-01 17:07:26',9,10,9),(10,'2016-11-01 17:07:26',10,10,10);
 /*!40000 ALTER TABLE `Sales_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -412,4 +422,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-01 16:09:22
+-- Dump completed on 2016-11-01 17:08:15
