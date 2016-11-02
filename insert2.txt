@@ -1,0 +1,140 @@
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(1,CURDATE(),100000001);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(2,CURDATE(),100000002);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(3,CURDATE(),100000003);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(4,CURDATE(),100000004);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(5,CURDATE(),100000005);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(6,CURDATE(),100000006);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(7,CURDATE(),100000007);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(8,CURDATE(),100000008);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(9,CURDATE(),100000009);
+insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(10,CURDATE(),100000010);
+insert into User Values (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1, 'F');
+insert into User Values (2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2, 'F');
+insert into User Values (3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3, 'F');
+insert into User Values (4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4, 'F');
+insert into User Values (5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5, 'F');
+insert into User Values (6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6, 'F');
+insert into User Values (7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7, 'F');
+insert into User Values (8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8, 'F');
+insert into User Values (9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9, 'F');
+insert into User Values (10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10, 'F');
+insert into Groups_data Values (1,'group1','club',1);
+insert into Groups_data Values (2,'group2','club',2);
+insert into Groups_data Values (3,'group3','club',3);
+insert into Groups_data Values (4,'group4','club',4);
+insert into Groups_data Values (5,'group5','club',5);
+insert into Groups_data Values (6,'group6','club',6);
+insert into Groups_data Values (7,'group7','club',7);
+insert into Groups_data Values (8,'group8','club',8);
+insert into Groups_data Values (9,'group9','club',9);
+insert into Groups_data Values (10,'group10','club',10);
+
+
+
+INSERT INTO `Employee_data` VALUES (100000000,'EmployeeLast1','EmployeeFirst1','Address1','C1','S1',12345,'999-999-9999','2016-11-01',10),(100000001,'EmployeeLast2','EmployeeFirst2','Address1','C2','S2',10001,'999-999-9998','2016-11-01',10),(100000002,'EmployeeLast3','EmployeeFirst3','Address3','C3','S3',10002,'999-999-9997','2016-11-01',10),(100000003,'EmployeeLast4','EmployeeFirst4','Address4','C4','S4',10003,'999-999-9996','2016-11-01',10),(100000004,'EmployeeLast5','EmployeeFirst5','Address5','C5','S5',10004,'999-999-9995','2016-11-01',10),(100000005,'EmployeeLast6','EmployeeFirst6','Address6','C6','S6',10005,'999-999-9994','2016-11-01',10),(100000006,'EmployeeLast7','EmployeeFirst7','Address7','C7','S7',10006,'999-999-9993','2016-11-01',10),(100000007,'EmployeeLast8','EmployeeFirst8','Address8','C8','S8',10007,'999-999-9992','2016-11-01',10),(100000008,'EmployeeLast9','EmployeeFirst9','Address9','C9','S9',10008,'999-999-9991','2016-11-01',10),(100000009,'EmployeeLast10','EmployeeFirst10','Address10','C1','S1',10009,'999-999-9990','2016-11-01',10);
+
+
+
+insert into Pages Values (1,1,1,10);
+insert into Pages Values (2,2,2,16);
+insert into Pages Values (3,3,3,17);
+insert into Pages Values (4,4,4,3);
+insert into Pages Values (5,5,5,10);
+insert into Pages Values (6,6,6,6);
+insert into Pages Values (7,7,7,7);
+insert into Pages Values (8,8,8,9);
+insert into Pages Values (9,9,9,17);
+insert into Pages Values (10,10,10,10);
+
+
+insert into Posts_data Values (1,1,CURDATE(),'content1',4);
+insert into Posts_data Values (2,2,CURDATE(),'content2',5);
+insert into Posts_data Values (3,3,CURDATE(),'content3',4);
+insert into Posts_data Values (4,4,CURDATE(),'content4',2);
+insert into Posts_data Values (5,5,CURDATE(),'content5',7);
+insert into Posts_data Values (6,6,CURDATE(),'content6',42);
+insert into Posts_data Values (7,7,CURDATE(),'content7',9);
+insert into Posts_data Values (8,8,CURDATE(),'content8',11);
+insert into Posts_data Values (9,9,CURDATE(),'content9',31);
+insert into Posts_data Values (10,10,CURDATE(),'content10',6);
+
+insert into Requests_friends Values ('accepted',1,2);
+insert into Requests_friends Values ('rejected',1,3);
+insert into Requests_friends Values ('pending',1,5);
+insert into Requests_friends Values ('accepted',1,7);
+insert into Requests_friends Values ('rejected',2,9);
+insert into Requests_friends Values ('pending',3,6);
+insert into Requests_friends Values ('accepted',4,8);
+insert into Requests_friends Values ('rejected',5,9);
+insert into Requests_friends Values ('accepted',6,10);
+insert into Requests_friends Values ('pending',7,2);
+
+
+insert into Comments_data Values (1,1,CURDATE(),'content1',1);
+insert into Comments_data Values (2,2,CURDATE(),'content2',2);
+insert into Comments_data Values (3,3,CURDATE(),'content3',3);
+insert into Comments_data Values (4,4,CURDATE(),'content4',4);
+insert into Comments_data Values (5,5,CURDATE(),'content5',5);
+insert into Comments_data Values (6,6,CURDATE(),'content6',6);
+insert into Comments_data Values (7,7,CURDATE(),'content7',7);
+insert into Comments_data Values (8,8,CURDATE(),'content8',8);
+insert into Comments_data Values (9,9,CURDATE(),'content9',9);
+insert into Comments_data Values (10,10,CURDATE(),'content10',10);
+
+insert into Joins Values ('accepted',1,2);
+insert into Joins Values ('rejected',1,3);
+insert into Joins Values ('pending',1,5);
+insert into Joins Values ('accepted',1,7);
+insert into Joins Values ('rejected',2,9);
+insert into Joins Values ('pending',3,6);
+insert into Joins Values ('accepted',4,8);
+insert into Joins Values ('rejected',5,9);
+insert into Joins Values ('accepted',6,10);
+insert into Joins Values ('pending',7,2);
+
+insert into Friends Values (1,2);
+insert into Friends Values (2,3);
+insert into Friends Values (3,4);
+insert into Friends Values (4,5);
+insert into Friends Values (5,6);
+insert into Friends Values (6,7);
+insert into Friends Values (7,8);
+insert into Friends Values (8,9);
+insert into Friends Values (9,10);
+insert into Friends Values (10,1);
+
+INSERT INTO Advertisements_data VALUES (1, 100000000,'Car',CURDATE(),'Company1','Car1', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (2, 100000000,'Car',CURDATE(),'Company1','Car1', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (3, 100000000,'Car',CURDATE(),'Company1','Car2', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (4, 100000001,'Car',CURDATE(),'Company2','Car3', 'NEW CAR ITS GREAT', 1000, 10);
+INSERT INTO Advertisements_data VALUES (5, 100000002,'House',CURDATE(),'Company3','House1', 'NEW HOUSE ITS GREAT', 100000, 10);
+INSERT INTO Advertisements_data VALUES (6, 100000004,'Boat',CURDATE(),'Company4','Boat1', 'NEW BOAT ITS GREAT', 100, 10);
+INSERT INTO Advertisements_data VALUES (7, 100000004,'Car',CURDATE(),'Company5','Car4', 'NEW CAR ITS GREAT', 1010, 10);
+INSERT INTO Advertisements_data VALUES (8, 100000006,'Phone',CURDATE(),'Company2','Phone1', 'NEW PHONE ITS GREAT', 200, 10);
+INSERT INTO Advertisements_data VALUES (9, 100000007,'Phone',CURDATE(),'Company4','Phone2', 'NEW PHONE ITS GREAT', 500, 10);
+INSERT INTO Advertisements_data VALUES (10, 100000008,'Phone',CURDATE(),'Company5','Phone3', 'NEW PHONE ITS GREAT', 500, 10);
+
+
+INSERT INTO Messages_data VALUES (1, CURDATE(),'Subject1','Content1', 1, 2);
+INSERT INTO Messages_data VALUES (2, CURDATE(),'Subject2','Content2', 2, 3);
+INSERT INTO Messages_data VALUES (3, CURDATE(),'Subject3','Content3', 3, 4);
+INSERT INTO Messages_data VALUES (4, CURDATE(),'Subject4','Content4', 4, 5);
+INSERT INTO Messages_data VALUES (5, CURDATE(),'Subject5','Content5', 5, 6);
+INSERT INTO Messages_data VALUES (6, CURDATE(),'Subject6','Content6', 6, 7);
+INSERT INTO Messages_data VALUES (7, CURDATE(),'Subject7','Content7', 7, 8);
+INSERT INTO Messages_data VALUES (8, CURDATE(),'Subject8','Content8', 8, 9);
+INSERT INTO Messages_data VALUES (9, CURDATE(),'Subject9','Content9', 9, 10);
+INSERT INTO Messages_data VALUES (10, CURDATE(),'Subject10','Content10', 10, 1);
+
+
+
+INSERT INTO Sales_data VALUES (1, CURTIME(),1,10,1);
+INSERT INTO Sales_data VALUES (2, CURTIME(),2,10,2);
+INSERT INTO Sales_data VALUES (3, CURTIME(),3,10,3);
+INSERT INTO Sales_data VALUES (4, CURTIME(),4,10,4);
+INSERT INTO Sales_data VALUES (5, CURTIME(),5,10,5);
+INSERT INTO Sales_data VALUES (6, CURTIME(),6,10,6);
+INSERT INTO Sales_data VALUES (7, CURTIME(),7,10,7);
+INSERT INTO Sales_data VALUES (8, CURTIME(),8,10,8);
+INSERT INTO Sales_data VALUES (9, CURTIME(),9,10,9);
+INSERT INTO Sales_data VALUES (10, CURTIME(),10,10,10);

@@ -19,9 +19,9 @@
 -- Current Database: `Connected_Database`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `Connected_Database` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `Connected` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `Connected_Database`;
+USE `Connected`;
 
 --
 -- Table structure for table `Accounts`
