@@ -8,16 +8,16 @@ insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) V
 insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(8,CURDATE(),100000008);
 insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(9,CURDATE(),100000009);
 insert into Accounts(Account_Number, Account_creation_date,Credit_card_number) Values(10,CURDATE(),100000010);
-insert into User Values (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','preference1',5,1);
-insert into User Values (2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','preference2',6,2);
-insert into User Values (3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','preference3',4,3);
-insert into User Values (4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','preference4',5,4);
-insert into User Values (5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','preference5',7,5);
-insert into User Values (6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','preference6',8,6);
-insert into User Values (7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','preference7',4,7);
-insert into User Values (8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','preference8',1,8);
-insert into User Values (9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','preference9',9,9);
-insert into User Values (10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','preference10',5,10);
+insert into User Values (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1, 'F');
+insert into User Values (2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2, 'F');
+insert into User Values (3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3, 'F');
+insert into User Values (4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4, 'F');
+insert into User Values (5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5, 'F');
+insert into User Values (6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6, 'F');
+insert into User Values (7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7, 'F');
+insert into User Values (8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8, 'F');
+insert into User Values (9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9, 'F');
+insert into User Values (10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10, 'F');
 insert into Groups_data Values (1,'group1','club',1);
 insert into Groups_data Values (2,'group2','club',2);
 insert into Groups_data Values (3,'group3','club',3);
@@ -138,11 +138,3 @@ INSERT INTO Sales_data VALUES (7, CURTIME(),7,10,7);
 INSERT INTO Sales_data VALUES (8, CURTIME(),8,10,8);
 INSERT INTO Sales_data VALUES (9, CURTIME(),9,10,9);
 INSERT INTO Sales_data VALUES (10, CURTIME(),10,10,10);
-
-
-
-
-
-
-
-
