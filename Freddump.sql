@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for osx10.11 (x86_64)
 --
--- Host: localhost    Database: Connected
+-- Host: localhost    Database: connected
 -- ------------------------------------------------------
 -- Server version	5.7.16
 
@@ -14,14 +14,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `Connected`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `Connected` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `Connected`;
 
 --
 -- Table structure for table `Accounts`
@@ -44,7 +36,7 @@ CREATE TABLE `Accounts` (
 
 LOCK TABLES `Accounts` WRITE;
 /*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
-INSERT INTO `Accounts` VALUES (1,'2016-11-01',100000001),(2,'2016-11-01',100000002),(3,'2016-11-01',100000003),(4,'2016-11-01',100000004),(5,'2016-11-01',100000005),(6,'2016-11-01',100000006),(7,'2016-11-01',100000007),(8,'2016-11-01',100000008),(9,'2016-11-01',100000009),(10,'2016-11-01',100000010);
+INSERT INTO `Accounts` VALUES (1,'2016-11-02',100000001),(2,'2016-11-02',100000002),(3,'2016-11-02',100000003),(4,'2016-11-02',100000004),(5,'2016-11-02',100000005),(6,'2016-11-02',100000006),(7,'2016-11-02',100000007),(8,'2016-11-02',100000008),(9,'2016-11-02',100000009),(10,'2016-11-02',100000010);
 /*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +69,7 @@ CREATE TABLE `Advertisements_data` (
 
 LOCK TABLES `Advertisements_data` WRITE;
 /*!40000 ALTER TABLE `Advertisements_data` DISABLE KEYS */;
-INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-01','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-01','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-01','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-01','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-01','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-01','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-01','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-01','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-01','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-01','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
+INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-02','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-02','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-02','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-02','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-02','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-02','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-02','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-02','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-02','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-02','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
 /*!40000 ALTER TABLE `Advertisements_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,6 +100,7 @@ CREATE TABLE `Comments_data` (
 
 LOCK TABLES `Comments_data` WRITE;
 /*!40000 ALTER TABLE `Comments_data` DISABLE KEYS */;
+INSERT INTO `Comments_data` VALUES (1,1,'2016-11-02','content1',1),(2,2,'2016-11-02','content2',2),(3,3,'2016-11-02','content3',3),(4,4,'2016-11-02','content4',4),(5,5,'2016-11-02','content5',5),(6,6,'2016-11-02','content6',6),(7,7,'2016-11-02','content7',7),(8,8,'2016-11-02','content8',8),(9,9,'2016-11-02','content9',9),(10,10,'2016-11-02','content10',10);
 /*!40000 ALTER TABLE `Comments_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -166,6 +159,7 @@ CREATE TABLE `Friends` (
 
 LOCK TABLES `Friends` WRITE;
 /*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
+INSERT INTO `Friends` VALUES (10,1),(1,2),(2,3),(3,4),(4,5),(5,6),(6,7),(7,8),(8,9),(9,10);
 /*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,6 +215,7 @@ CREATE TABLE `Joins` (
 
 LOCK TABLES `Joins` WRITE;
 /*!40000 ALTER TABLE `Joins` DISABLE KEYS */;
+INSERT INTO `Joins` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
 /*!40000 ALTER TABLE `Joins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +247,7 @@ CREATE TABLE `Messages_data` (
 
 LOCK TABLES `Messages_data` WRITE;
 /*!40000 ALTER TABLE `Messages_data` DISABLE KEYS */;
-INSERT INTO `Messages_data` VALUES (1,'2016-11-01','Subject1','Content1',1,2),(2,'2016-11-01','Subject2','Content2',2,3),(3,'2016-11-01','Subject3','Content3',3,4),(4,'2016-11-01','Subject4','Content4',4,5),(5,'2016-11-01','Subject5','Content5',5,6),(6,'2016-11-01','Subject6','Content6',6,7),(7,'2016-11-01','Subject7','Content7',7,8),(8,'2016-11-01','Subject8','Content8',8,9),(9,'2016-11-01','Subject9','Content9',9,10),(10,'2016-11-01','Subject10','Content10',10,1);
+INSERT INTO `Messages_data` VALUES (1,'2016-11-02','Subject1','Content1',1,2),(2,'2016-11-02','Subject2','Content2',2,3),(3,'2016-11-02','Subject3','Content3',3,4),(4,'2016-11-02','Subject4','Content4',4,5),(5,'2016-11-02','Subject5','Content5',5,6),(6,'2016-11-02','Subject6','Content6',6,7),(7,'2016-11-02','Subject7','Content7',7,8),(8,'2016-11-02','Subject8','Content8',8,9),(9,'2016-11-02','Subject9','Content9',9,10),(10,'2016-11-02','Subject10','Content10',10,1);
 /*!40000 ALTER TABLE `Messages_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,6 +277,7 @@ CREATE TABLE `Pages` (
 
 LOCK TABLES `Pages` WRITE;
 /*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
+INSERT INTO `Pages` VALUES (1,1,1,10),(2,2,2,16),(3,3,3,17),(4,4,4,3),(5,5,5,10),(6,6,6,6),(7,7,7,7),(8,8,8,9),(9,9,9,17),(10,10,10,10);
 /*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,6 +306,7 @@ CREATE TABLE `Posts_data` (
 
 LOCK TABLES `Posts_data` WRITE;
 /*!40000 ALTER TABLE `Posts_data` DISABLE KEYS */;
+INSERT INTO `Posts_data` VALUES (1,1,'2016-11-02','content1',4),(2,2,'2016-11-02','content2',5),(3,3,'2016-11-02','content3',4),(4,4,'2016-11-02','content4',2),(5,5,'2016-11-02','content5',7),(6,6,'2016-11-02','content6',42),(7,7,'2016-11-02','content7',9),(8,8,'2016-11-02','content8',11),(9,9,'2016-11-02','content9',31),(10,10,'2016-11-02','content10',6),(11,1,'2016-11-02','content11',0);
 /*!40000 ALTER TABLE `Posts_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,6 +334,7 @@ CREATE TABLE `Requests_friends` (
 
 LOCK TABLES `Requests_friends` WRITE;
 /*!40000 ALTER TABLE `Requests_friends` DISABLE KEYS */;
+INSERT INTO `Requests_friends` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
 /*!40000 ALTER TABLE `Requests_friends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,7 +365,7 @@ CREATE TABLE `Sales_data` (
 
 LOCK TABLES `Sales_data` WRITE;
 /*!40000 ALTER TABLE `Sales_data` DISABLE KEYS */;
-INSERT INTO `Sales_data` VALUES (1,'2016-11-01 16:39:32',1,10,1),(2,'2016-11-01 16:40:57',2,10,2),(3,'2016-11-01 16:40:57',3,10,3),(4,'2016-11-01 16:40:57',4,10,4),(5,'2016-11-01 16:40:57',5,10,5),(6,'2016-11-01 16:40:57',6,10,6),(7,'2016-11-01 16:40:57',7,10,7),(8,'2016-11-01 16:40:57',8,10,8),(9,'2016-11-01 16:40:57',9,10,9),(10,'2016-11-01 16:40:58',10,10,10);
+INSERT INTO `Sales_data` VALUES (1,'2016-11-02 20:15:15',1,10,1),(2,'2016-11-02 20:15:15',2,10,2),(3,'2016-11-02 20:15:15',3,10,3),(4,'2016-11-02 20:15:15',4,10,4),(5,'2016-11-02 20:15:15',5,10,5),(6,'2016-11-02 20:15:15',6,10,6),(7,'2016-11-02 20:15:15',7,10,7),(8,'2016-11-02 20:15:15',8,10,8),(9,'2016-11-02 20:15:15',9,10,9),(10,'2016-11-02 20:15:15',10,10,10);
 /*!40000 ALTER TABLE `Sales_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -388,9 +386,11 @@ CREATE TABLE `User` (
   `Zip_code` int(5) DEFAULT NULL,
   `Telephone` varchar(15) DEFAULT NULL,
   `Email` varchar(30) NOT NULL,
+  `Password` varchar(255) NOT NULL,
   `Preferences` varchar(255) DEFAULT NULL,
   `Rating` int(11) DEFAULT NULL,
   `Account_number` int(11) NOT NULL,
+  `LoggedIn` char(1) DEFAULT 'F',
   PRIMARY KEY (`UserId`,`Account_number`),
   KEY `Account_number` (`Account_number`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`Account_number`) REFERENCES `Accounts` (`Account_number`)
@@ -403,7 +403,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','preference1',5,1),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','preference2',6,2),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','preference3',4,3),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','preference4',5,4),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','preference5',7,5),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','preference6',8,6),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','preference7',4,7),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','preference8',1,8),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','preference9',9,9),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','preference10',5,10);
+INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1,'F'),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2,'F'),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3,'F'),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4,'F'),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5,'F'),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6,'F'),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7,'F'),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8,'F'),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9,'F'),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10,'F'),(11,'first11','last11','address11','city11','NY',10011,'631-568-0011','11@gmail.com','password11','preference11',5,10,'F');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -416,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-01 16:46:54
+-- Dump completed on 2016-11-02 20:18:26

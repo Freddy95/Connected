@@ -153,7 +153,3 @@ FOREIGN KEY(AdvertisementId) REFERENCES Advertisements_data(AdvertisementId),
 FOREIGN KEY(Account_number) REFERENCES Accounts(Account_number),
 PRIMARY KEY(TransactionId)
 );
-
-CREATE VIEW LoggedInUsers AS
-SELECT * FROM User AS U
-WHERE U.LoggedIn='T';
