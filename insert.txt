@@ -138,3 +138,15 @@ INSERT INTO Sales_data VALUES (7, CURTIME(),7,10,7);
 INSERT INTO Sales_data VALUES (8, CURTIME(),8,10,8);
 INSERT INTO Sales_data VALUES (9, CURTIME(),9,10,9);
 INSERT INTO Sales_data VALUES (10, CURTIME(),10,10,10);
+
+
+insert into Likes_data (PostId, UserId) Values (1,1);
+insert into Likes_data (PostId, UserId) Values (2,2);
+insert into Likes_data (PostId, UserId) Values (3,3);
+insert into Likes_data (PostId, UserId) Values (4,4);
+insert into Likes_data (PostId, UserId) Values (5,5);
+insert into Likes_data (CommentId, UserId) Values (6,6);
+insert into Likes_data (CommentId, UserId) Values (7,7);
+insert into Likes_data (CommentId, UserId) Values (8,8);
+insert into Likes_data (CommentId, UserId) Values (9,9);
+insert into Likes_data (CommentId, UserId) Values (10,10);

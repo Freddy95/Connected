@@ -42,7 +42,7 @@ Associated_group INTEGER,
 Post_count INTEGER NOT NULL,
 PRIMARY KEY(PageId),
 FOREIGN KEY (Owner) REFERENCES User(UserId),
-FOREIGN KEY (Associated_group) REFERENCES Groups_data(GroupId)
+FOREIGN KEY (Associated_group) REFERENCES Groups_data(GroupId) ON DELETE CASCADE
 );
 
 
@@ -52,7 +52,7 @@ PageId INTEGER,
 	Post_date DATE NOT NULL,
 	Content TEXT NOT NULL,
 	Comment_count INTEGER NOT NULL,
-	FOREIGN KEY (PageId) REFERENCES Pages(PageId),
+	FOREIGN KEY (PageId) REFERENCES Pages(PageId) ON DELETE CASCADE,
 	PRIMARY KEY (PostId)
 );
 
@@ -65,7 +65,7 @@ Sender INTEGER,
 Receiver INTEGER,
 PRIMARY KEY (Sender,Receiver),
 FOREIGN KEY (Sender) REFERENCES User(UserId),
-FOREIGN KEY (Receiver) REFERENCES User(Userid)
+FOREIGN KEY (Receiver) REFERENCES User(UserId)
 );
 CREATE TABLE Comments_data(
 	CommentId INTEGER AUTO_INCREMENT,
@@ -74,7 +74,7 @@ Date DATE NOT NULL,
 Content TEXT NOT NULL,
 Author INTEGER,
 FOREIGN KEY(Author) REFERENCES User(UserId),
-FOREIGN KEY(PostId) REFERENCES Posts_data(PostId),
+FOREIGN KEY(PostId) REFERENCES Posts_data(PostId) ON DELETE CASCADE,
 PRIMARY KEY(CommentId)
 );
 CREATE TABLE Messages_data(
@@ -84,6 +84,8 @@ Subject CHAR(255),
 Content TEXT NOT NULL,
 Sender INTEGER,
 Receiver INTEGER,
+Visible_by_sender CHAR(1) DEFAULT 'Y',
+Visible_by_receiver CHAR(1) DEFAULT 'Y',
 FOREIGN KEY(Sender) REFERENCES User(UserId),
 FOREIGN KEY(Receiver) REFERENCES User(UserId),
 PRIMARY KEY(MessageId)
@@ -127,7 +129,7 @@ Stat ENUM('accepted','rejected','pending'),
 UserId INTEGER,
 GroupId INTEGER,
 FOREIGN KEY (UserId) REFERENCES User(UserId),
-FOREIGN KEY (GroupId) REFERENCES Groups_data(GroupId),
+FOREIGN KEY (GroupId) REFERENCES Groups_data(GroupId) ON DELETE CASCADE,
 PRIMARY KEY (UserId,GroupId)
 );
 CREATE TABLE Advertisements_data(
@@ -152,4 +154,15 @@ Account_number INTEGER,
 FOREIGN KEY(AdvertisementId) REFERENCES Advertisements_data(AdvertisementId),
 FOREIGN KEY(Account_number) REFERENCES Accounts(Account_number),
 PRIMARY KEY(TransactionId)
+);
+
+CREATE TABLE Likes_data(
+	LikeId INTEGER AUTO_INCREMENT,
+	PostId INTEGER,
+	CommentId INTEGER,
+	UserId INTEGER,
+	PRIMARY KEY(LikeId),
+	FOREIGN KEY (PostId) REFERENCES Posts_data(PostId) ON DELETE CASCADE,
+	FOREIGN KEY (CommentId) REFERENCES Comments_data(CommentId) ON DELETE CASCADE,
+	FOREIGN KEY (UserId) REFERENCES User(UserId)
 );
