@@ -115,16 +115,16 @@ INSERT INTO Advertisements_data VALUES (9, 100000007,'Phone',CURDATE(),'Company4
 INSERT INTO Advertisements_data VALUES (10, 100000008,'Phone',CURDATE(),'Company5','Phone3', 'NEW PHONE ITS GREAT', 500, 10);
 
 
-INSERT INTO Messages_data VALUES (1, CURDATE(),'Subject1','Content1', 1, 2);
-INSERT INTO Messages_data VALUES (2, CURDATE(),'Subject2','Content2', 2, 3);
-INSERT INTO Messages_data VALUES (3, CURDATE(),'Subject3','Content3', 3, 4);
-INSERT INTO Messages_data VALUES (4, CURDATE(),'Subject4','Content4', 4, 5);
-INSERT INTO Messages_data VALUES (5, CURDATE(),'Subject5','Content5', 5, 6);
-INSERT INTO Messages_data VALUES (6, CURDATE(),'Subject6','Content6', 6, 7);
-INSERT INTO Messages_data VALUES (7, CURDATE(),'Subject7','Content7', 7, 8);
-INSERT INTO Messages_data VALUES (8, CURDATE(),'Subject8','Content8', 8, 9);
-INSERT INTO Messages_data VALUES (9, CURDATE(),'Subject9','Content9', 9, 10);
-INSERT INTO Messages_data VALUES (10, CURDATE(),'Subject10','Content10', 10, 1);
+INSERT INTO Messages_data VALUES (1, CURDATE(),'Subject1','Content1', 1, 2,'Y','Y');
+INSERT INTO Messages_data VALUES (2, CURDATE(),'Subject2','Content2', 2, 3,'Y','Y');
+INSERT INTO Messages_data VALUES (3, CURDATE(),'Subject3','Content3', 3, 4,'Y','Y');
+INSERT INTO Messages_data VALUES (4, CURDATE(),'Subject4','Content4', 4, 5,'Y','Y');
+INSERT INTO Messages_data VALUES (5, CURDATE(),'Subject5','Content5', 5, 6,'Y','Y');
+INSERT INTO Messages_data VALUES (6, CURDATE(),'Subject6','Content6', 6, 7,'Y','Y');
+INSERT INTO Messages_data VALUES (7, CURDATE(),'Subject7','Content7', 7, 8,'Y','Y');
+INSERT INTO Messages_data VALUES (8, CURDATE(),'Subject8','Content8', 8, 9,'Y','Y');
+INSERT INTO Messages_data VALUES (9, CURDATE(),'Subject9','Content9', 9, 10,'Y','Y');
+INSERT INTO Messages_data VALUES (10, CURDATE(),'Subject10','Content10', 10, 1,'Y','Y');
 
 
 

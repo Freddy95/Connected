@@ -1,13 +1,12 @@
 CREATE TABLE Accounts(
-	Account_number INTEGER,
+	Account_number INTEGER AUTO_INCREMENT,
 	Account_creation_date DATE NOT NULL,
 	Credit_card_number INTEGER,
 	PRIMARY KEY(Account_number,Credit_card_number)
 );
 
-
 CREATE TABLE User (
-UserId INTEGER,
+UserId INTEGER AUTO_INCREMENT,
 First_name VARCHAR(30) NOT NULL,
 Last_name VARCHAR(30) NOT NULL,
 Address VARCHAR(30),
@@ -16,16 +15,18 @@ State VARCHAR(2),
 Zip_code INTEGER(5),
 Telephone VARCHAR(15),
 Email VARCHAR(30) NOT NULL,
+Password VARCHAR(255) NOT NULL,
 Preferences VARCHAR(255),
 Rating INTEGER,
 Account_number Integer,
+LoggedIn CHAR(1) DEFAULT 'F',
 FOREIGN KEY(Account_number) REFERENCES Accounts(Account_number),
 PRIMARY KEY (UserId,Account_number)
 );
 
 
 CREATE TABLE Groups_data(
-GroupId INTEGER,
+GroupId INTEGER AUTO_INCREMENT,
 Group_name VARCHAR(30),
 Type VARCHAR(20) NOT NULL,
 Owner INTEGER,
@@ -35,7 +36,7 @@ FOREIGN KEY (Owner) REFERENCES User(UserId)
 
 
 CREATE TABLE Pages(
-PageId INTEGER,
+PageId INTEGER AUTO_INCREMENT,
 Owner INTEGER,
 Associated_group INTEGER,
 Post_count INTEGER NOT NULL,
@@ -46,7 +47,7 @@ FOREIGN KEY (Associated_group) REFERENCES Groups_data(GroupId)
 
 
 CREATE TABLE Posts_data(
-PostId INTEGER,
+PostId INTEGER AUTO_INCREMENT,
 PageId INTEGER,
 	Post_date DATE NOT NULL,
 	Content TEXT NOT NULL,
@@ -54,6 +55,9 @@ PageId INTEGER,
 	FOREIGN KEY (PageId) REFERENCES Pages(PageId),
 	PRIMARY KEY (PostId)
 );
+
+
+
 
 CREATE TABLE Requests_friends(
 Stat ENUM('accepted','rejected','pending'),
@@ -64,7 +68,7 @@ FOREIGN KEY (Sender) REFERENCES User(UserId),
 FOREIGN KEY (Receiver) REFERENCES User(Userid)
 );
 CREATE TABLE Comments_data(
-	CommentId INTEGER,
+	CommentId INTEGER AUTO_INCREMENT,
 	PostId INTEGER,
 Date DATE NOT NULL,
 Content TEXT NOT NULL,
@@ -74,7 +78,7 @@ FOREIGN KEY(PostId) REFERENCES Posts_data(PostId),
 PRIMARY KEY(CommentId)
 );
 CREATE TABLE Messages_data(
-	MessageId INTEGER,
+MessageId INTEGER AUTO_INCREMENT,
 Date DATE NOT NULL,
 Subject CHAR(255),
 Content TEXT NOT NULL,
@@ -85,8 +89,17 @@ FOREIGN KEY(Receiver) REFERENCES User(UserId),
 PRIMARY KEY(MessageId)
 );
 
+
+
+
+
+
+
+
+
+
 CREATE TABLE Employee_data(
-Social_security_number INTEGER,
+Social_security_number INTEGER AUTO_INCREMENT,
 Last_name VARCHAR(30),
 First_name VARCHAR(30),
 Address CHAR(30),
@@ -118,7 +131,7 @@ FOREIGN KEY (GroupId) REFERENCES Groups_data(GroupId),
 PRIMARY KEY (UserId,GroupId)
 );
 CREATE TABLE Advertisements_data(
- 	AdvertisementId INTEGER,
+ 	AdvertisementId INTEGER AUTO_INCREMENT,
 EmployeeId INTEGER,
 Type CHAR(30) NOT NULL,
 Date DATE NOT NULL,
@@ -131,7 +144,7 @@ Number_of_available_units INTEGER NOT NULL,
 	PRIMARY KEY(AdvertisementId)
 );
 CREATE TABLE Sales_data(
-	TransactionId INTEGER,
+	TransactionId INTEGER AUTO_INCREMENT,
         	Sale_date_time DATETIME NOT NULL,
 AdvertisementId INTEGER,
 Number_of_units INTEGER NOT NULL,
