@@ -31,7 +31,7 @@ Group_name VARCHAR(30),
 Type VARCHAR(20) NOT NULL,
 Owner INTEGER,
 PRIMARY KEY (GroupId),
-FOREIGN KEY (Owner) REFERENCES User(UserId)
+FOREIGN KEY (Owner) REFERENCES User(UserId) ON DELETE CASCADE
 );
 
 
@@ -41,7 +41,7 @@ Owner INTEGER,
 Associated_group INTEGER,
 Post_count INTEGER NOT NULL,
 PRIMARY KEY(PageId),
-FOREIGN KEY (Owner) REFERENCES User(UserId),
+FOREIGN KEY (Owner) REFERENCES User(UserId) ON DELETE CASCADE,
 FOREIGN KEY (Associated_group) REFERENCES Groups_data(GroupId) ON DELETE CASCADE
 );
 
@@ -64,8 +64,8 @@ Stat ENUM('accepted','rejected','pending'),
 Sender INTEGER,
 Receiver INTEGER,
 PRIMARY KEY (Sender,Receiver),
-FOREIGN KEY (Sender) REFERENCES User(UserId),
-FOREIGN KEY (Receiver) REFERENCES User(UserId)
+FOREIGN KEY (Sender) REFERENCES User(UserId) ON DELETE CASCADE,
+FOREIGN KEY (Receiver) REFERENCES User(Userid) ON DELETE CASCADE
 );
 CREATE TABLE Comments_data(
 	CommentId INTEGER AUTO_INCREMENT,
@@ -73,7 +73,7 @@ CREATE TABLE Comments_data(
 Date DATE NOT NULL,
 Content TEXT NOT NULL,
 Author INTEGER,
-FOREIGN KEY(Author) REFERENCES User(UserId),
+FOREIGN KEY(Author) REFERENCES User(UserId) ON DELETE CASCADE,
 FOREIGN KEY(PostId) REFERENCES Posts_data(PostId) ON DELETE CASCADE,
 PRIMARY KEY(CommentId)
 );
@@ -86,8 +86,8 @@ Sender INTEGER,
 Receiver INTEGER,
 Visible_by_sender CHAR(1) DEFAULT 'Y',
 Visible_by_receiver CHAR(1) DEFAULT 'Y',
-FOREIGN KEY(Sender) REFERENCES User(UserId),
-FOREIGN KEY(Receiver) REFERENCES User(UserId),
+FOREIGN KEY(Sender) REFERENCES User(UserId) ON DELETE CASCADE,
+FOREIGN KEY(Receiver) REFERENCES User(UserId) ON DELETE CASCADE,
 PRIMARY KEY(MessageId)
 );
 
@@ -118,7 +118,7 @@ PRIMARY KEY(Social_security_number)
 CREATE TABLE Friends(
 	User1 INTEGER,
 	User2 INTEGER,
-	FOREIGN KEY(User1) REFERENCES User(UserId),
+	FOREIGN KEY(User1) REFERENCES User(UserId) ON DELETE CASCADE,
 	FOREIGN KEY(User2) REFERENCES User(UserId),
 	PRIMARY KEY(User1, User2)
 );
@@ -128,7 +128,7 @@ CREATE TABLE Joins(
 Stat ENUM('accepted','rejected','pending'),
 UserId INTEGER,
 GroupId INTEGER,
-FOREIGN KEY (UserId) REFERENCES User(UserId),
+FOREIGN KEY (UserId) REFERENCES User(UserId) ON DELETE CASCADE,
 FOREIGN KEY (GroupId) REFERENCES Groups_data(GroupId) ON DELETE CASCADE,
 PRIMARY KEY (UserId,GroupId)
 );
@@ -142,7 +142,7 @@ Item_name CHAR(30) NOT NULL,
 Content TEXT NOT NULL,
 Unit_price DECIMAL NOT NULL,
 Number_of_available_units INTEGER NOT NULL,
-	FOREIGN KEY(EmployeeId) REFERENCES Employee_data(Social_security_number),
+	FOREIGN KEY(EmployeeId) REFERENCES Employee_data(Social_security_number) ON DELETE CASCADE,
 	PRIMARY KEY(AdvertisementId)
 );
 CREATE TABLE Sales_data(
@@ -151,7 +151,7 @@ CREATE TABLE Sales_data(
 AdvertisementId INTEGER,
 Number_of_units INTEGER NOT NULL,
 Account_number INTEGER,
-FOREIGN KEY(AdvertisementId) REFERENCES Advertisements_data(AdvertisementId),
+FOREIGN KEY(AdvertisementId) REFERENCES Advertisements_data(AdvertisementId) ON DELETE CASCADE,
 FOREIGN KEY(Account_number) REFERENCES Accounts(Account_number),
 PRIMARY KEY(TransactionId)
 );
