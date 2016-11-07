@@ -44,7 +44,7 @@ CREATE TABLE `Accounts` (
 
 LOCK TABLES `Accounts` WRITE;
 /*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
-INSERT INTO `Accounts` VALUES (1,'2016-11-03',100000001),(2,'2016-11-03',100000002),(3,'2016-11-03',100000003),(4,'2016-11-03',100000004),(5,'2016-11-03',100000005),(6,'2016-11-03',100000006),(7,'2016-11-03',100000007),(8,'2016-11-03',100000008),(9,'2016-11-03',100000009),(10,'2016-11-03',100000010);
+INSERT INTO `Accounts` VALUES (1,'2016-11-07',100000001),(2,'2016-11-07',100000002),(3,'2016-11-07',100000003),(4,'2016-11-07',100000004),(5,'2016-11-07',100000005),(6,'2016-11-07',100000006),(7,'2016-11-07',100000007),(8,'2016-11-07',100000008),(9,'2016-11-07',100000009),(10,'2016-11-07',100000010);
 /*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,7 +67,7 @@ CREATE TABLE `Advertisements_data` (
   `Number_of_available_units` int(11) NOT NULL,
   PRIMARY KEY (`AdvertisementId`),
   KEY `EmployeeId` (`EmployeeId`),
-  CONSTRAINT `Advertisements_data_ibfk_1` FOREIGN KEY (`EmployeeId`) REFERENCES `Employee_data` (`Social_security_number`)
+  CONSTRAINT `Advertisements_data_ibfk_1` FOREIGN KEY (`EmployeeId`) REFERENCES `Employee_data` (`Social_security_number`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,7 +77,7 @@ CREATE TABLE `Advertisements_data` (
 
 LOCK TABLES `Advertisements_data` WRITE;
 /*!40000 ALTER TABLE `Advertisements_data` DISABLE KEYS */;
-INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-03','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-03','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-03','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-03','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-03','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-03','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-03','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-03','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-03','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-03','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
+INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-07','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-07','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-07','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-07','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-07','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-07','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-07','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-07','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-07','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-07','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
 /*!40000 ALTER TABLE `Advertisements_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +98,7 @@ CREATE TABLE `Comments_data` (
   KEY `Author` (`Author`),
   KEY `PostId` (`PostId`),
   CONSTRAINT `Comments_data_ibfk_1` FOREIGN KEY (`Author`) REFERENCES `User` (`UserId`),
-  CONSTRAINT `Comments_data_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Posts_data` (`PostId`)
+  CONSTRAINT `Comments_data_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Posts_data` (`PostId`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,7 +108,7 @@ CREATE TABLE `Comments_data` (
 
 LOCK TABLES `Comments_data` WRITE;
 /*!40000 ALTER TABLE `Comments_data` DISABLE KEYS */;
-INSERT INTO `Comments_data` VALUES (1,1,'2016-11-03','content1',1),(2,2,'2016-11-03','content2',2),(3,3,'2016-11-03','content3',3),(4,4,'2016-11-03','content4',4),(5,5,'2016-11-03','content5',5),(6,6,'2016-11-03','content6',6),(7,7,'2016-11-03','content7',7),(8,8,'2016-11-03','content8',8),(9,9,'2016-11-03','content9',9),(10,10,'2016-11-03','content10',10);
+INSERT INTO `Comments_data` VALUES (1,1,'2016-11-07','content1',1),(2,2,'2016-11-07','content2',2),(3,3,'2016-11-07','content3',3),(4,4,'2016-11-07','content4',4),(5,5,'2016-11-07','content5',5),(6,6,'2016-11-07','content6',6),(7,7,'2016-11-07','content7',7),(8,8,'2016-11-07','content8',8),(9,9,'2016-11-07','content9',9),(10,10,'2016-11-07','content10',10);
 /*!40000 ALTER TABLE `Comments_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -213,7 +213,7 @@ CREATE TABLE `Joins` (
   PRIMARY KEY (`UserId`,`GroupId`),
   KEY `GroupId` (`GroupId`),
   CONSTRAINT `Joins_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`),
-  CONSTRAINT `Joins_ibfk_2` FOREIGN KEY (`GroupId`) REFERENCES `Groups_data` (`GroupId`)
+  CONSTRAINT `Joins_ibfk_2` FOREIGN KEY (`GroupId`) REFERENCES `Groups_data` (`GroupId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,6 +225,38 @@ LOCK TABLES `Joins` WRITE;
 /*!40000 ALTER TABLE `Joins` DISABLE KEYS */;
 INSERT INTO `Joins` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
 /*!40000 ALTER TABLE `Joins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Likes_data`
+--
+
+DROP TABLE IF EXISTS `Likes_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Likes_data` (
+  `LikeId` int(11) NOT NULL AUTO_INCREMENT,
+  `PostId` int(11) DEFAULT NULL,
+  `CommentId` int(11) DEFAULT NULL,
+  `UserId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`LikeId`),
+  KEY `PostId` (`PostId`),
+  KEY `CommentId` (`CommentId`),
+  KEY `UserId` (`UserId`),
+  CONSTRAINT `Likes_data_ibfk_1` FOREIGN KEY (`PostId`) REFERENCES `Posts_data` (`PostId`) ON DELETE CASCADE,
+  CONSTRAINT `Likes_data_ibfk_2` FOREIGN KEY (`CommentId`) REFERENCES `Comments_data` (`CommentId`) ON DELETE CASCADE,
+  CONSTRAINT `Likes_data_ibfk_3` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Likes_data`
+--
+
+LOCK TABLES `Likes_data` WRITE;
+/*!40000 ALTER TABLE `Likes_data` DISABLE KEYS */;
+INSERT INTO `Likes_data` VALUES (1,1,NULL,1),(2,2,NULL,2),(3,3,NULL,3),(4,4,NULL,4),(5,5,NULL,5),(6,NULL,6,6),(7,NULL,7,7),(8,NULL,8,8),(9,NULL,9,9),(10,NULL,10,10);
+/*!40000 ALTER TABLE `Likes_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -248,7 +280,7 @@ CREATE TABLE `Messages_data` (
   KEY `Receiver` (`Receiver`),
   CONSTRAINT `Messages_data_ibfk_1` FOREIGN KEY (`Sender`) REFERENCES `User` (`UserId`),
   CONSTRAINT `Messages_data_ibfk_2` FOREIGN KEY (`Receiver`) REFERENCES `User` (`UserId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +289,7 @@ CREATE TABLE `Messages_data` (
 
 LOCK TABLES `Messages_data` WRITE;
 /*!40000 ALTER TABLE `Messages_data` DISABLE KEYS */;
-INSERT INTO `Messages_data` VALUES (1,'2016-11-03','Subject1','Content1',1,2,'Y','Y'),(2,'2016-11-03','Subject2','Content2',2,3,'Y','Y'),(3,'2016-11-03','Subject3','Content3',3,4,'Y','Y'),(4,'2016-11-03','Subject4','Content4',4,5,'Y','Y'),(5,'2016-11-03','Subject5','Content5',5,6,'Y','Y'),(6,'2016-11-03','Subject6','Content6',6,7,'Y','Y'),(7,'2016-11-03','Subject7','Content7',7,8,'Y','Y'),(8,'2016-11-03','Subject8','Content8',8,9,'Y','Y'),(9,'2016-11-03','Subject9','Content9',9,10,'Y','Y'),(10,'2016-11-03','Subject10','Content10',10,1,'Y','Y'),(11,'2016-11-03','subject test','content test',1,2,'Y','Y');
+INSERT INTO `Messages_data` VALUES (1,'2016-11-07','Subject1','Content1',1,2,'Y','Y'),(2,'2016-11-07','Subject2','Content2',2,3,'Y','Y'),(3,'2016-11-07','Subject3','Content3',3,4,'Y','Y'),(4,'2016-11-07','Subject4','Content4',4,5,'Y','Y'),(5,'2016-11-07','Subject5','Content5',5,6,'Y','Y'),(6,'2016-11-07','Subject6','Content6',6,7,'Y','Y'),(7,'2016-11-07','Subject7','Content7',7,8,'Y','Y'),(8,'2016-11-07','Subject8','Content8',8,9,'Y','Y'),(9,'2016-11-07','Subject9','Content9',9,10,'Y','Y'),(10,'2016-11-07','Subject10','Content10',10,1,'Y','Y');
 /*!40000 ALTER TABLE `Messages_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -277,7 +309,7 @@ CREATE TABLE `Pages` (
   KEY `Owner` (`Owner`),
   KEY `Associated_group` (`Associated_group`),
   CONSTRAINT `Pages_ibfk_1` FOREIGN KEY (`Owner`) REFERENCES `User` (`UserId`),
-  CONSTRAINT `Pages_ibfk_2` FOREIGN KEY (`Associated_group`) REFERENCES `Groups_data` (`GroupId`)
+  CONSTRAINT `Pages_ibfk_2` FOREIGN KEY (`Associated_group`) REFERENCES `Groups_data` (`GroupId`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -306,7 +338,7 @@ CREATE TABLE `Posts_data` (
   `Comment_count` int(11) NOT NULL,
   PRIMARY KEY (`PostId`),
   KEY `PageId` (`PageId`),
-  CONSTRAINT `Posts_data_ibfk_1` FOREIGN KEY (`PageId`) REFERENCES `Pages` (`PageId`)
+  CONSTRAINT `Posts_data_ibfk_1` FOREIGN KEY (`PageId`) REFERENCES `Pages` (`PageId`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -316,7 +348,7 @@ CREATE TABLE `Posts_data` (
 
 LOCK TABLES `Posts_data` WRITE;
 /*!40000 ALTER TABLE `Posts_data` DISABLE KEYS */;
-INSERT INTO `Posts_data` VALUES (1,1,'2016-11-03','content1',4),(2,2,'2016-11-03','content2',5),(3,3,'2016-11-03','content3',4),(4,4,'2016-11-03','content4',2),(5,5,'2016-11-03','content5',7),(6,6,'2016-11-03','content6',42),(7,7,'2016-11-03','content7',9),(8,8,'2016-11-03','content8',11),(9,9,'2016-11-03','content9',31),(10,10,'2016-11-03','content10',6);
+INSERT INTO `Posts_data` VALUES (1,1,'2016-11-07','content1',4),(2,2,'2016-11-07','content2',5),(3,3,'2016-11-07','content3',4),(4,4,'2016-11-07','content4',2),(5,5,'2016-11-07','content5',7),(6,6,'2016-11-07','content6',42),(7,7,'2016-11-07','content7',9),(8,8,'2016-11-07','content8',11),(9,9,'2016-11-07','content9',31),(10,10,'2016-11-07','content10',6);
 /*!40000 ALTER TABLE `Posts_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -375,7 +407,7 @@ CREATE TABLE `Sales_data` (
 
 LOCK TABLES `Sales_data` WRITE;
 /*!40000 ALTER TABLE `Sales_data` DISABLE KEYS */;
-INSERT INTO `Sales_data` VALUES (1,'2016-11-03 14:06:43',1,10,1),(2,'2016-11-03 14:06:43',2,10,2),(3,'2016-11-03 14:06:43',3,10,3),(4,'2016-11-03 14:06:43',4,10,4),(5,'2016-11-03 14:06:43',5,10,5),(6,'2016-11-03 14:06:43',6,10,6),(7,'2016-11-03 14:06:43',7,10,7),(8,'2016-11-03 14:06:43',8,10,8),(9,'2016-11-03 14:06:43',9,10,9),(10,'2016-11-03 14:06:43',10,10,10);
+INSERT INTO `Sales_data` VALUES (1,'2016-11-07 16:23:02',1,10,1),(2,'2016-11-07 16:23:02',2,10,2),(3,'2016-11-07 16:23:02',3,10,3),(4,'2016-11-07 16:23:02',4,10,4),(5,'2016-11-07 16:23:02',5,10,5),(6,'2016-11-07 16:23:02',6,10,6),(7,'2016-11-07 16:23:02',7,10,7),(8,'2016-11-07 16:23:02',8,10,8),(9,'2016-11-07 16:23:02',9,10,9),(10,'2016-11-07 16:23:02',10,10,10);
 /*!40000 ALTER TABLE `Sales_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,4 +458,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-03 14:08:19
+-- Dump completed on 2016-11-07 16:24:57
