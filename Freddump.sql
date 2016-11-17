@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.16, for osx10.11 (x86_64)
 --
--- Host: localhost    Database: Connected_Database
+-- Host: localhost    Database: Connected
 -- ------------------------------------------------------
 -- Server version	5.7.16
 
@@ -27,7 +27,7 @@ CREATE TABLE `Accounts` (
   `Account_creation_date` date NOT NULL,
   `Credit_card_number` int(11) NOT NULL,
   PRIMARY KEY (`Account_number`,`Credit_card_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=900021 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -36,7 +36,7 @@ CREATE TABLE `Accounts` (
 
 LOCK TABLES `Accounts` WRITE;
 /*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
-INSERT INTO `Accounts` VALUES (1,'2016-11-07',100000001),(2,'2016-11-07',100000002),(3,'2016-11-07',100000003),(4,'2016-11-07',100000004),(5,'2016-11-07',100000005),(6,'2016-11-07',100000006),(7,'2016-11-07',100000007),(8,'2016-11-07',100000008),(9,'2016-11-07',100000009),(10,'2016-11-07',100000010);
+INSERT INTO `Accounts` VALUES (1,'2016-11-07',100000001),(2,'2016-11-07',100000002),(3,'2016-11-07',100000003),(4,'2016-11-07',100000004),(5,'2016-11-07',100000005),(6,'2016-11-07',100000006),(7,'2016-11-07',100000007),(8,'2016-11-07',100000008),(9,'2016-11-07',100000009),(10,'2016-11-07',100000010),(900001,'2016-11-17',1000000031),(900002,'2016-11-17',100000020),(900003,'2016-11-17',100000021),(900004,'2016-11-17',100000022),(900005,'2016-11-17',100000023),(900006,'2016-11-17',100000024),(900007,'2016-11-17',100000025),(900008,'2016-11-17',100000026),(900009,'2016-11-17',100000027),(900010,'2016-11-17',100000028),(900011,'2016-11-17',100000029),(900012,'2016-11-17',100000030),(900013,'2016-11-17',100000031),(900014,'2016-11-17',100000032),(900015,'2016-11-17',100000033),(900016,'2016-11-17',100000034),(900017,'2016-11-17',100000035),(900018,'2016-11-17',100000036),(900019,'2016-11-17',100000037),(900020,'2016-11-17',100000038);
 /*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,7 +419,7 @@ CREATE TABLE `User` (
   `State` varchar(2) DEFAULT NULL,
   `Zip_code` int(5) DEFAULT NULL,
   `Telephone` varchar(15) DEFAULT NULL,
-  `Email` varchar(30) NOT NULL,
+  `Email` varchar(55) NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Preferences` varchar(255) DEFAULT NULL,
   `Rating` int(11) DEFAULT NULL,
@@ -428,7 +428,7 @@ CREATE TABLE `User` (
   PRIMARY KEY (`UserId`,`Account_number`),
   KEY `Account_number` (`Account_number`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`Account_number`) REFERENCES `Accounts` (`Account_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,7 +437,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1,'F'),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2,'F'),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3,'F'),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4,'F'),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5,'F'),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6,'F'),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7,'F'),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8,'F'),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9,'F'),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10,'F');
+INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1,'F'),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2,'F'),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3,'F'),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4,'F'),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5,'F'),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6,'F'),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7,'F'),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8,'F'),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9,'F'),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10,'F'),(100002,'Aria','Rose',NULL,'New York','NY',10001,'263303749','Aria.Rose@cse305.stonybrook.edu','dawn4call','Topiary,Jogging',NULL,900002,'F'),(100003,'Jase','Black',NULL,'Washington','DC',12345,'917443776','Jase.Black@cse305.stonybrook.edu','data6bell','Rugby,Roller skating,Life insurance,Rock climbing,Scouting',NULL,900003,'F');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -450,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-07 16:27:20
+-- Dump completed on 2016-11-17 16:19:09
