@@ -178,7 +178,7 @@ CREATE TABLE `Groups_data` (
   PRIMARY KEY (`GroupId`),
   KEY `Owner` (`Owner`),
   CONSTRAINT `groups_data_ibfk_1` FOREIGN KEY (`Owner`) REFERENCES `User` (`UserId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=200007 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `Groups_data` (
 
 LOCK TABLES `Groups_data` WRITE;
 /*!40000 ALTER TABLE `Groups_data` DISABLE KEYS */;
-INSERT INTO `Groups_data` VALUES (1,'group1','club',1),(2,'group2','club',2),(3,'group3','club',3),(4,'group4','club',4),(5,'group5','club',5),(6,'group6','club',6),(7,'group7','club',7),(8,'group8','club',8),(9,'group9','club',9),(10,'group10','club',10);
+INSERT INTO `Groups_data` VALUES (1,'group1','club',1),(2,'group2','club',2),(3,'group3','club',3),(4,'group4','club',4),(5,'group5','club',5),(6,'group6','club',6),(7,'group7','club',7),(8,'group8','club',8),(9,'group9','club',9),(10,'group10','club',10),(200000,'My Friends','Friends',100007),(200001,'My Friends','Friends',100001),(200002,'Best Friends','Friends',100002),(200003,'StonyBrookGang','Friends',100003),(200004,'CS Folks','Friends',100004),(200005,'My Family','Friends',100005),(200006,'Microsoft Groupies','Friends',100006);
 /*!40000 ALTER TABLE `Groups_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +415,7 @@ CREATE TABLE `User` (
   `First_name` varchar(30) NOT NULL,
   `Last_name` varchar(30) NOT NULL,
   `Address` varchar(30) DEFAULT NULL,
-  `City` varchar(10) DEFAULT NULL,
+  `City` varchar(20) DEFAULT NULL,
   `State` varchar(2) DEFAULT NULL,
   `Zip_code` int(5) DEFAULT NULL,
   `Telephone` varchar(15) DEFAULT NULL,
@@ -428,7 +428,7 @@ CREATE TABLE `User` (
   PRIMARY KEY (`UserId`,`Account_number`),
   KEY `Account_number` (`Account_number`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`Account_number`) REFERENCES `Accounts` (`Account_number`)
-) ENGINE=InnoDB AUTO_INCREMENT=100004 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=100021 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -437,7 +437,7 @@ CREATE TABLE `User` (
 
 LOCK TABLES `User` WRITE;
 /*!40000 ALTER TABLE `User` DISABLE KEYS */;
-INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1,'F'),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2,'F'),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3,'F'),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4,'F'),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5,'F'),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6,'F'),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7,'F'),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8,'F'),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9,'F'),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10,'F'),(100002,'Aria','Rose',NULL,'New York','NY',10001,'263303749','Aria.Rose@cse305.stonybrook.edu','dawn4call','Topiary,Jogging',NULL,900002,'F'),(100003,'Jase','Black',NULL,'Washington','DC',12345,'917443776','Jase.Black@cse305.stonybrook.edu','data6bell','Rugby,Roller skating,Life insurance,Rock climbing,Scouting',NULL,900003,'F');
+INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,1,'F'),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,2,'F'),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,3,'F'),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,4,'F'),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,5,'F'),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,6,'F'),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,7,'F'),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,8,'F'),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,9,'F'),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,10,'F'),(100001,'Michael','Collins',NULL,'Washington','DC',12345,'228807080','Michael.Collins@cse305.stonybrook.edu','care2cash','Slacklining,Skateboarding,Surfing,Orienteering,Water sports',NULL,900001,'F'),(100002,'Aria','Rose',NULL,'New York','NY',10001,'263303749','Aria.Rose@cse305.stonybrook.edu','dawn4call','Topiary,Jogging',NULL,900002,'F'),(100003,'Jase','Black',NULL,'Washington','DC',12345,'917443776','Jase.Black@cse305.stonybrook.edu','data6bell','Rugby,Roller skating,Life insurance,Rock climbing,Scouting',NULL,900003,'F'),(100004,'Ellie','Franklin',NULL,'Stony Brook','NY',11794,'381870672','Ellie.Franklin@cse305.stonybrook.edu','able1cash','Cars,Skydiving,Bird watching,Sailing,Shopping,Skimboarding,Kayaking,Camping,Blacksmithing',NULL,900004,'F'),(100005,'Mackenzie','Wells',NULL,'New York','NY',10001,'736594241','Mackenzie.Wells@cse305.stonybrook.edu','burn2coat','Hunting,Topiary,Nordic skating,Foraging,Metal detecting,Camping,Astronomy',NULL,900005,'F'),(100006,'Cameron','Armstrong',NULL,'New York','NY',10001,'182209299','Cameron.Armstrong@cse305.stonybrook.edu','aged6area','Skydiving,Topiary,Scuba diving,Sailing,Beekeeping,Tai chi,Brazilian jiu-jitsu,Astronomy,Jogging',NULL,900006,'F'),(100007,'Levi','Ross',NULL,'Stony Brook','NY',11794,'127536938','Levi.Ross@cse305.stonybrook.edu','been7beer','Urban exploration,Freestyle football',NULL,900007,'F'),(100008,'Levi','West',NULL,'New York','NY',10001,'699136094','Levi.West@cse305.stonybrook.edu','coal3cell','BASE jumping,Letterboxing,Roller skating,Metal detecting,Swimming,Mountaineering,Sculling or Rowing,Basketball,Surfing',NULL,900008,'F'),(100009,'Christian','Davies',NULL,'Stony Brook','NY',11794,'364390765','Christian.Davies@cse305.stonybrook.edu','bush1bone','BASE jumping,Driving,Mountaineering',NULL,900009,'F'),(100010,'Kylie','Davies',NULL,'New York','NY',10001,'562348521','Kylie.Davies@cse305.stonybrook.edu','coat7calm','Toys,Graffiti,Skiing,Road biking,Kayaking',NULL,900010,'F'),(100011,'Tyler','Long',NULL,'Stony Brook','NY',11794,'306139234','Tyler.Long@cse305.stonybrook.edu','area3boom','Topiary,Basketball',NULL,900011,'F'),(100012,'Henry','Stewart',NULL,'Washington','DC',12345,'503422119','Henry.Stewart@cse305.stonybrook.edu','boat3also','Roller skating,Netball,Flag football,Water sports',NULL,900012,'F'),(100013,'Isaiah','Bennett',NULL,'Washington','DC',12345,'929342276','Isaiah.Bennett@cse305.stonybrook.edu','book6bank','Walking,Baseball,Scuba diving,Running,Shopping',NULL,900013,'F'),(100014,'Arianna','Dunn',NULL,'New York','NY',10001,'311083148','Arianna.Dunn@cse305.stonybrook.edu','chip2calm','Shooting,Ghost hunting,Horseback riding,Netball,Astronomy',NULL,900014,'F'),(100015,'Victoria','Powell',NULL,'New York','NY',10001,'854902993','Victoria.Powell@cse305.stonybrook.edu','cash7bush','LARPing,Walking,Slacklining,Foraging,Rock climbing,Taekwondo,Inline skating',NULL,900015,'F'),(100016,'Blakely','Alexander',NULL,'Washington','DC',12345,'140361398','Blakely.Alexander@cse305.stonybrook.edu','bear3cope','Hooping,Bird watching,Shooting,Board sports,Graffiti,Sculling or Rowing',NULL,900016,'F'),(100017,'Connor','Collins',NULL,'New York','NY',10001,'282433780','Connor.Collins@cse305.stonybrook.edu','ball1days','Rugby,Skiing,Snowboarding,Rock climbing,Swimming,Skimboarding,Scouting',NULL,900017,'F'),(100018,'Jeremiah','Miller',NULL,'New York','NY',10001,'533130991','Jeremiah.Miller@cse305.stonybrook.edu','code3case','Urban exploration,Roller skating,Bird watching,Skiing,Kayaking,Mushroom hunting/Mycology',NULL,900018,'F'),(100019,'Riley','Field',NULL,'New York','NY',10001,'477174572','Riley.Field@cse305.stonybrook.edu','cash7born','Photography,LARPing,Shooting,Archery,Kayaking,Fishing ,Astronomy',NULL,900019,'F'),(100020,'Lucy','Phillips',NULL,'New York','NY',10001,'995652638','Lucy.Phillips@cse305.stonybrook.edu','away2bath','Parkour,Rock climbing,Handball,Surfing',NULL,900020,'F');
 /*!40000 ALTER TABLE `User` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -450,4 +450,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-17 16:19:09
+-- Dump completed on 2016-11-18 15:40:36
