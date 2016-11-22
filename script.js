@@ -49,7 +49,7 @@ app.get('/gettest',function(req,resp){
 });
 
 
-
+// this works
 app.get('/posttest',function(req,resp){
 	console.log(req.query.sql_statement);
 	resp.jsonp("in_posttest");
