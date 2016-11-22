@@ -20,8 +20,6 @@ app.get('/query',function(req,resp){
 			console.log('Error');
 		}
 		else{
-			//test = JSON.parse(req);
-			//console.log(test);
 			console.log('connected!!!!!');
 			console.log("req= "+req.query);
 			resp.jsonp("testresp");
