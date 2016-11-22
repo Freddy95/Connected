@@ -1,0 +1,57 @@
+CustomerID	First name	    Last name	EmailID	                                  Password		Address	City	State	Zip Code	Phone	    Preferences
+100001  	  Michael	 ,       Collins,		Michael.Collins@cse305.stonybrook.edu	   , care2cash,		Washington,	DC,	12345	   ,    228807080	   ,      Slacklining,Skateboarding,Surfing,Orienteering,Water sports
+100002	    Aria	          Rose		  Aria.Rose@cse305.stonybrook.edu	          dawn4call		New York	NY	10001	         263303749	           Topiary,Jogging
+100003	    'Jase'	          'Black',		  'Jase.Black@cse305.stonybrook.edu'	        'data6bell'		'Washington'	'DC'	12345	       '917443776'	           'Rugby','Roller skating','Life insurance','Rock climbing','Scouting'
+100004	    'Ellie'	          'Franklin',	'Ellie.Franklin@cse305.stonybrook.edu'	    'able1cash'		'Stony Brook'	'NY'	11794	      '381870672'	         'Cars,Skydiving,Bird watching,Sailing,Shopping,Skimboarding,Kayaking,Camping,Blacksmithing'
+
+
+100005	    'Mackenzie'	  ,    'Wells',		  'Mackenzie.Wells@cse305.stonybrook.edu',	    'burn2coat',		'New York',	'NY',	10001	,      '736594241'	 ,          'Hunting,Topiary,Nordic skating,Foraging,Metal detecting,Camping,Astronomy'
+100006	    'Cameron'	    ,    'Armstrong',	'Cameron.Armstrong@cse305.stonybrook.edu',	  'aged6area',		'New York',	'NY',	10001	  ,     '182209299'	  ,        'Skydiving,Topiary,Scuba diving,Sailing,Beekeeping,Tai chi,Brazilian jiu-jitsu,Astronomy,Jogging'
+100007	    'Levi'	      ,    'Ross',		  'Levi.Ross@cse305.stonybrook.edu',	          'been7beer',		'Stony Brook',	'NY',	11794	,         127536938,	        'Urban exploration,Freestyle football'
+100008	    'Levi'	      ,    'West'	,	  'Levi.West@cse305.stonybrook.edu',	          'coal3cell',		'New York',	'NY',	10001	     ,   699136094	,           'BASE jumping,Letterboxing,Roller skating,Metal detecting,Swimming,Mountaineering,Sculling or Rowing,Basketball,Surfing'
+100009	    'Christian' 	,    'Davies',		'Christian.Davies@cse305.stonybrook.edu',	  'bush1bone',		'Stony Brook',	'NY',	11794	,      364390765,	         'BASE jumping,Driving,Mountaineering'
+100010	    'Kylie'	      ,    'Davies',		'Kylie.Davies@cse305.stonybrook.edu',	      'coat7calm',		'New York',	'NY',	10001	   ,     562348521	 ,          'Toys,Graffiti,Skiing,Road biking,Kayaking'
+
+100011	    'Tyler'	      ,    'Long'	,	  'Tyler.Long@cse305.stonybrook.edu',	        'area3boom',		'Stony Brook',	'NY',	11794	,      306139234	  ,      'Topiary,Basketball'
+100012	    'Henry'	     ,     'Stewart',		'Henry.Stewart@cse305.stonybrook.edu' ,     'boat3also',		'Washington',	'DC',	12345,	      503422119	  ,     'Roller skating,Netball,Flag football,Water sports'
+100013	    'Isaiah'    ,    	'Bennett',		'Isaiah.Bennett@cse305.stonybrook.edu',	    'book6bank',		'Washington',	'DC',	12345	   ,   929342276	 ,        'Walking,Baseball,Scuba diving,Running,Shopping'
+100014	    'Arianna'	 ,       'Dunn',	  	'Arianna.Dunn@cse305.stonybrook.edu',	      'chip2calm',		'New York',	'NY',	10001	    ,    311083148	   ,      'Shooting,Ghost hunting,Horseback riding,Netball,Astronomy'
+100015	    'Victoria',	      'Powell',		'Victoria.Powell@cse305.stonybrook.edu',	    'cash7bush',		'New York',	'NY',	10001	   ,     854902993	  ,       'LARPing,Walking,Slacklining,Foraging,Rock climbing,Taekwondo,Inline skating'
+100016	    'Blakely'	   ,     'Alexander',	'Blakely.Alexander@cse305.stonybrook.edu',	  'bear3cope',		'Washington',	'DC',	12345	 ,     140361398	 ,      'Hooping,Bird watching,Shooting,Board sports,Graffiti,Sculling or Rowing'
+100017	    'Connor'	    ,    'Collins',		'Connor.Collins@cse305.stonybrook.edu',	    'ball1days',		'New York',	'NY',	10001	    ,    282433780	    ,     'Rugby,Skiing,Snowboarding,Rock climbing,Swimming,Skimboarding,Scouting'
+100018	    'Jeremiah'	 ,     'Miller',		'Jeremiah.Miller@cse305.stonybrook.edu',	    'code3case',		'New York',	'NY',	10001	 ,        533130991	   ,    'Urban exploration,Roller skating,Bird watching,Skiing,Kayaking,Mushroom hunting/Mycology'
+100019	    'Riley'	    ,      'Field',		  'Riley.Field@cse305.stonybrook.edu',	       'cash7born',		'New York',	'NY',	10001	  ,       477174572	     ,   'Photography,LARPing,Shooting,Archery,Kayaking,Fishing ,Astronomy'
+100020	    'Lucy'	   ,       'Phillips',	'Lucy.Phillips@cse305.stonybrook.edu',	     'away2bath',	  'New York',	'NY',	10001	 ,        995652638	     ,   'Parkour,Rock climbing,Handball,Surfing'
+
+
+
+
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100001, 900001,	  'Michael'	 ,       'Collins',		'Michael.Collins@cse305.stonybrook.edu'	   , 'care2cash',		'Washington',	'DC',	12345	   ,    '228807080'	   ,      'Slacklining,Skateboarding,Surfing,Orienteering,Water sports'	);
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100004, 900004, 'Ellie'	     ,     'Franklin',	'Ellie.Franklin@cse305.stonybrook.edu'	,    'able1cash'	,	'Stony Brook',	'NY',	11794	  ,    '381870672'	     ,    'Cars,Skydiving,Bird watching,Sailing,Shopping,Skimboarding,Kayaking,Camping,Blacksmithing'	);
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100005, 900005,'Mackenzie'	  ,    'Wells',		  'Mackenzie.Wells@cse305.stonybrook.edu',	    'burn2coat',		'New York',	'NY',	10001	,      '736594241'	 ,          'Hunting,Topiary,Nordic skating,Foraging,Metal detecting,Camping,Astronomy'	);
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100006, 900006,'Cameron'	    ,    'Armstrong',	'Cameron.Armstrong@cse305.stonybrook.edu',	  'aged6area',		'New York',	'NY',	10001	  ,     '182209299'	  ,        'Skydiving,Topiary,Scuba diving,Sailing,Beekeeping,Tai chi,Brazilian jiu-jitsu,Astronomy,Jogging');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100007, 900007,'Levi'	      ,    'Ross',		  'Levi.Ross@cse305.stonybrook.edu',	          'been7beer',		'Stony Brook',	'NY',	11794	,         127536938,	        'Urban exploration,Freestyle football');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100008, 900008,'Levi'	      ,    'West'	,	  'Levi.West@cse305.stonybrook.edu',	          'coal3cell',		'New York',	'NY',	10001	     ,   699136094	,           'BASE jumping,Letterboxing,Roller skating,Metal detecting,Swimming,Mountaineering,Sculling or Rowing,Basketball,Surfing');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100009, 900009,'Christian' 	,    'Davies',		'Christian.Davies@cse305.stonybrook.edu',	  'bush1bone',		'Stony Brook',	'NY',	11794	,      364390765,	         'BASE jumping,Driving,Mountaineering');
+
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100010, 900010,'Kylie'	      ,    'Davies',		'Kylie.Davies@cse305.stonybrook.edu',	      'coat7calm',		'New York',	'NY',	10001	   ,     562348521	 ,          'Toys,Graffiti,Skiing,Road biking,Kayaking'	);
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100011, 900011,'Tyler'	      ,    'Long'	,	  'Tyler.Long@cse305.stonybrook.edu',	        'area3boom',		'Stony Brook',	'NY',	11794	,      306139234	  ,      'Topiary,Basketball');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100012, 900012,'Henry'	     ,     'Stewart',		'Henry.Stewart@cse305.stonybrook.edu' ,     'boat3also',		'Washington',	'DC',	12345,	      503422119	  ,     'Roller skating,Netball,Flag football,Water sports'	);
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100013, 900013,'Isaiah'    ,    	'Bennett',		'Isaiah.Bennett@cse305.stonybrook.edu',	    'book6bank',		'Washington',	'DC',	12345	   ,   929342276	 ,        'Walking,Baseball,Scuba diving,Running,Shopping');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100014, 900014,'Arianna'	 ,       'Dunn',	  	'Arianna.Dunn@cse305.stonybrook.edu',	      'chip2calm',		'New York',	'NY',	10001	    ,    311083148	   ,      'Shooting,Ghost hunting,Horseback riding,Netball,Astronomy');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100015, 900015,'Victoria',	      'Powell',		'Victoria.Powell@cse305.stonybrook.edu',	    'cash7bush',		'New York',	'NY',	10001	   ,     854902993	  ,       'LARPing,Walking,Slacklining,Foraging,Rock climbing,Taekwondo,Inline skating');
+
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100016, 900016,'Blakely'	   ,     'Alexander',	'Blakely.Alexander@cse305.stonybrook.edu',	  'bear3cope',		'Washington',	'DC',	12345	 ,     140361398	 ,      'Hooping,Bird watching,Shooting,Board sports,Graffiti,Sculling or Rowing');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100017, 900017,'Connor'	    ,    'Collins',		'Connor.Collins@cse305.stonybrook.edu',	    'ball1days',		'New York',	'NY',	10001	    ,    282433780	    ,     'Rugby,Skiing,Snowboarding,Rock climbing,Swimming,Skimboarding,Scouting');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100018, 900018,'Jeremiah'	 ,     'Miller',		'Jeremiah.Miller@cse305.stonybrook.edu',	    'code3case',		'New York',	'NY',	10001	 ,        533130991	   ,    'Urban exploration,Roller skating,Bird watching,Skiing,Kayaking,Mushroom hunting/Mycology');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100019, 900019,'Riley'	    ,      'Field',		  'Riley.Field@cse305.stonybrook.edu',	       'cash7born',		'New York',	'NY',	10001	  ,       477174572	     ,   'Photography,LARPing,Shooting,Archery,Kayaking,Fishing ,Astronomy');
+insert into User (UserId, Account_number, First_name, Last_name, Email, Password, City, State, Zip_code, telephone, preferences) Values (100020, 900020,'Lucy'	   ,       'Phillips',	'Lucy.Phillips@cse305.stonybrook.edu',	     'away2bath',	  'New York',	'NY',	10001	 ,        995652638	     ,   'Parkour,Rock climbing,Handball,Surfing');
+
+
+insert into groups_data values (200000,	'My Friends',	'Friends',	100007);
+insert into groups_data values (200001,	'My Friends',	'Friends',	100001	);
+insert into groups_data values (200002,	'Best Friends',	'Friends',	100002	);
+insert into groups_data values (200003,	'StonyBrookGang',	'Friends',	100003	);
+insert into groups_data values (200004,	'CS Folks',	'Friends',	100004	);
+insert into groups_data values (200005,	'My Family',	'Friends',	100005	);
+insert into groups_data values (200006,	'Microsoft Groupies',	'Friends'	,100006	);
