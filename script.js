@@ -14,16 +14,16 @@ app.get('/query',function(req,resp){
 
 	//about mysql
 	//to query
+
 	connection.getConnection(function(error,tempCont){
 		if (error){
 			tempCont.release();
 			console.log('Error');
 		}
 		else{
-			test = JSON.parse(req);
-			console.log(test);
 			console.log('connected!!!!!');
-			console.log("req= "+req.query);
+			console.log("req= "+req.query.query);
+			resp.jsonp("hello");
 			// tempCont.query("select * from User",function(error,rows,fields){
 			// 	tempCont.release();
 			// 	if (error){
@@ -32,23 +32,23 @@ app.get('/query',function(req,resp){
 			// 	else{
 
 			// 		resp.json(rows);
-			
+
 			// 	}
 
 			// });
 		}
 	});
-	
+
 });
 
 app.get('/gettest',function(req,resp){
 
 	resp.jsonp("in_gettest ");
-	
+
 });
 app.get('/posttest',function(req,resp){
-	console.log(req.q);
+	console.log("working");
 	resp.jsonp("in_posttest");
-	
+
 });
 app.listen(1337)
