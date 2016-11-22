@@ -36,6 +36,7 @@ function testget2(){
 	});	
 
 }
+// this works
 function testpost2(){
 	$.ajax({
 		type: "POST",
