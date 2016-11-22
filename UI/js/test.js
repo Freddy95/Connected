@@ -1,17 +1,20 @@
-function testget(){
-	$.get("http://localhost:1337/gettest",function(data, status){
-	    alert(data);
-	});
+// function testget(){
+// 	$.get("http://localhost:1337/gettest",function(data, status){
+// 	    alert(data);
+// 	});
 
-}	
-function testpost(){
-	$.post("localhost:1337/posttest",{query:"SELECT * FROM ACCOUNTS"},function(data, status){
-	    alert(data);
-	});
-}
+// }	
+// function testpost(){
+// 	$.post("localhost:1337/posttest",{query:"SELECT * FROM ACCOUNTS"},function(data, status){
+// 	    alert(data);
+// 	});
+// }
+
+
 
 function testget2(){
 	$.ajax({
+		type: "GET",
 	    url: "http://localhost:1337/gettest",
 	 
 	    // The name of the callback parameter, as specified by the YQL service
@@ -46,7 +49,7 @@ function testpost2(){
 	 
 	    // Tell YQL what we want and that we want JSON
 	    data: {
-	        q: "testig",
+	        sql_statement: "select * from Accounts",
 	        format: "json"
 	    },
 	 
@@ -60,13 +63,14 @@ function testpost2(){
 
 function testquery(){
 	$.ajax({
+		type: "POST",
 	    url: "http://localhost:1337/query",
 	 
 	    // The name of the callback parameter, as specified by the YQL service
 	    json: "callback",
 	 
 	    // Tell jQuery we're expecting JSONP
-	    dataType: "json",
+	    dataType: "jsonp",
 	 
 	    // Tell YQL what we want and that we want JSON
 	    data: {

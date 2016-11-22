@@ -1,7 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
-
+var test ={name:"test"}
 var connection = mysql.createPool({
 connectionLimit: 50,
 host:'localhost',
@@ -20,10 +20,11 @@ app.get('/query',function(req,resp){
 			console.log('Error');
 		}
 		else{
-			test = JSON.parse(req);
-			console.log(test);
+			//test = JSON.parse(req);
+			//console.log(test);
 			console.log('connected!!!!!');
 			console.log("req= "+req.query);
+			resp.jsonp("testresp");
 			// tempCont.query("select * from User",function(error,rows,fields){
 			// 	tempCont.release();
 			// 	if (error){
@@ -46,9 +47,14 @@ app.get('/gettest',function(req,resp){
 	resp.jsonp("in_gettest ");
 	
 });
+
+
+
 app.get('/posttest',function(req,resp){
-	console.log(req.q);
+	console.log(req.query.sql_statement);
 	resp.jsonp("in_posttest");
 	
 });
+
+
 app.listen(1337)
