@@ -54,5 +54,11 @@ app.get('/posttest',function(req,resp){
 	
 });
 
+app.get('/login',function(req,resp){
+	console.log(req.query.sql_statement);
+	resp.jsonp("in_posttest");
+	
+});
+
 
 app.listen(1337)
