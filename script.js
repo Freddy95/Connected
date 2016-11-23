@@ -31,27 +31,26 @@ app.get('/query',function(req,resp){
 			// 	else{
 
 			// 		resp.json(rows);
-			
+
 			// 	}
 
 			// });
 		}
 	});
-	
+
 });
 
 app.get('/gettest',function(req,resp){
 
 	resp.jsonp("in_gettest ");
-	
+
 });
 
 
 // this works
 app.get('/posttest',function(req,resp){
 	console.log(req.query.sql_statement);
-	resp.jsonp("in_posttest");
-	
+	 resp.jsonp(1)
 });
 
 app.get('/login',function(req,resp){
