@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Register</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/Layouts/Register.css">
+        <link rel="stylesheet" type="text/css" href="/css/Styles/Register.css">
+        <link href="/css/lightbox.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/register.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.mi‌​n.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+          <div class="col-md-12"> Connected </div>
+          <form action="/signup" method="post" id="form">
+           <span>
+            <input type="text" name="First_name" placeholder="First Name" required>
+            <input type="text" name="Last_name" placeholder="Last Name" required>
+           </span>
+           <input type="test" name="Email" placeholder="Email" required>
+           <br>
+           <input type="text" name="Address" placeholder="Address">
+           <input type="text" name="City" placeholder="City">
+           <input type="text" name="State" placeholder="State" size="2" maxlength="2">
+           <input type="text" name="Zip_code" placeholder="Zipcode" size="5" maxlength="5">
+           <br>
+           <input type="text" name="Preferences" placeholder="Preferences">
+           <textarea placeholder="Preferences" id="Preference"></textarea>
+           <button onclick="addPreference()">Add</button>
+           <ul id="Preferences" title="Preferences">
+           </ul>
+          </form>
+        </div>
+    </body>
+</html>

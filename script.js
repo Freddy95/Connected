@@ -306,5 +306,11 @@ app.get('/posttest',function(req,resp){
 	 resp.jsonp(1)
 });
 
+app.get('/', function(req, res) {//starting point
+    res.render('Login2.html');
+});
 
-app.listen(1337)
+app.get('/register', function (req, res) {
+	res.render('Register.html');
+})
+app.listen(1337);

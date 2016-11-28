@@ -126,7 +126,10 @@ function initiate() {
             }
           },
         });
-
+        var span = document.createElement('span');
+        var likeButton = document.createElement('button');
+        var commentButton = document.createElement('button');
+        var likeCount = document.createElement('p');
         $.ajax({// get likes of post
           type: 'GET',
           url: 'http://localhost:1337/getlikes',
@@ -136,33 +139,18 @@ function initiate() {
             post : data[i].PostId
           },
           success: function(rows) {
-            var span = document.createElement('span');
-            var likeButton = document.createElement('button');
-            var commentButton = document.createElement('button');
-            var likeCount = document.createElement('p');
             likeCount.innerHTML = rows[0].Likes + " likes";
-            likeButton.innerHTML = "Like";
-            commentButton.innerHTML = "Comment";
-            span.appendChild(likeButton);
-            span.appendChild(commentButton);
-            span.appendChild(likeCount);
-            post.appendChild(span);
           },
           error: function (rows) {
-            console.log()
-            var span = document.createElement('span');
-            var likeButton = document.createElement('button');
-            var commentButton = document.createElement('button');
-            var likeCount = document.createElement('p');
             likeCount.innerHTML = "0 likes";
-            likeButton.innerHTML = "Like";
-            commentButton.innerHTML = "Comment";
-            span.appendChild(likeButton);
-            span.appendChild(commentButton);
-            span.appendChild(likeCount);
-            post.appendChild(span);
           }
         });
+        likeButton.innerHTML = "Like";
+        commentButton.innerHTML = "Comment";
+        span.appendChild(likeButton);
+        span.appendChild(commentButton);
+        span.appendChild(likeCount);
+        post.appendChild(span);
       }
     }
   });
