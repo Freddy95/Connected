@@ -11,14 +11,27 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link href="css/lightbox.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/layouts/PersonalPage.css">
-        <link rel="stylesheet" href="css/styles/PersonalPage.css">
+        <link rel="stylesheet" href="../Public/css/layouts/PersonalPage.css">
+        <link rel="stylesheet" href="../Public/css/styles/PersonalPage.css">
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/bundle.js"></script>
         <script src="js/PersonalPage.js"></script>
+        <script>
+        function initiate() {
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:1337/loggedin',
+            dataType: 'json',
+            success: function(data) {
+              j = data;
+              console.log(data.name);
+            },
+          });
+        }
+        </script>
     </head>
-    <body>
+    <body onload="initiate();">
         <div class="container-fluid">
           <div class="col-md-12">
             <h3 id="companyTitle">Connected</h3>
