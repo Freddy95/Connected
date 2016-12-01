@@ -65,10 +65,10 @@ app.get('/getPageId',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select PageId from Pages WHERE UserId=?", [sess.user], function(error,rows,fields){
+				tempCont.query("select PageId from Pages WHERE Owner=?", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
-						console.log('Error in the query'+error);
+						console.log('Error HERE'+error);
 						resp.jsonp("error");
 						resp.end();
 					}
@@ -295,6 +295,7 @@ app.post('/PostMessage',function(req,resp){
 	//to query
 	console.log('##############################');
 	console.log(sess.PageId);
+	console.log(sess.user);
 	console.log('##############################');
 
 	connection.getConnection(function(error,tempCont){
