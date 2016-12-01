@@ -186,9 +186,6 @@ function post_Status(){
 
     // Work with the response
     success: function( response ) {
-      //reload page
-      // alert(response);
-      // location.reload();
 
 
       
@@ -226,8 +223,8 @@ function post_Status(){
       span.appendChild(commentButton);
       span.appendChild(likeCount);
       post.appendChild(span);
-      // document.findElementById('status').innerHTML='';
-      // $('#status').innerHTML = '';
+      $('#status').val('');
+
     },
     error: function (response) {
       alert('there was an error with the post try sending again');
