@@ -19,31 +19,35 @@ and open the template in the editor.
     </head>
     <body onload="initiate();">
         <div class="container-fluid">
-          <div class="col-md-12">
-            <h3 id="companyTitle">Connected</h3>
-          </div>
-          <div class="col-md-3" id="personal info">
-            <p id="name">First Name Last Name</p>
-            <button type="button" class="btn-primary"id="messages">Create Post</button>
-            <button type="button" class="btn-primary"id="messages">Messages</button>
-            <p>Groups</p>
-            <ul id="groups">
-
-            </ul>
-          </div>
-          <div class="col-md-6" id="posts">
-            <input type="text" placeholder="Enter Status" id="status">
-            <input type="submit" method="Post" onclick="post_Status()" id="Status-btn" />
-
-          </div>
-          <div class="col-md-3" id="advertisements">
-            <div class="col-md-12 advertisement" id="ad1">
-              <h4 class="adTitle">Advertisement Title</h4>
-              <p>Content</p>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 id="companyTitle">Connected</h3>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-3" id="personal info">
+              <p id="name">First Name Last Name</p>
+              <button type="button" class="btn-primary"id="messages">Create Post</button>
+              <button type="button" class="btn-primary"id="messages">Messages</button>
+              <p>Groups</p>
+              <ul id="groups">
 
-
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <input type="text" placeholder="Enter Status" id="status">
+              <input type="submit" method="Post" onclick="post_Status()" id="Status-btn" />
+              <div id="posts">
+                <!-- this is where the posts will be generated -->
+              </div>
+            </div>
+            <div class="col-md-3" id="advertisements">
+              <div class="col-md-12 advertisement" id="ad1">
+                <h4 class="adTitle">Advertisement Title</h4>
+                <p>Content</p>
+              </div>
+            </div>
+          </div>
         </div>
     </body>
 </html>

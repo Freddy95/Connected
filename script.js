@@ -46,10 +46,6 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
-<<<<<<< HEAD
-=======
-					// resp.jsonp('test');
->>>>>>> 6374796ca46c102935b25fd556fc0465dbcd62cf
 					resp.render('PersonalPage.html');
 					resp.end();
 				}
@@ -182,7 +178,7 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT P.Content, P.PostId FROM Posts_data P, Pages S WHERE S.Owner=? AND P.PageId=S.PageId", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT P.Content, P.PostId FROM Posts_data P, Pages S WHERE S.Owner=? AND P.PageId=S.PageId ORDER BY PostId DESC", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -303,12 +299,6 @@ app.post('/PostMessage',function(req,resp){
 			console.log('Error');
 		}
 		else{
-<<<<<<< HEAD
-			console.log('no error');
-			console.log(req.body);
-			console.log('content '+req.body.message);
-=======
->>>>>>> 6374796ca46c102935b25fd556fc0465dbcd62cf
 			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [sess.PageId, req.body.message], function(error,rows,fields){
 				tempCont.release();
 				if (error){

@@ -200,7 +200,7 @@ function post_Status(){
       contentDiv.appendChild(content);//append content to contentdiv
 
       post.appendChild(contentDiv);// append contentdiv to post
-      postsDiv.appendChild(post);//append post to postsdiv
+      postsDiv.prepend(post);//append post to postsdiv
 
       var commentsDiv = document.createElement('div');
       commentsDiv.setAttribute('class', 'col-md-12');
