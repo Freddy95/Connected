@@ -46,8 +46,7 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
-					// resp.jsonp('test');
-					resp.session.reload('PersonalPage.html');
+					resp.render('PersonalPage.html');
 					resp.end();
 				}
 
@@ -302,7 +301,6 @@ app.post('/PostMessage',function(req,resp){
 		else{
 			console.log('no error');
 			console.log(req.body);
-			console.log('pageid '+req.body.PageId);
 			console.log('content '+req.body.message);
 			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [sess.PageId, req.body.message], function(error,rows,fields){
 				tempCont.release();
@@ -337,7 +335,7 @@ app.post('/signup', function (req, resp) {
 		}
 		else{
 			tempCont.query(
-				"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences, Account_number) VALUES(?,?,?,?,?,?,?,?,?,?, 900021)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.CPassword], function(error,rows,fields){
+				"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences) VALUES(?,?,?,?,?,?,?,?,?,?)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.Preferences], function(error,rows,fields){
 				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);

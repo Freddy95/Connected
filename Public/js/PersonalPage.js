@@ -164,7 +164,7 @@ function initiate() {
 }
 
 function post_Status(){
-  //get the data from the text box 
+  //get the data from the text box
   var status = $('#status').val();
 
   $.ajax({//get likes for each comment
@@ -186,22 +186,7 @@ function post_Status(){
 
     // Work with the response
     success: function( response ) {
-      //reload page
-      // alert(response);
-      // location.reload();
-
-
-      // var span = document.createElement('span');
-      // var likeButton = document.createElement('button');
-      // var commentButton = document.createElement('button');
-      // var likeCount = document.createElement('p');
-
-      // likeButton.innerHTML = "Like";
-      // commentButton.innerHTML = "Comment";
-      // span.appendChild(likeButton);
-      // span.appendChild(commentButton);
-      // span.appendChild(likeCount);
-      // post.appendChild(span);
+      document.location = 'PersonalPage.html';
     },
     error: function (response) {
       alert('there was an error with the post try sending again');
