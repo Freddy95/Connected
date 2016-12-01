@@ -293,9 +293,7 @@ app.post('/PostMessage',function(req,resp){
 	sess = req.session;
 	//about mysql
 	//to query
-	console.log('##############################');
-	console.log(sess.PageId);
-	console.log('##############################');
+
 
 	connection.getConnection(function(error,tempCont){
 		if (error){
