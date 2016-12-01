@@ -192,12 +192,6 @@ function post_Status(){
     // Work with the response
     success: function( response ) {
 
-      //reload page
-      // alert(response);
-      // location.reload();
-
-
-
       var postsDiv = document.getElementById('posts');// posts div
       var post = document.createElement("div");// the specific post div
       post.setAttribute('class', 'col-md-12 well');
@@ -211,7 +205,7 @@ function post_Status(){
       contentDiv.appendChild(content);//append content to contentdiv
 
       post.appendChild(contentDiv);// append contentdiv to post
-      postsDiv.appendChild(post);//append post to postsdiv
+      postsDiv.prepend(post);//append post to postsdiv
 
       var commentsDiv = document.createElement('div');
       commentsDiv.setAttribute('class', 'col-md-12');
@@ -232,8 +226,8 @@ function post_Status(){
       span.appendChild(commentButton);
       span.appendChild(likeCount);
       post.appendChild(span);
-      // document.findElementById('status').innerHTML='';
-      // $('#status').innerHTML = '';
+      $('#status').val('');
+
     },
     error: function (response) {
       alert('there was an error with the post try sending again');
