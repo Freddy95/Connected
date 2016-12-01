@@ -18,11 +18,10 @@ var connection = mysql.createPool({
 });
 
 app.use(bodyParser.urlencoded({ extended: true}));
-app.set('views', __dirname);
 app.engine('html', require('ejs').renderFile);
 app.use(session({secret: 'ssshhhhh'}));
 app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/Public')));
 app.set('views', __dirname + '/views');
 var sess; // session
 //User request to login
@@ -56,6 +55,34 @@ app.post('/login',function(req,resp){
 	});
 
 });
+
+app.get('/getPageId',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select PageId from Pages WHERE UserId=?", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						sess.PageId = rows[0].PageId;
+						resp.jsonp(sess.PageId);
+					}
+
+				});
+			}
+		});
+	}
+});
+
 
 
 app.get('/getuser',function(req,resp){
@@ -291,7 +318,29 @@ app.get('/query',function(req,resp){
 
 });
 
-
+app.post('/signup', function (req, resp) {
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query(
+				"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences, Account_number) VALUES(?,?,?,?,?,?,?,?,?,?, 900021)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.CPassword], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.render('login2.html');
+					resp.end();
+				}
+			});
+		}
+	});
+});
 
 app.get('/gettest',function(req,resp){
 

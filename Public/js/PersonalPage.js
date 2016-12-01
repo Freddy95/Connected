@@ -8,7 +8,14 @@ function initiate() {
       document.getElementById("name").innerHTML = data.name;
     },
   });
-
+  $.ajax({//get groups user is the owner of
+    type: 'GET',
+    url: 'http://localhost:1337/getPageId',
+    dataType: 'json',
+    success: function(data) {
+      console.log(data);
+    },
+  });
   $.ajax({//get groups user is the owner of
     type: 'GET',
     url: 'http://localhost:1337/getownergroups',
