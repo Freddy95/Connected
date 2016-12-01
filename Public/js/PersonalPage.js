@@ -8,7 +8,14 @@ function initiate() {
       document.getElementById("name").innerHTML = data.name;
     },
   });
-
+  $.ajax({//get groups user is the owner of
+    type: 'GET',
+    url: 'http://localhost:1337/getPageId',
+    dataType: 'json',
+    success: function(data) {
+      console.log(data);
+    },
+  });
   $.ajax({//get groups user is the owner of
     type: 'GET',
     url: 'http://localhost:1337/getownergroups',
@@ -155,34 +162,7 @@ function initiate() {
     }
   });
 }
-function test() {
-  $.ajax({
-    type: "GET",
-      url: "http://localhost:1337/getcommentlikes",
 
-      // The name of the callback parameter, as specified by the YQL service
-      jsonp: "callback",
-
-      // Tell jQuery we're expecting JSONP
-      dataType: "jsonp",
-
-      // Tell YQL what we want and that we want JSON
-      data: {
-          comment: 1,
-          format: "json"
-      },
-
-      // Work with the response
-      success: function( response ) {
-        console.log("perhaps");
-        console.log(response[0]);
-      },
-      error: function (resp) {
-        console.log("error");
-        console.log(response[0]);
-      }
-  });
-}
 function post_Status(){
   //get the data from the text box 
   var status = $('#status').val();
@@ -207,6 +187,7 @@ function post_Status(){
     // Work with the response
     success: function( response ) {
       //reload page
+      alert(response);
       location.reload();
 
 
