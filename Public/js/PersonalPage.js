@@ -164,7 +164,7 @@ function initiate() {
 }
 
 function post_Status(){
-  //get the data from the text box 
+  //get the data from the text box
   var status = $('#status').val();
 
   $.ajax({//get likes for each comment
@@ -187,8 +187,6 @@ function post_Status(){
     // Work with the response
     success: function( response ) {
 
-
-      
       var postsDiv = document.getElementById('posts');// posts div
       var post = document.createElement("div");// the specific post div
       post.setAttribute('class', 'col-md-12 well');
@@ -200,16 +198,16 @@ function post_Status(){
       content.setAttribute('class', 'content');
       content.innerHTML=status;
       contentDiv.appendChild(content);//append content to contentdiv
-      
+
       post.appendChild(contentDiv);// append contentdiv to post
       postsDiv.appendChild(post);//append post to postsdiv
-      
+
       var commentsDiv = document.createElement('div');
       commentsDiv.setAttribute('class', 'col-md-12');
-      
+
       var header = document.createElement('h3');
       header.innerHTML="Comments";
-      
+
       commentsDiv.appendChild(header);
       post.appendChild(commentsDiv);//apend commentsDiv to posts
 
