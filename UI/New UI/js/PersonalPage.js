@@ -200,7 +200,7 @@ function post_Status(){
     // Tell YQL what we want and that we want JSON
     data: {
       message: status,
-      // PageId: 1,
+      PageId: 1,
       format: "json"
     },
 
@@ -208,7 +208,6 @@ function post_Status(){
     success: function( response ) {
       //reload page
       location.reload();
-
 
       // var span = document.createElement('span');
       // var likeButton = document.createElement('button');

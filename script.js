@@ -22,11 +22,11 @@ app.set('views', __dirname);
 app.engine('html', require('ejs').renderFile);
 app.use(session({secret: 'ssshhhhh'}));
 app.set('view engine', 'html');
-app.use(express.static(path.join(__dirname, '/public')));
+app.use(express.static(path.join(__dirname, '/Public')));
 app.set('views', __dirname + '/views');
 var sess; // session
 //User request to login
-app.post('/login',function(req,resp){
+app.post('/PersonalPage',function(req,resp){
 	sess = req.session;
 	//about mysql
 	//to query
@@ -262,55 +262,46 @@ app.get('/getlikes',function(req,resp){//get likes on post
 	}
 });
 
-app.get('/query',function(req,resp){
+app.post('/PostMessage',function(req,resp){
+	sess = req.session;
 	//about mysql
 	//to query
+	console.log('in /PostMessage');
 	connection.getConnection(function(error,tempCont){
 		if (error){
 			tempCont.release();
 			console.log('Error');
 		}
 		else{
-			console.log('connected!!!!!');
-			console.log("req= "+req.query);
-			resp.jsonp("testresp");
-			// tempCont.query("select * from User",function(error,rows,fields){
-			// 	tempCont.release();
-			// 	if (error){
-			// 		console.log('Error in the query'+error);
-			// 	}
-			// 	else{
+			console.log('no error');
+			console.log(req.body);
+			console.log('pageid '+req.body.PageId);
+			console.log('content '+req.body.message);
+			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [req.body.PageId, req.body.message], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.jsonp('success');
+					// resp.render('PersonalPage.html');
+					resp.end();
+				}
 
-			// 		resp.json(rows);
-
-			// 	}
-
-			// });
+			});
 		}
 	});
 
 });
 
 
-
-app.get('/gettest',function(req,resp){
-
-	resp.jsonp("in_gettest ");
-
+app.get('/login', function(req, res) {//starting point
+    res.render('login2.html');
 });
 
-
-// this works
-app.get('/posttest',function(req,resp){
-	console.log(req.query.sql_statement);
-	 resp.jsonp(1)
-});
-
-app.get('/login',function(req,resp){
-	console.log(req.query.sql_statement);
-	resp.jsonp("in_posttest");
-	
-});
-
-
-app.listen(1337)
+app.get('/register', function (req, res) {
+	res.render('Register.html');
+})
+app.listen(1337);

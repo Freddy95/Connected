@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Personal Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="../css/bootstrap.min.css">
+        <link rel="stylesheet" href="../css/layouts/PersonalPage.css">
+        <link rel="stylesheet" href="../css/styles/PersonalPage.css">
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/PersonalPage.js"></script>
+    </head>
+    <body onload="initiate();">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-10">
+              <h1 id="companyTitle">Connected</h1>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn" id="messages">Messages</button>
+            </div>
+            <div class="col-md-1">
+              <button type="button" class="btn" id="Options" >Options</button>             
+            </div>
+          </div>
+          <div class ="row">
+            <div class="col-md-3" id="personal info">
+              <h1 id="name">First Name Last Name</h1>
+              <h2>Groups</h2>
+              <ul id="groups">
+
+              </ul>
+            </div>
+            <div class="col-md-6" id="posts">
+              <label for="status">Status Update:</label>
+              <textarea class="form-control" rows="5" id="status"></textarea>
+              <input type="submit" value="Post" class="btn" onclick="post_Status()" id="Status-btn" />
+
+            </div>
+            <div class="col-md-3" id="advertisements">
+              <div class="col-md-12 advertisement" id="ad1">
+                <h4 class="adTitle">Advertisement Title</h4>
+                <p>Content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
