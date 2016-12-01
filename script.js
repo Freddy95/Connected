@@ -46,6 +46,10 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
+<<<<<<< HEAD
+
+=======
+>>>>>>> bb01a55e080274608b07d22401765ccc1c7c6d01
 					resp.render('PersonalPage.html');
 					resp.end();
 				}
@@ -299,6 +303,7 @@ app.post('/PostMessage',function(req,resp){
 			console.log('Error');
 		}
 		else{
+
 			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [sess.PageId, req.body.message], function(error,rows,fields){
 				tempCont.release();
 				if (error){

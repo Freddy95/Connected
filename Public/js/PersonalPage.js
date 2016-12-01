@@ -48,6 +48,7 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getuserposts',
     dataType: 'json',
+    async: false,
     success: function(data) {
       for(var i = 0; i < data.length; i++){// get each post
         console.log(data[i].PostId)
@@ -80,6 +81,7 @@ function initiate() {
           data:{
             post : data[i].PostId
           },
+          async: false,
           success: function(rows) {
             console.log("length -> " + rows.length);
             for(var x = 0; x < rows.length; x++){
@@ -101,7 +103,7 @@ function initiate() {
               likeCommentButton.innerHTML="Like";
               comment.innerHTML = rows[x].Content;
               name.innerHTML = rows[x].First_name + " " + rows[x].Last_name;
-
+              console.log("postid -> " + data[i].PostId);
               $.ajax({//get likes for each comment
                 type: "GET",
                   url: "http://localhost:1337/getcommentlikes",
@@ -131,7 +133,9 @@ function initiate() {
 
 
             }
-          },
+          },error: function (error) {
+            console.log("erro");
+          }
         });
         var span = document.createElement('span');
         var likeButton = document.createElement('button');
@@ -145,6 +149,7 @@ function initiate() {
           data:{
             post : data[i].PostId
           },
+          async: false,
           success: function(rows) {
             likeCount.innerHTML = rows[0].Likes + " likes";
           },
@@ -229,5 +234,9 @@ function post_Status(){
     }
   });
 
+
+}
+
+function getComments() {
 
 }
