@@ -46,7 +46,8 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
-					resp.render('PersonalPage.html');
+					// resp.jsonp('test');
+					resp.session.reload('PersonalPage.html');
 					resp.end();
 				}
 
@@ -293,11 +294,6 @@ app.post('/PostMessage',function(req,resp){
 	sess = req.session;
 	//about mysql
 	//to query
-	console.log('##############################');
-	console.log(sess.PageId);
-	console.log(sess.user);
-	console.log('##############################');
-
 	connection.getConnection(function(error,tempCont){
 		if (error){
 			tempCont.release();
@@ -317,6 +313,8 @@ app.post('/PostMessage',function(req,resp){
 				}
 				else{
 					resp.json({code: 200});
+					//resp.jsonp('success');
+					//resp.render('PersonalPage.html');
 					resp.end();
 				}
 
