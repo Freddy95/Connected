@@ -46,7 +46,8 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
-					resp.render('PersonalPage.html');
+					// resp.jsonp('test');
+					resp.session.reload('PersonalPage.html');
 					resp.end();
 				}
 
@@ -311,8 +312,8 @@ app.post('/PostMessage',function(req,resp){
 					resp.end();
 				}
 				else{
-					resp.jsonp('success');
-					// resp.render('PersonalPage.html');
+					//resp.jsonp('success');
+					//resp.render('PersonalPage.html');
 					resp.end();
 				}
 

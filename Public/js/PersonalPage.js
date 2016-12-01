@@ -187,8 +187,8 @@ function post_Status(){
     // Work with the response
     success: function( response ) {
       //reload page
-      alert(response);
-      location.reload();
+      // alert(response);
+      // location.reload();
 
 
       // var span = document.createElement('span');
