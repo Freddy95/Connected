@@ -186,7 +186,49 @@ function post_Status(){
 
     // Work with the response
     success: function( response ) {
-      document.location = 'PersonalPage.html';
+
+      //reload page
+      // alert(response);
+      // location.reload();
+
+
+
+      var postsDiv = document.getElementById('posts');// posts div
+      var post = document.createElement("div");// the specific post div
+      post.setAttribute('class', 'col-md-12 well');
+
+      var contentDiv = document.createElement("div");// content of post div
+      contentDiv.setAttribute('class', 'col-md-12');
+
+      var content = document.createElement("p");
+      content.setAttribute('class', 'content');
+      content.innerHTML=status;
+      contentDiv.appendChild(content);//append content to contentdiv
+
+      post.appendChild(contentDiv);// append contentdiv to post
+      postsDiv.appendChild(post);//append post to postsdiv
+
+      var commentsDiv = document.createElement('div');
+      commentsDiv.setAttribute('class', 'col-md-12');
+
+      var header = document.createElement('h3');
+      header.innerHTML="Comments";
+
+      commentsDiv.appendChild(header);
+      post.appendChild(commentsDiv);//apend commentsDiv to posts
+
+      var span = document.createElement('span');
+      var likeButton = document.createElement('button');
+      var commentButton = document.createElement('button');
+      var likeCount = document.createElement('p');
+      likeButton.innerHTML = "Like";
+      commentButton.innerHTML = "Comment";
+      span.appendChild(likeButton);
+      span.appendChild(commentButton);
+      span.appendChild(likeCount);
+      post.appendChild(span);
+      // document.findElementById('status').innerHTML='';
+      // $('#status').innerHTML = '';
     },
     error: function (response) {
       alert('there was an error with the post try sending again');
