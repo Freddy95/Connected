@@ -47,7 +47,7 @@ app.post('/PersonalPage',function(req,resp){
 				else{
 					sess.user = rows[0].UserId;
 					// resp.jsonp('test');
-					resp.session.reload('PersonalPage.html');
+					resp.render('PersonalPage.html');
 					resp.end();
 				}
 
@@ -300,10 +300,6 @@ app.post('/PostMessage',function(req,resp){
 			console.log('Error');
 		}
 		else{
-			console.log('no error');
-			console.log(req.body);
-			console.log('pageid '+req.body.PageId);
-			console.log('content '+req.body.message);
 			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [sess.PageId, req.body.message], function(error,rows,fields){
 				tempCont.release();
 				if (error){
@@ -312,8 +308,9 @@ app.post('/PostMessage',function(req,resp){
 					resp.end();
 				}
 				else{
-					//resp.jsonp('success');
+					resp.jsonp('success');
 					//resp.render('PersonalPage.html');
+					// req.session.reload();
 					resp.end();
 				}
 
