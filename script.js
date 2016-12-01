@@ -316,8 +316,7 @@ app.post('/PostMessage',function(req,resp){
 					resp.end();
 				}
 				else{
-					resp.jsonp('success');
-					// resp.render('PersonalPage.html');
+					resp.json({code: 200});
 					resp.end();
 				}
 
