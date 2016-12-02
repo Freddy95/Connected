@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, '/Public')));
 app.set('views', __dirname + '/views');
 var sess; // session
 //User request to login
+
 app.post('/PersonalPage',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -35,8 +36,6 @@ app.post('/PersonalPage',function(req,resp){
 			console.log('Error');
 		}
 		else{
-			console.log(req.body.email);
-			console.log(req.body.psw);
 			tempCont.query("select UserId from User WHERE email=? AND password=?;", [req.body.email, req.body.psw], function(error,rows,fields){
 				tempCont.release();
 				if (error){
@@ -104,7 +103,6 @@ app.get('/getuser',function(req,resp){
 						resp.end();
 					}
 					else{
-						console.log(rows);
 						resp.json({name: rows[0].First_name + " " + rows[0].Last_name});
 					}
 
@@ -132,7 +130,6 @@ app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 						resp.end();
 					}
 					else{
-						console.log(rows);
 						resp.json(rows);
 					}
 
@@ -187,7 +184,6 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 						resp.end();
 					}
 					else{
-						console.log(rows);
 						resp.json(rows);
 					}
 
@@ -200,7 +196,6 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 
 app.get('/getcomments',function(req,resp){//get posts on user page
 	sess = req.session;//get session
-	console.log("post -> " + req.query.post);
 	if(sess.user){
 		connection.getConnection(function(error,tempCont){
 			if (error){
@@ -217,8 +212,6 @@ app.get('/getcomments',function(req,resp){//get posts on user page
 						resp.end();
 					}
 					else{
-						console.log(rows);
-						console.log("these are the comments");
 						resp.json(rows);
 					}
 
@@ -231,7 +224,6 @@ app.get('/getcomments',function(req,resp){//get posts on user page
 
 app.get('/getcommentlikes',function(req,resp){//get posts on user page
 	sess = req.session;//get session
-	console.log("comment -> " + req.query.comment);
 	if(sess.user){
 		connection.getConnection(function(error,tempCont){
 			if (error){
@@ -249,8 +241,6 @@ app.get('/getcommentlikes',function(req,resp){//get posts on user page
 							resp.end();
 						}
 						else{
-							console.log(rows);
-							console.log("these are the comments likes");
 							resp.json(rows);
 							resp.end();
 						}
@@ -280,7 +270,6 @@ app.get('/getlikes',function(req,resp){//get likes on post
 						resp.end();
 					}
 					else{
-						console.log(rows);
 						resp.json(rows);
 					}
 
@@ -289,6 +278,148 @@ app.get('/getlikes',function(req,resp){//get likes on post
 		});
 	}
 });
+
+//used to find out if the user in the current session already like the post
+app.get('/getuserlikes',function(req,resp){//get likes on post
+	sess = req.session;//get session
+	console.log('GETTING POST LIKES');
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query(
+					"SELECT  UserId FROM  Likes_data L, Posts_data P WHERE P.PostId=? AND L.PostId=P.PostId AND L.UserId=?", [req.query.post, sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+					}
+
+				});
+			}
+		});
+	}
+});
+
+//used to find out if the user in the current session already like the comment
+app.get('/getusercommentlike',function(req,resp){//get likes on post
+	sess = req.session;//get session
+	console.log('GETTING POST LIKES');
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query(
+					"SELECT  L.UserId FROM  Likes_data L, Comments_data C WHERE C.CommentId=? AND L.CommentId=C.CommentId AND L.UserId=?", [req.query.CommentId, sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log('LIKES -> ' + rows.length);
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/likePost', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("INSERT INTO Likes_data (PostId, UserId) VALUES (?,?)", [req.query.Post, sess.user], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success");
+					resp.end();
+				}
+			})
+		}
+	});
+});
+app.get('/unlikePost', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("DELETE FROM Likes_data WHERE PostId=? AND UserId=?", [req.query.Post, sess.user], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success");
+					resp.end();
+				}
+			})
+		}
+	});
+});
+
+
+app.get('/likeComment', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("INSERT INTO Likes_data (CommentId, UserId) VALUES (?,?)", [req.query.CommentId, sess.user], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success");
+					resp.end();
+				}
+			})
+		}
+	});
+});
+app.get('/unlikeComment', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("DELETE FROM Likes_data WHERE CommentId=? AND UserId=?", [req.query.CommentId, sess.user], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success");
+					resp.end();
+				}
+			})
+		}
+	});
+});
+
+
 
 app.post('/PostMessage',function(req,resp){
 	sess = req.session;
@@ -309,7 +440,7 @@ app.post('/PostMessage',function(req,resp){
 					resp.end();
 				}
 				else{
-					resp.jsonp('success');
+					resp.render('PersonalPage.html');
 					//resp.render('PersonalPage.html');
 					// req.session.reload();
 					resp.end();
@@ -349,6 +480,59 @@ app.post('/signup', function (req, resp) {
 		}
 	});
 });
+
+
+
+app.get('/addComment', function (req, resp) {
+	sess = req.session;
+	console.log('user -> ' + sess.user);
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query(
+				"INSERT INTO  Comments_data (PostId, Date, Content, Author) VALUES(?,CURDATE(),?,?)", [req.query.Post,  req.query.CommentValue,  sess.user], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.json("success");
+					resp.end();
+				}
+			});
+		}
+	});
+});
+
+app.get('/getLastComment', function (req, resp) {
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query(
+				"SELECT U.First_name, U.Last_name, C.Content, C.CommentId FROM User U, Comments_data C, Posts_data P WHERE U.UserId=? AND U.UserId=C.Author AND P.PostId=? AND C.PostId=P.PostId ORDER BY CommentId DESC", [sess.user,  req.query.Post], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.json(rows);
+					resp.end();
+				}
+			});
+		}
+	});
+});
+
 
 
 
