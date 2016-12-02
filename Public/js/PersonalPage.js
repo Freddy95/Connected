@@ -56,7 +56,7 @@ function initiate() {
         var postsDiv = document.getElementById('posts');// posts div
         var post = document.createElement("div");// the specific post div
         post.setAttribute('class', 'col-md-12 well');
-
+        post.setAttribute('id', 'post ' + data[i].PostId);
         var contentDiv = document.createElement("div");// content of post div
         contentDiv.setAttribute('class', 'col-md-12');
 
@@ -88,7 +88,7 @@ function initiate() {
               console.log("Getting comments");
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
-
+              cDiv.setAttribute('id', 'comment ' + rows[x].CommentId);
               var name = document.createElement('h1');
               var comment = document.createElement('p');
               var likes = document.createElement('p');
