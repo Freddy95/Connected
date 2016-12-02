@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Group Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="css/lightbox.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/layouts/GroupPage.css">
+        <link rel="stylesheet" href="css/styles/GroupPage.css">
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/GroupPage.js"></script>
+    </head>
+    <body onload="initiate();">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3">  
+            </div>
+            <div class="col-md-6">
+              <h1 id="companyTitle">Connected</h1>
+            </div>
+            <div class="col-md-3" align="right">
+              <button type="button" class="btn" id="Invite" >Invite People</button>
+              <button type="button" class="btn" id="DeleteGroup" >Delete Group</button>
+              <button type="button" class="btn" id="LeaveGroup" >Leave Group</button> 
+              <button type="button" class="btn" id="Options" >Options</button>
+              <form action ="http://localhost:1337/logout">
+                <input type="submit" class="btn btn-danger"  id="Logout" value="Logout">   
+              </form>            
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-3" id="Group info">
+              <h1 id="name">Group Name </h1>
+              <!-- <button type="button" class="btn-primary"id="messages">Create Post</button>
+              <button type="button" class="btn-primary"id="messages">Messages</button> -->
+              <h2>Members</h2>
+              <ul id="Members">
+
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <textarea class="form-control" placeholder="Enter Status" rows="5" id="status"></textarea>
+              <input type="submit" value="Post" class="btn" onclick="post_Status()" id="Status-btn" />
+
+              <!-- <input type="text" placeholder="Enter Status" id="status"> -->
+              <!-- <input type="submit" method="Post" onclick="post_Status()" id="Status-btn" /> -->
+              <div id="posts">
+                <!-- this is where the posts will be generated -->
+              </div>
+            </div>
+            <div class="col-md-3" id="advertisements">
+              <div class="col-md-12 advertisement" id="ad1">
+                <h4 class="adTitle">Advertisement Title</h4>
+                <p>Content</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>

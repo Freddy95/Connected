@@ -24,7 +24,11 @@ function initiate() {
       for(var i = 0; i < data.length; i++){
         console.log(data[i].Group_name)
         var group = document.createElement("li");
-        group.innerHTML = data[i].Group_name;
+        var link = document.createElement("a");
+        link.innerHTML = data[i].Group_name;
+        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // group.innerHTML = data[i].Group_name;
+        group.appendChild(link);
         document.getElementById("groups").appendChild(group);
       }
     },
@@ -38,7 +42,11 @@ function initiate() {
       for(var i = 0; i < data.length; i++){
         console.log(data[i].Group_name)
         var group = document.createElement("li");
-        group.innerHTML = data[i].Group_name;
+        var link = document.createElement("a");
+        link.innerHTML = data[i].Group_name;
+        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // group.innerHTML = data[i].Group_name;
+        group.appendChild(link);
         document.getElementById("groups").appendChild(group);
       }
     },
@@ -101,7 +109,7 @@ function initiate() {
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
               cDiv.setAttribute('id', 'comment ' + rows[x].CommentId);
-              var name = document.createElement('h1');
+              var name = document.createElement('h4');
               var comment = document.createElement('p');
               var likes = document.createElement('p');
               likes.setAttribute('id', 'LikeCommentCount' + rows[x].CommentId);
@@ -254,77 +262,6 @@ function initiate() {
   });
 }
 
-function post_Status(){
-  //get the data from the text box
-  var status = $('#status').val();
-
-  $.ajax({//get likes for each comment
-    type: "POST",
-    url: "http://localhost:1337/PostMessage",
-
-    // The name of the callback parameter, as specified by the YQL service
-    jsonp: "callback",
-
-    // Tell jQuery we're expecting JSONP
-    dataType: "jsonp",
-
-    // Tell YQL what we want and that we want JSON
-    data: {
-      message: status,
-      // PageId: 1,
-      format: "json"
-    },
-
-    // Work with the response
-    success: function( response ) {
-      window.location.replace('PersonalPage.html')
-      // var postsDiv = document.getElementById('posts');// posts div
-      // var post = document.createElement("div");// the specific post div
-      // post.setAttribute('class', 'col-md-12 well');
-      //
-      // var contentDiv = document.createElement("div");// content of post div
-      // contentDiv.setAttribute('class', 'col-md-12');
-      //
-      // var content = document.createElement("p");
-      // content.setAttribute('class', 'content');
-      // content.innerHTML=status;
-      // contentDiv.appendChild(content);//append content to contentdiv
-      //
-      // post.appendChild(contentDiv);// append contentdiv to post
-      // postsDiv.prepend(post);//append post to postsdiv
-      //
-      // var commentsDiv = document.createElement('div');
-      // commentsDiv.setAttribute('class', 'col-md-12');
-      //
-      // var header = document.createElement('h3');
-      // header.innerHTML="Comments";
-      //
-      // commentsDiv.appendChild(header);
-      // post.appendChild(commentsDiv);//apend commentsDiv to posts
-      //
-      // var span = document.createElement('span');
-      // var likeButton = document.createElement('button');
-      // var commentButton = document.createElement('button');
-      // var likeCount = document.createElement('p');
-      // likeButton.setAttribute('onclick', 'likePost(' + data[i].PostId + ", "  + "LikePost" + data[i].PostId +", " + 'LikePostCount' + data[i].PostId + ")");
-      // likeCount.innerHTML = "0 Likes";
-      // likeButton.innerHTML = "Like";
-      // commentButton.innerHTML = "Comment";
-      // span.appendChild(likeButton);
-      // span.appendChild(commentButton);
-      // span.appendChild(likeCount);
-      // post.appendChild(span);
-      // $('#status').val('');
-
-    },
-    error: function (response) {
-      alert('there was an error with the post try sending again');
-    }
-  });
-
-
-}
-
 function likePost(PostId, Ele, count) {
   console.log("LIKING POST -> ");
 
@@ -472,6 +409,7 @@ function editPostRequest(PostId) {
   document.getElementById('postValue').value="";
 
 }
+
 function addComment(PostId) {
   var content = document.getElementById('commentValue').value;
   $.ajax({// get likes of post
@@ -544,5 +482,30 @@ function deletePost(PostId) {
       document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
     }
 });
+function enter_group_page(id){
+  $.Post("http://localhost:1337/getGroupPage",id);
+    // $.ajax({//get likes for each comment
+    // type: "GET",
+    // url: "http://localhost:1337/getGroupPage",
+
+    // // The name of the callback parameter, as specified by the YQL service
+    // jsonp: "callback",
+    // async: false,
+
+    // // Tell jQuery we're expecting JSONP
+    // // dataType: "html",
+
+    // // Tell YQL what we want and that we want JSON
+    // data: {
+    //   id: id,
+    //   format: "json"
+    // },
+    // success: function( response ) {
+    //   alert("success function");
+    // },
+    // error: function (response) {
+    //   alert("error function");
+    // }
+    // });
 
 }
