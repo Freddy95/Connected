@@ -24,7 +24,11 @@ function initiate() {
       for(var i = 0; i < data.length; i++){
         console.log(data[i].Group_name)
         var group = document.createElement("li");
-        group.innerHTML = data[i].Group_name;
+        var link = document.createElement("a");
+        link.innerHTML = data[i].Group_name;
+        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // group.innerHTML = data[i].Group_name;
+        group.appendChild(link);
         document.getElementById("groups").appendChild(group);
       }
     },
@@ -38,7 +42,11 @@ function initiate() {
       for(var i = 0; i < data.length; i++){
         console.log(data[i].Group_name)
         var group = document.createElement("li");
-        group.innerHTML = data[i].Group_name;
+        var link = document.createElement("a");
+        link.innerHTML = data[i].Group_name;
+        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // group.innerHTML = data[i].Group_name;
+        group.appendChild(link);        
         document.getElementById("groups").appendChild(group);
       }
     },
@@ -56,7 +64,7 @@ function initiate() {
         var postsDiv = document.getElementById('posts');// posts div
         var post = document.createElement("div");// the specific post div
         post.setAttribute('class', 'col-md-12 well');
-
+        post.setAttribute('id', 'post ' + data[i].PostId);
         var contentDiv = document.createElement("div");// content of post div
         contentDiv.setAttribute('class', 'col-md-12');
 
@@ -88,7 +96,7 @@ function initiate() {
               console.log("Getting comments");
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
-
+              cDiv.setAttribute('id', 'comment ' + rows[x].CommentId);
               var name = document.createElement('h4');
               var comment = document.createElement('p');
               var likes = document.createElement('p');
@@ -238,7 +246,59 @@ function post_Status(){
 
 
 }
+// function logout(){
+//   $.ajax({//get likes for each comment
+//     type: "GET",
+//     url: "http://localhost:1337/logout",
+
+//     // The name of the callback parameter, as specified by the YQL service
+//     jsonp: "callback",
+
+//     // Tell jQuery we're expecting JSONP
+//     dataType: "jsonp",
+
+//     // Tell YQL what we want and that we want JSON
+//     data: {
+//       message: 'status',
+//       // PageId: 1,
+//       format: "json"
+//     },
+//     success: function( response ) {
+//       alert("logged out");  
+//     },
+//     error: function (response) {
+//       alert("error logging out");
+//     }
+//     });
+// }
 
 function getComments() {
+
+}
+function enter_group_page(id){
+  $.Post("http://localhost:1337/getGroupPage",id);
+    // $.ajax({//get likes for each comment
+    // type: "GET",
+    // url: "http://localhost:1337/getGroupPage",
+
+    // // The name of the callback parameter, as specified by the YQL service
+    // jsonp: "callback",
+    // async: false,
+
+    // // Tell jQuery we're expecting JSONP
+    // // dataType: "html",
+
+    // // Tell YQL what we want and that we want JSON
+    // data: {
+    //   id: id,
+    //   format: "json"
+    // },
+    // success: function( response ) {
+    //   alert("success function");  
+    // },
+    // error: function (response) {
+    //   alert("error function");
+    // }
+    // });
 
 }

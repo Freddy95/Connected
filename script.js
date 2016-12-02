@@ -124,7 +124,7 @@ app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select Group_name from Groups_data WHERE Owner=?", [sess.user], function(error,rows,fields){
+				tempCont.query("select Group_name , GroupId from Groups_data WHERE Owner=?", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -151,7 +151,7 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select G.Group_name from Groups_data G, Joins J WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId", [sess.user], function(error,rows,fields){
+				tempCont.query("select G.Group_name, G.GroupId from Groups_data G, Joins J WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -159,7 +159,7 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 						resp.end();
 					}
 					else{
-						console.log(rows);
+						console.log("rows: "+ rows);
 						resp.json(rows);
 					}
 
@@ -354,5 +354,24 @@ app.post('/signup', function (req, resp) {
 
 app.get('/register', function (req, res) {
 	res.render('Register.html');
-})
+});
+app.get('/logout', function (req, res) {
+	sess = req.session;
+	sess.user = null;
+	req.session.destroy();
+	res.render('login2.html');
+	res.end();
+});
+
+app.post('/getGroupPage',function(req,res){
+	sess = req.session;
+	// res.jsonp('success');
+	res.render('GroupPage.html');
+	
+	// res.redirect('GroupPage.html', function(err, html) {
+ //  		res.send(html);
+	// });
+
+});
+
 app.listen(1337);
