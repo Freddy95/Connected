@@ -57,10 +57,21 @@ function initiate() {
         var post = document.createElement("div");// the specific post div
         post.setAttribute('class', 'col-md-12 well');
         post.setAttribute('id', 'post ' + data[i].PostId);
+
+        var deleteDiv = document.createElement('div');
+        deleteDiv.setAttribute('class', 'col-md-12');
+        deleteDiv.setAttribute('align', 'right');
+        var deletePostButton = document.createElement("button");
+        deletePostButton.setAttribute('class', 'btn-danger');
+        deletePostButton.innerHTML = 'Delete Post';
+        deletePostButton.setAttribute('onclick', 'deletePost(' + data[i].PostId +")");
+        deleteDiv.appendChild(deletePostButton);
+        post.appendChild(deleteDiv);
         var contentDiv = document.createElement("div");// content of post div
         contentDiv.setAttribute('class', 'col-md-12');
 
         var content = document.createElement("p");
+        content.setAttribute('id', data[i].PostId);
         content.setAttribute('class', 'content');
         content.innerHTML=data[i].Content;
         contentDiv.appendChild(content);//append content to contentdiv
@@ -171,11 +182,16 @@ function initiate() {
         likeButton.setAttribute('class', 'btn');
         likeButton.setAttribute('id', "LikePost" + data[i].PostId);
 
-
+        var editPostButton = document.createElement('button');
         var commentButton = document.createElement('button');
+        editPostButton.setAttribute('class', 'btn');
+        editPostButton.setAttribute('data-toggle', 'modal');
+        editPostButton.setAttribute('data-target', '#myPostModal');
+
         commentButton.setAttribute('class', 'btn');
         commentButton.setAttribute('data-toggle', 'modal');
         commentButton.setAttribute('data-target', '#myModal');
+
         var likeCount = document.createElement('p');
         likeCount.setAttribute('id', 'LikePostCount' + data[i].PostId);
         $.ajax({// finds out if user has liked the post
@@ -224,9 +240,13 @@ function initiate() {
         });
 
         commentButton.innerHTML = "Comment";
+        editPostButton.innerHTML = "Edit";
         commentButton.setAttribute('onclick', 'comment(' + data[i].PostId + ')');
+        console.log('editPost(' + data[i].PostId  +')');
+        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId +')');
         span.appendChild(likeButton);
         span.appendChild(commentButton);
+        span.appendChild(editPostButton);
         span.appendChild(likeCount);
         post.appendChild(span);
       }
@@ -418,6 +438,40 @@ function comment(PostId) {
   var modalButton = document.getElementById('Modal_button');
   modalButton.setAttribute('onclick', 'addComment(' + PostId + ')');
 }
+
+function editPost(PostId) {
+  console.log("editing");
+
+  var modalButton = document.getElementById('Post_modal_button');
+  modalButton.setAttribute('onclick', 'editPostRequest(' + PostId +')');
+
+}
+function editPostRequest(PostId) {
+  console.log("request edit");
+  var content = document.getElementById('postValue').value;
+
+  $.ajax({// get likes of post
+    type: 'GET',
+    url: 'http://localhost:1337/editPost',
+    dataType: 'json',
+    jsonp: 'callback',
+    data:{
+      Content : content,
+      Post : PostId
+    },
+    async: false,
+    success: function(rows) {
+      console.log(rows);
+      var post = document.getElementById(PostId);
+      post.innerHTML = content;
+      },
+    error: function (rows) {
+
+    }
+  });
+  document.getElementById('postValue').value="";
+
+}
 function addComment(PostId) {
   var content = document.getElementById('commentValue').value;
   $.ajax({// get likes of post
@@ -474,4 +528,21 @@ function addComment(PostId) {
   error: function (data) {
   }
 });
+}
+
+
+function deletePost(PostId) {
+  $.ajax({// get comments on post
+    type: 'GET',
+    jsonp : 'callback',
+    url: 'http://localhost:1337/deletePost',
+    dataType: 'json',
+    data:{
+      Post : PostId
+    },
+    success: function(rows) {
+      document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
+    }
+});
+
 }
