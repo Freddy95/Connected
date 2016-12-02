@@ -89,7 +89,7 @@ function initiate() {
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
 
-              var name = document.createElement('h1');
+              var name = document.createElement('h4');
               var comment = document.createElement('p');
               var likes = document.createElement('p');
               likes.setAttribute('style', 'display:inline-block');
