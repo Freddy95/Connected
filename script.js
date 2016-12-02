@@ -46,10 +46,7 @@ app.post('/PersonalPage',function(req,resp){
 				}
 				else{
 					sess.user = rows[0].UserId;
-<<<<<<< HEAD
 
-=======
->>>>>>> bb01a55e080274608b07d22401765ccc1c7c6d01
 					resp.render('PersonalPage.html');
 					resp.end();
 				}

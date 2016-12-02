@@ -89,7 +89,7 @@ function initiate() {
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
 
-              var name = document.createElement('p');
+              var name = document.createElement('h1');
               var comment = document.createElement('p');
               var likes = document.createElement('p');
               likes.setAttribute('style', 'display:inline-block');
@@ -134,12 +134,14 @@ function initiate() {
 
             }
           },error: function (error) {
-            console.log("erro");
+            console.log("error");
           }
         });
         var span = document.createElement('span');
         var likeButton = document.createElement('button');
+        likeButton.setAttribute('class', 'btn');
         var commentButton = document.createElement('button');
+        commentButton.setAttribute('class', 'btn');
         var likeCount = document.createElement('p');
         $.ajax({// get likes of post
           type: 'GET',
