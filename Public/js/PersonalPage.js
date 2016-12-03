@@ -1,3 +1,5 @@
+var postContent = {};
+var commentContent={};
 function initiate() {
   $.ajax({ // get user first and last name
     type: 'GET',
@@ -5,7 +7,7 @@ function initiate() {
     dataType: 'json',
     success: function(data) {
       name = data;
-      document.getElementById("name").innerHTML = data;
+      document.getElementById("name").innerHTML = data.name;
     },
   });
   $.ajax({//get groups user is the owner of
@@ -13,7 +15,6 @@ function initiate() {
     url: 'http://localhost:1337/getPageId',
     dataType: 'json',
     success: function(data) {
-      console.log(data);
     },
   });
   $.ajax({//get groups user is the owner of
@@ -22,7 +23,6 @@ function initiate() {
     dataType: 'json',
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        console.log(data[i].Group_name)
         var group = document.createElement("li");
         var link = document.createElement("a");
         link.innerHTML = data[i].Group_name;
@@ -44,7 +44,6 @@ function initiate() {
     dataType: 'json',
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        console.log(data[i].Group_name)
         var group = document.createElement("li");
         var link = document.createElement("a");
         link.innerHTML = data[i].Group_name;
@@ -63,8 +62,6 @@ function initiate() {
     async: false,
     success: function(data) {
       for(var i = 0; i < data.length; i++){// get each post
-        console.log(data[i].PostId)
-        console.log(data[i]);
         var postsDiv = document.getElementById('posts');// posts div
         var post = document.createElement("div");// the specific post div
         post.setAttribute('class', 'col-md-12 well');
@@ -107,14 +104,15 @@ function initiate() {
           },
           async: false,
           success: function(rows) {
-            console.log("length -> " + rows.length);
             for(var x = 0; x < rows.length; x++){
-              console.log("Getting comments");
+              addCommentContent(rows[x].CommentId, rows[x].Content);
+
               var cDiv = document.createElement('div');
               cDiv.setAttribute('class', 'col-md-12 comment');
               cDiv.setAttribute('id', 'comment ' + rows[x].CommentId);
               var name = document.createElement('h4');
               var comment = document.createElement('p');
+              comment.setAttribute('id', 'Comment' + rows[x].CommentId);
               var likes = document.createElement('p');
               likes.setAttribute('id', 'LikeCommentCount' + rows[x].CommentId);
               likes.setAttribute('style', 'display:inline-block');
@@ -123,12 +121,29 @@ function initiate() {
               cDiv.appendChild(name);
               cDiv.appendChild(comment);
               cDiv.appendChild(likes);
+
               cDiv.appendChild(likeCommentButton);
+
+              if(rows[x].UserId == data[i].Owner ){
+                var editCommentButton = document.createElement('button');
+                editCommentButton.innerHTML = "Edit";
+                editCommentButton.setAttribute('onclick', 'editComment(' + rows[x].CommentId + ')');
+                editCommentButton.setAttribute('class', 'btn-info');
+                editCommentButton.setAttribute('data-toggle', 'modal');
+                editCommentButton.setAttribute('data-target', '#myModal');
+                cDiv.appendChild(editCommentButton);
+
+                var deleteCommentButton = document.createElement('button');
+                deleteCommentButton.innerHTML = "Delete";
+                deleteCommentButton.setAttribute('class', 'btn-danger');
+                deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[x].CommentId + "," + data[i].PostId + ')');
+                cDiv.appendChild(deleteCommentButton);
+              }
+
               commentsDiv.appendChild(cDiv);
               likeCommentButton.setAttribute('id', "LikeComment"+ rows[x].CommentId);
               comment.innerHTML = rows[x].Content;
               name.innerHTML = rows[x].First_name + " " + rows[x].Last_name;
-              console.log("postid -> " + data[i].PostId);
               $.ajax({//get likes for each comment
                 type: "GET",
                   url: "http://localhost:1337/getcommentlikes",
@@ -147,7 +162,6 @@ function initiate() {
 
                   // Work with the response
                   success: function( response ) {
-                      console.log("comment likes -> " + response);
                       likes.innerHTML = response[0].Likes + " Likes"; // server response
                       likes.val = response[0].Likes;
                   },
@@ -170,14 +184,11 @@ function initiate() {
                     likeCommentButton.setAttribute('onclick', 'likeComment(' + rows[x].CommentId + ", " + "LikeComment"+ rows[x].CommentId +", " + 'LikeCommentCount' + rows[x].CommentId + ")");
                     likeCommentButton.innerHTML = "Like";
                   }else{//user has already liked the comment
-                    console.log(rows.length);
-                    console.log('unlikeComment(' + rows[x].CommentId + ", " + "LikePost"+ rows[x].CommentId +")");
                     likeCommentButton.setAttribute('onclick', 'unlikeComment(' + rows[x].CommentId + ", " + "LikeComment" + rows[x].CommentId +", " + 'LikeCommentCount' + rows[x].CommentId + ")");
                     likeCommentButton.innerHTML = "unlike";
                   }
                 },
                 error: function (res) {//user hasnt liked the comment
-                  console.log("ERROR ID -> " + rows[x].CommentId);
                   likeCommentButton.setAttribute('onclick', 'likeComment(' + rows[x].CommentId + ", "  + "LikePost" + rows[x].CommentId +", " + 'LikePostCount' + rows[x].CommentId + ")");
                   likeCommentButton.innerHTML = "Like";
                 }
@@ -196,7 +207,7 @@ function initiate() {
 
         var editPostButton = document.createElement('button');
         var commentButton = document.createElement('button');
-        editPostButton.setAttribute('class', 'btn');
+        editPostButton.setAttribute('class', 'btn-info');
         editPostButton.setAttribute('data-toggle', 'modal');
         editPostButton.setAttribute('data-target', '#myPostModal');
 
@@ -257,7 +268,8 @@ function initiate() {
 
         console.log('editPost(' + data[i].PostId  +')');
         console.log( data[i].Content + "a");
-        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId +  ", " + ["test"]+ ')');
+        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId + ')');
+        addPostContent(data[i].PostId, data[i].Content);
         span.appendChild(likeButton);
         span.appendChild(commentButton);
         span.appendChild(editPostButton);
@@ -382,10 +394,12 @@ function comment(PostId) {
   modalButton.setAttribute('onclick', 'addComment(' + PostId + ')');
 }
 
-function editPost(PostId, content) {
+function editPost(PostId) {
   console.log("editing");
-
+  console.log(postContent[PostId]);
   var modalButton = document.getElementById('Post_modal_button');
+  var input = document.getElementById('postValue');
+  input.value = postContent[PostId];
   modalButton.setAttribute('onclick', 'editPostRequest(' + PostId +')');
 
 }
@@ -407,6 +421,7 @@ function editPostRequest(PostId) {
       console.log(rows);
       var post = document.getElementById(PostId);
       post.innerHTML = content;
+      postContent[PostId] = content;
       },
     error: function (rows) {
 
@@ -415,6 +430,46 @@ function editPostRequest(PostId) {
   document.getElementById('postValue').value="";
 
 }
+
+
+function editComment(CommentId) {
+  console.log("editing");
+  var modalButton = document.getElementById('Modal_button');
+  var input = document.getElementById('commentValue');
+  input.value = commentContent[CommentId];
+  modalButton.setAttribute('onclick', 'editCommentRequest(' + CommentId +')');
+
+}
+function editCommentRequest(CommentId) {
+  console.log("request edit");
+  var content = document.getElementById('commentValue').value;
+
+  $.ajax({// get likes of post
+    type: 'GET',
+    url: 'http://localhost:1337/editComment',
+    dataType: 'json',
+    jsonp: 'callback',
+    data:{
+      Content : content,
+      CommentId : CommentId
+    },
+    async: false,
+    success: function(rows) {
+      console.log(rows);
+      var comment = document.getElementById("Comment" + CommentId);
+      comment.innerHTML = content;
+      commentContent[CommentId] = content;
+      },
+    error: function (rows) {
+
+    }
+  });
+  document.getElementById('postValue').value="";
+
+}
+
+
+
 function addComment(PostId) {
   var content = document.getElementById('commentValue').value;
   $.ajax({// get likes of post
@@ -452,6 +507,24 @@ function addComment(PostId) {
           cDiv.appendChild(comment);
           cDiv.appendChild(likes);
           cDiv.appendChild(likeCommentButton);
+
+          addCommentContent(rows[0].CommentId, content);
+
+          var editCommentButton = document.createElement('button');
+          editCommentButton.innerHTML = "Edit";
+          editCommentButton.setAttribute('onclick', 'editComment(' + rows[0].CommentId + ')');
+          editCommentButton.setAttribute('class', 'btn-info');
+          editCommentButton.setAttribute('data-toggle', 'modal');
+          editCommentButton.setAttribute('data-target', '#myModal');
+          cDiv.appendChild(editCommentButton);
+
+          var deleteCommentButton = document.createElement('button');
+          deleteCommentButton.innerHTML = "Delete";
+          deleteCommentButton.setAttribute('class', 'btn-danger');
+          deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[0].CommentId + "," + PostId + ')');
+          cDiv.appendChild(deleteCommentButton);
+
+
           commentsDiv.appendChild(cDiv);
           likeCommentButton.innerHTML="Like";
           comment.innerHTML = rows[0].Content;
@@ -517,4 +590,32 @@ function enter_group_page(id){
     // }
     // });
 
+}
+
+
+function deleteComment(CommentId, PostId) {
+    $.ajax({// get comments on post
+      type: 'GET',
+      jsonp : 'callback',
+      url: 'http://localhost:1337/deleteComment',
+      dataType: 'json',
+      data:{
+        CommentId : CommentId
+      },
+      success: function(rows) {
+        document.getElementById('PostCommentDiv' +PostId).removeChild(document.getElementById('comment ' + CommentId));
+      }
+  });
+}
+
+function addPostContent(PostId, content) {
+
+    postContent[PostId] = content;
+    console.log("POST ID -> " + PostId);
+    console.log("Content -> " + content);
+    console.log(postContent);
+}
+
+function addCommentContent(CommentId, content) {
+  commentContent[CommentId] = content;
 }
