@@ -594,15 +594,45 @@ app.get('/logout', function (req, res) {
 	res.end();
 });
 
-app.post('/getGroupPage',function(req,res){
+app.get('/getGroupPage',function(req,res){
 	sess = req.session;
 	// res.jsonp('success');
 	res.render('GroupPage.html');
+	// res.redirect('GroupPage.html');
+	// res.redirect('GroupPage.html',req.id);
 	
 	// res.redirect('GroupPage.html', function(err, html) {
  //  		res.send(html);
 	// });
+	res.end();
 
+});
+
+app.get('/getgroupname',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select Group_name from Groups_data WHERE GroupId=?", 1, function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log("group name: "+rows[0].Group_name);
+						resp.jsonp(rows[0].Group_name);
+					}
+
+				});
+			}
+		});
+	}
 });
 
 app.listen(1337);

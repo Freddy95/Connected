@@ -4,8 +4,8 @@ function initiate() {
     url: 'http://localhost:1337/getuser',
     dataType: 'json',
     success: function(data) {
-      j = data;
-      document.getElementById("name").innerHTML = data.name;
+      name = data;
+      document.getElementById("name").innerHTML = data;
     },
   });
   $.ajax({//get groups user is the owner of
@@ -27,6 +27,10 @@ function initiate() {
         var link = document.createElement("a");
         link.innerHTML = data[i].Group_name;
         link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // link.setAttribute('action','http://localhost:1337/getGroupPage');
+        // link.setAttribute('type','submit');
+        // link.setAttribute('method','POST');
+        // link        data[i].GroupId
         // group.innerHTML = data[i].Group_name;
         group.appendChild(link);
         document.getElementById("groups").appendChild(group);
@@ -485,7 +489,10 @@ function deletePost(PostId) {
 });
 }
 function enter_group_page(id){
-  $.Post("http://localhost:1337/getGroupPage",id);
+  // window.location = "http://localhost:1337/getGroupPage";
+  window.postMessage(id,"http://localhost:1337/getGroupPage");
+  // $.post("http://localhost:1337/getGroupPage",id);
+  console.log("here");
     // $.ajax({//get likes for each comment
     // type: "GET",
     // url: "http://localhost:1337/getGroupPage",
