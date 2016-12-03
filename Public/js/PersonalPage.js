@@ -250,8 +250,10 @@ function initiate() {
         commentButton.innerHTML = "Comment";
         editPostButton.innerHTML = "Edit";
         commentButton.setAttribute('onclick', 'comment(' + data[i].PostId + ')');
+
         console.log('editPost(' + data[i].PostId  +')');
-        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId +')');
+        console.log( data[i].Content + "a");
+        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId +  ", " + ["test"]+ ')');
         span.appendChild(likeButton);
         span.appendChild(commentButton);
         span.appendChild(editPostButton);
@@ -376,7 +378,7 @@ function comment(PostId) {
   modalButton.setAttribute('onclick', 'addComment(' + PostId + ')');
 }
 
-function editPost(PostId) {
+function editPost(PostId, content) {
   console.log("editing");
 
   var modalButton = document.getElementById('Post_modal_button');
@@ -409,7 +411,6 @@ function editPostRequest(PostId) {
   document.getElementById('postValue').value="";
 
 }
-
 function addComment(PostId) {
   var content = document.getElementById('commentValue').value;
   $.ajax({// get likes of post
@@ -482,6 +483,7 @@ function deletePost(PostId) {
       document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
     }
 });
+}
 function enter_group_page(id){
   $.Post("http://localhost:1337/getGroupPage",id);
     // $.ajax({//get likes for each comment
