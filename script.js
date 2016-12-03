@@ -251,6 +251,33 @@ app.get('/getcommentlikes',function(req,resp){//get posts on user page
 	}
 });
 
+app.get('/editPost', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+			if(error){
+				tempCont.release();
+			}else{
+				tempCont.query(
+
+					"UPDATE Posts_data P SET Content=? WHERE P.PostId=?", [req.query.Content, req.query.Post], function(error,rows,fields){
+					tempCont.release();
+					console.log("HERRE");
+					console.log(req.query.Content);
+					console.log(req.query.Post);
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+					}
+
+				});
+			}
+	});
+});
+
 app.get('/getlikes',function(req,resp){//get likes on post
 	sess = req.session;//get session
 	console.log('GETTING POST LIKES');
@@ -366,6 +393,26 @@ app.get('/unlikePost', function (req, resp) {
 			tempCont.release();
 		}else{
 			tempCont.query("DELETE FROM Likes_data WHERE PostId=? AND UserId=?", [req.query.Post, sess.user], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success");
+					resp.end();
+				}
+			})
+		}
+	});
+});
+
+app.get('/deletePost', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("DELETE FROM Posts_data WHERE PostId=?", [req.query.Post], function (error, rows, fields) {
 				tempCont.release();
 				if(error){
 					console.log("Error HERE")
