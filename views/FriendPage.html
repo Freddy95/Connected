@@ -6,16 +6,16 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Personal Page</title>
+        <title>Friend Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link href="css/lightbox.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/layouts/PersonalPage.css">
-        <link rel="stylesheet" href="css/styles/PersonalPage.css">
+        <link rel="stylesheet" href="css/layouts/FriendPage.css">
+        <link rel="stylesheet" href="css/styles/FriendPage.css">
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/PersonalPage.js"></script>
+        <script src="js/FriendPage.js"></script>
     </head>
     <body onload="initiate();">
         <div class="container-fluid">
@@ -26,14 +26,7 @@ and open the template in the editor.
             <div class="col-md-6">
               <h1 id="companyTitle">Connected</h1>
             </div>
-            <div class="col-md-3" align="right">
-              <button type="button" class="btn" id="Messages" >Messages</button>
-              <button type="button" class="btn" id="Friends" >Friends</button>
-              <button type="button" class="btn" id="Options" >Options</button>
-              <form action ="http://localhost:1337/logout">
-                <input type="submit" class="btn-danger"  id="Logout" value="Logout">
-              </form>
-            </div>
+            <div class="col-md-6"></div>
 
           </div>
           <div class="row">
@@ -53,10 +46,7 @@ and open the template in the editor.
 
             </div>
             <div class="col-md-6">
-              <form action="http://localhost:1337/PostMessage" method="Post">
-                <input class="form-control" type="text" placeholder="Enter Status" rows="5" id="status" name="message">
-              <input type="submit" value="Post" class="btn"  id="Status-btn" />
-            </form>
+
 
               <!-- <input type="text" placeholder="Enter Status" id="status"> -->
               <!-- <input type="submit" method="Post" onclick="post_Status()" id="Status-btn" /> -->
@@ -95,25 +85,6 @@ and open the template in the editor.
     </div>
   </div>
 
-  <div class="modal fade" id="myPostModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Edit Post</h4>
-        </div>
-        <div class="modal-body">
-          <input type="text" class="form-control" id="postValue">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="Post_modal_button">Finish</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
+  
     </body>
 </html>

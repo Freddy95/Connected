@@ -58,6 +58,7 @@ app.post('/PersonalPage',function(req,resp){
 
 app.get('/getPageId',function(req,resp){
 	sess = req.session;//get session
+	console.log("ID -> " + req.query.user);
 	if(sess.user){
 		connection.getConnection(function(error,tempCont){
 			if (error){
@@ -65,7 +66,7 @@ app.get('/getPageId',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select PageId from Pages WHERE Owner=?", [sess.user], function(error,rows,fields){
+				tempCont.query("select PageId from Pages WHERE Owner=?", [req.query.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error HERE'+error);
@@ -73,6 +74,7 @@ app.get('/getPageId',function(req,resp){
 						resp.end();
 					}
 					else{
+						console.log("PAGE ID -> " + rows[0].PageId);
 						sess.PageId = rows[0].PageId;
 						resp.jsonp(sess.PageId);
 					}
@@ -95,7 +97,7 @@ app.get('/getuser',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select First_name, Last_name from User WHERE UserId=?", [sess.user], function(error,rows,fields){
+				tempCont.query("select First_name, Last_name, UserId from User WHERE UserId=?", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -103,7 +105,38 @@ app.get('/getuser',function(req,resp){
 						resp.end();
 					}
 					else{
-						resp.json({name: rows[0].First_name + " " + rows[0].Last_name});
+						console.log(rows);
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/getFriend',function(req,resp){
+	sess = req.session;//get session
+	console.log('loggedin');
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select First_name, Last_name, UserId from User WHERE UserId=?", [sess.friend], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log(sess.friend);
+						resp.json(rows);
 					}
 
 				});
@@ -122,7 +155,7 @@ app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select Group_name , GroupId from Groups_data WHERE Owner=?", [sess.user], function(error,rows,fields){
+				tempCont.query("select Group_name , GroupId from Groups_data WHERE Owner=?", [req.query.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -131,6 +164,7 @@ app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -148,7 +182,7 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select G.Group_name, G.GroupId from Groups_data G, Joins J WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId", [sess.user], function(error,rows,fields){
+				tempCont.query("select G.Group_name, G.GroupId from Groups_data G, Joins J WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId", [req.query.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -156,8 +190,10 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 						resp.end();
 					}
 					else{
+						console.log(req.query.user);
 						console.log("rows: "+ rows);
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -176,7 +212,7 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT P.Content, P.PostId FROM Posts_data P, Pages S WHERE S.Owner=? AND P.PageId=S.PageId ORDER BY PostId DESC", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT P.Content, P.PostId, S.Owner FROM Posts_data P, Pages S WHERE S.Owner=? AND P.PageId=? ORDER BY PostId DESC", [req.query.user, sess.PageId], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -184,6 +220,7 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 						resp.end();
 					}
 					else{
+						console.log("PAGE ID -> " + sess.PageId);
 						resp.json(rows);
 					}
 
@@ -204,7 +241,7 @@ app.get('/getcomments',function(req,resp){//get posts on user page
 			}
 			else{
 				tempCont.query(
-					"SELECT U.First_name, U.Last_name, C.Content, C.CommentId FROM User U, Comments_data C, Posts_data P WHERE U.UserId=C.Author AND P.PostId=? AND C.PostId=P.PostId", [req.query.post], function(error,rows,fields){
+					"SELECT U.UserId, U.First_name, U.Last_name, C.Content, C.CommentId FROM User U, Comments_data C, Posts_data P WHERE U.UserId=C.Author AND P.PostId=? AND C.PostId=P.PostId", [req.query.post], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -277,6 +314,35 @@ app.get('/editPost', function (req, resp) {
 			}
 	});
 });
+
+app.get('/editComment', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+			if(error){
+				tempCont.release();
+			}else{
+				tempCont.query(
+
+					"UPDATE Comments_data SET Content=? WHERE CommentId=?", [req.query.Content, req.query.CommentId], function(error,rows,fields){
+					tempCont.release();
+					console.log("HERRE");
+					console.log(req.query.Content);
+					console.log(req.query.Post);
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+					}
+
+				});
+			}
+	});
+});
+
+
 
 app.get('/getlikes',function(req,resp){//get likes on post
 	sess = req.session;//get session
@@ -426,6 +492,26 @@ app.get('/deletePost', function (req, resp) {
 	});
 });
 
+
+app.get('/deleteComment', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+		if(error){
+			tempCont.release();
+		}else{
+			tempCont.query("DELETE FROM Comments_data WHERE CommentId=?", [req.query.CommentId], function (error, rows, fields) {
+				tempCont.release();
+				if(error){
+					console.log("Error HERE")
+					resp.end();
+				}else{
+					resp.jsonp("Success Deleting Comment");
+					resp.end();
+				}
+			})
+		}
+	});
+});
 
 app.get('/likeComment', function (req, resp) {
 	sess = req.session;
@@ -600,7 +686,7 @@ app.get('/getGroupPage',function(req,res){
 	res.render('GroupPage.html');
 	// res.redirect('GroupPage.html');
 	// res.redirect('GroupPage.html',req.id);
-	
+
 	// res.redirect('GroupPage.html', function(err, html) {
  //  		res.send(html);
 	// });
@@ -634,5 +720,45 @@ app.get('/getgroupname',function(req,resp){
 		});
 	}
 });
+
+
+app.get('/getFriends',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Requests_friends R WHERE (R.Sender=? or R.Receiver=?) and (U.UserId=R.Sender or U.UserId=R.Receiver) and R.Stat='accepted' and U.UserId!=?", [req.query.user, req.query.user, req.query.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+
+app.post('/goToFriendPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		sess.friend = req.body.FriendId;
+		resp.render('FriendPage.html')
+	}
+});
+
+
 
 app.listen(1337);

@@ -1,15 +1,26 @@
-var postContent = {};
 var commentContent={};
+var FriendId;
 var User;
 function initiate() {
   $.ajax({ // get user first and last name
+    type: 'GET',
+    url: 'http://localhost:1337/getFriend',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      name = data;
+      document.getElementById("name").innerHTML = data[0].First_name + " " + data[0].Last_name;
+      getFriend(data[0].UserId);
+    },
+  });
+
+  $.ajax({ // get user visiting site
     type: 'GET',
     url: 'http://localhost:1337/getuser',
     dataType: 'json',
     async: false,
     success: function(data) {
       name = data;
-      document.getElementById("name").innerHTML = data[0].First_name + " " + data[0].Last_name;
       getUser(data[0].UserId);
     },
   });
@@ -17,10 +28,10 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getPageId',
     dataType: 'json',
-    data: {
-      user: User
-    },
     async: false,
+    data:{
+      user: FriendId
+    },
     success: function(data) {
     },
   });
@@ -28,8 +39,8 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getownergroups',
     dataType: 'json',
-    data:{
-      user: User
+    data: {
+      user: FriendId
     },
     success: function(data) {
       for(var i = 0; i < data.length; i++){
@@ -52,8 +63,8 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getgroups',
     dataType: 'json',
-    data:{
-      user: User
+    data: {
+      user: FriendId
     },
     success: function(data) {
       for(var i = 0; i < data.length; i++){
@@ -72,43 +83,29 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getFriends',
     dataType: 'json',
-    data:{
-      user: User
+    data: {
+      user: FriendId
     },
     success: function(data) {
       for(var i = 0; i < data.length; i++){
         var listElement = document.createElement('li');
 
-        var form = document.createElement('form');
-        form.setAttribute('action', 'http://localhost:1337/goToFriendPage');
-        form.setAttribute('method', 'post');
-        var friendId = document.createElement('input');
-        friendId.setAttribute('name', 'FriendId');
-        friendId.setAttribute('id', 'Friend' + data[i].UserId);
-        friendId.setAttribute('style', 'display:none');
-        friendId.setAttribute('value' , data[i].UserId);
-        var friend = document.createElement('input');
-        friend.setAttribute('class', 'friend')
-        friend.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
-        friend.setAttribute('type', 'submit');
-
-        form.appendChild(friendId);//id
-        form.appendChild(friend);//submit button
-        listElement.appendChild(form);
+        listElement.innerHTML = data[i].First_name + " " + data[i].Last_name;
         document.getElementById("friends").appendChild(listElement);
       }
     },
   });
 
 
-  $.ajax({// get groups user has joined
+  $.ajax({// get posts of page
     type: 'GET',
     url: 'http://localhost:1337/getuserposts',
     dataType: 'json',
     async: false,
-    data:{
-      user: User
+    data: {
+      user: FriendId
     },
+
     success: function(data) {
       for(var i = 0; i < data.length; i++){// get each post
         var postsDiv = document.getElementById('posts');// posts div
@@ -116,15 +113,7 @@ function initiate() {
         post.setAttribute('class', 'col-md-12 well');
         post.setAttribute('id', 'post ' + data[i].PostId);
 
-        var deleteDiv = document.createElement('div');
-        deleteDiv.setAttribute('class', 'col-md-12');
-        deleteDiv.setAttribute('align', 'right');
-        var deletePostButton = document.createElement("button");
-        deletePostButton.setAttribute('class', 'btn-danger');
-        deletePostButton.innerHTML = 'Delete Post';
-        deletePostButton.setAttribute('onclick', 'deletePost(' + data[i].PostId +")");
-        deleteDiv.appendChild(deletePostButton);
-        post.appendChild(deleteDiv);
+
         var contentDiv = document.createElement("div");// content of post div
         contentDiv.setAttribute('class', 'col-md-12');
 
@@ -173,7 +162,10 @@ function initiate() {
 
               cDiv.appendChild(likeCommentButton);
 
-              if(rows[x].UserId == data[i].Owner ){
+              if(rows[x].UserId == User){
+                console.log("###");
+                console.log(rows[x].UserId + " " + data[i].Owner);
+                console.log("###");
                 var editCommentButton = document.createElement('button');
                 editCommentButton.innerHTML = "Edit";
                 editCommentButton.setAttribute('onclick', 'editComment(' + rows[x].CommentId + ')');
@@ -254,11 +246,7 @@ function initiate() {
         likeButton.setAttribute('class', 'btn');
         likeButton.setAttribute('id', "LikePost" + data[i].PostId);
 
-        var editPostButton = document.createElement('button');
         var commentButton = document.createElement('button');
-        editPostButton.setAttribute('class', 'btn-info');
-        editPostButton.setAttribute('data-toggle', 'modal');
-        editPostButton.setAttribute('data-target', '#myPostModal');
 
         commentButton.setAttribute('class', 'btn');
         commentButton.setAttribute('data-toggle', 'modal');
@@ -312,16 +300,11 @@ function initiate() {
         });
 
         commentButton.innerHTML = "Comment";
-        editPostButton.innerHTML = "Edit";
         commentButton.setAttribute('onclick', 'comment(' + data[i].PostId + ')');
 
-        console.log('editPost(' + data[i].PostId  +')');
-        console.log( data[i].Content + "a");
-        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId + ')');
-        addPostContent(data[i].PostId, data[i].Content);
+
         span.appendChild(likeButton);
         span.appendChild(commentButton);
-        span.appendChild(editPostButton);
         span.appendChild(likeCount);
         post.appendChild(span);
       }
@@ -443,42 +426,8 @@ function comment(PostId) {
   modalButton.setAttribute('onclick', 'addComment(' + PostId + ')');
 }
 
-function editPost(PostId) {
-  console.log("editing");
-  console.log(postContent[PostId]);
-  var modalButton = document.getElementById('Post_modal_button');
-  var input = document.getElementById('postValue');
-  input.value = postContent[PostId];
-  modalButton.setAttribute('onclick', 'editPostRequest(' + PostId +')');
 
-}
-function editPostRequest(PostId) {
-  console.log("request edit");
-  var content = document.getElementById('postValue').value;
 
-  $.ajax({// get likes of post
-    type: 'GET',
-    url: 'http://localhost:1337/editPost',
-    dataType: 'json',
-    jsonp: 'callback',
-    data:{
-      Content : content,
-      Post : PostId
-    },
-    async: false,
-    success: function(rows) {
-      console.log(rows);
-      var post = document.getElementById(PostId);
-      post.innerHTML = content;
-      postContent[PostId] = content;
-      },
-    error: function (rows) {
-
-    }
-  });
-  document.getElementById('postValue').value="";
-
-}
 
 
 function editComment(CommentId) {
@@ -596,20 +545,6 @@ function addComment(PostId) {
 }
 
 
-function deletePost(PostId) {
-  $.ajax({// get comments on post
-    type: 'GET',
-    jsonp : 'callback',
-    url: 'http://localhost:1337/deletePost',
-    dataType: 'json',
-    data:{
-      Post : PostId
-    },
-    success: function(rows) {
-      document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
-    }
-});
-}
 function enter_group_page(id){
   // window.location = "http://localhost:1337/getGroupPage";
   window.postMessage(id,"http://localhost:1337/getGroupPage");
@@ -657,17 +592,16 @@ function deleteComment(CommentId, PostId) {
   });
 }
 
-function addPostContent(PostId, content) {
-
-    postContent[PostId] = content;
-
-}
 
 function addCommentContent(CommentId, content) {
   commentContent[CommentId] = content;
 }
 
-function getUser(id) {
-  console.log("USER -> " + id);
+
+function getFriend(id) {//get owner of the page
+  FriendId = id;
+}
+
+function getUser(id) {//get id of user viewing the page
   User = id;
 }
