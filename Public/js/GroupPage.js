@@ -1,3 +1,6 @@
+// must be passed in group id !!!!!!!!!!!!!!!!!!###########
+//!!!!!!!!!!!!!!!!!!!!11
+//!!!!!!!!!!!!!!!!!!!!
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -6,14 +9,6 @@ function initiate() {
     success: function(data) {
       j = data;
       document.getElementById("name").innerHTML = data;
-    },
-  });
-  $.ajax({//get groups user is the owner of
-    type: 'GET',
-    url: 'http://localhost:1337/getPageId',
-    dataType: 'json',
-    success: function(data) {
-      console.log(data);
     },
   });
   $.ajax({// get groups user has joined
@@ -34,7 +29,7 @@ function initiate() {
     },
   });
 
-  $.ajax({// get groups user has joined
+  $.ajax({// get posts
     type: 'GET',
     url: 'http://localhost:1337/getuserposts',
     dataType: 'json',
