@@ -36,7 +36,7 @@ function initiate() {
     },
   });
 
-  $.ajax({//get groups user is the owner of
+  $.ajax({//Check if user already in group
     type: 'GET',
     url: 'http://localhost:1337/getPersonInGroup',
     dataType: 'json',
@@ -45,7 +45,11 @@ function initiate() {
       user: User
     },
     success: function(data) {
-      document.getElementById("AddUserButton").setAttribute('style', 'display:none');
+      if(data.indexOf(FriendId) >= 0){
+        var addUserButton = document.getElementById("AddUserButton");
+        addUserButton.innerHTML = "Remove User From Group";
+        addUserButton.setAttribute('onclick', 'removeUser()');
+      }
     },
   });
 
@@ -618,4 +622,33 @@ function getFriend(id) {//get owner of the page
 
 function getUser(id) {//get id of user viewing the page
   User = id;
+}
+
+function addUser() {
+    $.ajax({
+      type: 'GET',
+      jsonp : 'callback',
+      url: 'http://localhost:1337/addUser',
+      dataType: 'json',
+      success: function(rows) {
+        var addUserButton = document.getElementById("AddUserButton");
+        addUserButton.innerHTML = "Remove User From Group";
+        addUserButton.setAttribute('onclick', 'removeUser()');
+      }
+   });
+}
+
+//Remove user from group
+function removeUser() {
+  $.ajax({// get comments on post
+    type: 'GET',
+    jsonp : 'callback',
+    url: 'http://localhost:1337/removeUser',
+    dataType: 'json',
+    success: function(rows) {
+      var addUserButton = document.getElementById("AddUserButton");
+      addUserButton.innerHTML = "Add User to Group";
+      addUserButton.setAttribute('onclick', 'addUser()');
+    }
+ });
 }

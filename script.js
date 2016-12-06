@@ -771,7 +771,7 @@ app.get('/getPersonInGroup',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select U.UserId from User U, Groups_data G, Joins J WHERE J.GroupId=G.GroupId and J.UserId=U.UserId and U.UserId=?", [req.query.user, req.query.user, req.query.user], function(error,rows,fields){
+				tempCont.query("select U.UserId from User U, Groups_data G, Joins J WHERE J.GroupId=G.GroupId and G.GroupId=? and J.UserId=U.UserId and U.UserId=? and J.Stat='accepted'", [sess.group, sess.otherUser], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -921,4 +921,54 @@ app.get('/getAllUsers',function(req,resp){
 		});
 
 });
+
+app.get('/addUser',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.otherUser, sess.group], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+
+app.get('/removeUser',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("DELETE FROM Joins WHERE UserId=? AND GroupId=?", [sess.otherUser, sess.group], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
 app.listen(1337);
