@@ -156,7 +156,7 @@ app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select Group_name , GroupId from Groups_data WHERE Owner=?", [req.query.user], function(error,rows,fields){
+				tempCont.query("select G.Group_name , G.GroupId ,P.PageId from Groups_data G, Pages P WHERE P.Associated_group = G.GroupId and G.Owner=?", [req.query.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -183,7 +183,7 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select G.Group_name, G.GroupId from Groups_data G, Joins J WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId", [req.query.user], function(error,rows,fields){
+				tempCont.query("select G.Group_name, G.GroupId, P.PageId from Groups_data G, Joins J, Pages P WHERE J.UserId=? AND J.Stat='accepted' AND J.GroupId=G.GroupId and G.GroupId = P.Associated_group", [req.query.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -693,7 +693,8 @@ app.get('/logout', function (req, res) {
 app.post('/goToGroupPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
-		sess.group= req.body.GroupId;
+		sess.GroupId= req.body.GroupId;
+		sess.PageId = req.body.PageId;
 		resp.render('GroupPage.html')
 	}
 	resp.end();
@@ -709,7 +710,7 @@ app.get('/getgroupname',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select Group_name from Groups_data WHERE GroupId=?", 1, function(error,rows,fields){
+				tempCont.query("select Group_name from Groups_data WHERE GroupId=?", sess.GroupId, function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -767,7 +768,7 @@ app.get('/getPersonInGroup',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select U.UserId from User U, Groups_data G, Joins J WHERE J.GroupId=G.GroupId and G.GroupId=? and J.UserId=U.UserId and U.UserId=? and J.Stat='accepted'", [sess.group, sess.otherUser], function(error,rows,fields){
+				tempCont.query("select U.UserId from User U, Groups_data G, Joins J WHERE J.GroupId=G.GroupId and G.GroupId=? and J.UserId=U.UserId and U.UserId=? and J.Stat='accepted'", [sess.GroupId, sess.otherUser], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -794,7 +795,7 @@ app.get('/getmembers',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Joins J WHERE J.GroupId=? AND J.Stat='accepted' AND J.UserId=U.UserId", 1, function(error,rows,fields){
+				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Joins J WHERE J.GroupId=? AND J.Stat='accepted' AND J.UserId=U.UserId", sess.GroupId, function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -824,7 +825,7 @@ app.get('/getgroupposts',function(req,resp){//get posts on user page
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT P.Content, P.PostId, S.Associated_group FROM Posts_data P, Pages S WHERE S.Associated_group=? AND P.PageId=? ORDER BY PostId DESC", [1, 11], function(error,rows,fields){
+				tempCont.query("SELECT P.Content, P.PostId, S.Associated_group FROM Posts_data P, Pages S WHERE S.Associated_group=? AND P.PageId=? ORDER BY PostId DESC", [sess.GroupId, sess.PageId], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -853,7 +854,7 @@ app.post('/PostGroupMessage',function(req,resp){
 		}
 		else{
 
-			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [11, req.body.message], function(error,rows,fields){
+			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [sess.PageId, req.body.message], function(error,rows,fields){
 				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);
@@ -925,7 +926,7 @@ app.get('/addUser',function(req,resp){//add user to group
 				console.log('Error');
 			}
 			else{
-				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.otherUser, sess.group], function(error,rows,fields){
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.otherUser, sess.GroupId], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -950,7 +951,7 @@ app.get('/removeUser',function(req,resp){//add user to group
 				console.log('Error');
 			}
 			else{
-				tempCont.query("DELETE FROM Joins WHERE UserId=? AND GroupId=?", [sess.otherUser, sess.group], function(error,rows,fields){
+				tempCont.query("DELETE FROM Joins WHERE UserId=? AND GroupId=?", [sess.otherUser, sess.GroupId], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);

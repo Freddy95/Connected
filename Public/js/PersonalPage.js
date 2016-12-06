@@ -55,6 +55,14 @@ function initiate() {
         groupid.setAttribute('id', 'Group' + data[i].GroupId);
         groupid.setAttribute('style', 'display:none');
         groupid.setAttribute('value' , data[i].GroupId);
+
+        var pageid = document.createElement('input');
+        pageid.setAttribute('name', 'pageid');
+        pageid.setAttribute('id', 'pageid' + data[i].PageId);
+        pageid.setAttribute('style', 'display:none');
+        pageid.setAttribute('value' , data[i].PageId);
+        form.appendChild(pageid);
+
         var group = document.createElement('input');
         group.setAttribute('class', 'group')
         group.setAttribute('value', data[i].Group_name);
@@ -94,6 +102,14 @@ function initiate() {
         groupid.setAttribute('id', 'Group' + data[i].GroupId);
         groupid.setAttribute('style', 'display:none');
         groupid.setAttribute('value' , data[i].GroupId);
+
+        var pageid = document.createElement('input');
+        pageid.setAttribute('name', 'pageid');
+        pageid.setAttribute('id', 'pageid' + data[i].PageId);
+        pageid.setAttribute('style', 'display:none');
+        pageid.setAttribute('value' , data[i].PageId);
+        form.appendChild(pageid);
+
         var group = document.createElement('input');
         group.setAttribute('class', 'group')
         group.setAttribute('value', data[i].Group_name);
