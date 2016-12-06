@@ -5,6 +5,8 @@
 var postContent = {};
 var commentContent={};
 var User;
+var GroupOwner;
+var User;
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -13,6 +15,15 @@ function initiate() {
     success: function(data) {
       j = data;
       document.getElementById("name").innerHTML = data;
+    },
+  });
+  $.ajax({ // get user visiting site
+    type: 'GET',
+    url: 'http://localhost:1337/getuser',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+    User=data[0].UserId;
     },
   });
   $.ajax({// get owner of the group
@@ -49,9 +60,18 @@ function initiate() {
         form.appendChild(Member);//submit button
         listElement.appendChild(form);
         document.getElementById("Members").appendChild(listElement);
+        GroupOwner = data[i].UserId;
       }
     },
   });
+  if (GroupOwner == User){
+    var button = getElementById('LeaveGroup');
+    button.setAttribute('style', 'display:none');
+  }
+  else{
+    var button = getElementById('DeleteGroup');
+    button.setAttribute('style', 'display:none');
+  }
   $.ajax({// get members in the group
     type: 'GET',
     url: 'http://localhost:1337/getmembers',

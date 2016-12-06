@@ -970,4 +970,30 @@ app.get('/removeUser',function(req,resp){
 
 });
 
+app.post('/leaveGroup',function(req,resp){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("DELETE FROM Joins WHERE UserId=? AND GroupId=?", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						sess.GroupId = -1;
+						resp.render('PersonalPage.html')
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
 app.listen(1337);
