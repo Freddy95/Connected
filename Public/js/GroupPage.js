@@ -74,11 +74,11 @@ function initiate() {
     },
   });
   if (GroupOwner == User){
-    var button = getElementById('LeaveGroup');
+    var button = document.getElementById('LeaveGroup');
     button.setAttribute('style', 'display:none');
   }
   else{
-    var button = getElementById('DeleteGroup');
+    var button = document.getElementById('DeleteGroup');
     button.setAttribute('style', 'display:none');
   }
   $.ajax({// get members in the group
