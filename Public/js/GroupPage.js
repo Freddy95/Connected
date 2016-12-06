@@ -73,14 +73,7 @@ function initiate() {
       }
     },
   });
-  if (GroupOwner == User){
-    var button = document.getElementById('LeaveGroup');
-    button.setAttribute('style', 'display:none');
-  }
-  else{
-    var button = document.getElementById('DeleteGroup');
-    button.setAttribute('style', 'display:none');
-  }
+
   $.ajax({// get members in the group
     type: 'GET',
     url: 'http://localhost:1337/getmembers',
