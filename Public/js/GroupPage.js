@@ -5,8 +5,6 @@
 var postContent = {};
 var commentContent={};
 var User;
-var GroupOwner;
-var User;
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -23,7 +21,7 @@ function initiate() {
     dataType: 'json',
     async: false,
     success: function(data) {
-    User=data[0].UserId;
+    getUser(data[0].UserId);
     },
   });
   $.ajax({// get owner of the group
@@ -69,7 +67,6 @@ function initiate() {
         form.appendChild(Member);//submit button
         listElement.appendChild(form);
         document.getElementById("Members").appendChild(listElement);
-        GroupOwner = data.rows[i].UserId;
       }
     },
   });
@@ -659,4 +656,8 @@ function editCommentRequest(CommentId) {
   });
   document.getElementById('postValue').value="";
 
+}
+
+function getUser(id) {//get id of user viewing the page
+  User = id;
 }
