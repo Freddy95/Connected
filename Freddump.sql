@@ -1,228 +1,455 @@
-mysql  Ver 14.14 Distrib 5.7.16, for osx10.11 (x86_64) using  EditLine wrapper
-Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+-- MySQL dump 10.13  Distrib 5.7.16, for osx10.11 (x86_64)
+--
+-- Host: localhost    Database: Connected
+-- ------------------------------------------------------
+-- Server version	5.7.16
 
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-Usage: mysql [OPTIONS] [database]
-  -?, --help          Display this help and exit.
-  -I, --help          Synonym for -?
-  --auto-rehash       Enable automatic rehashing. One doesn't need to use
-                      'rehash' to get table and field completion, but startup
-                      and reconnecting may take a longer time. Disable with
-                      --disable-auto-rehash.
-                      (Defaults to on; use --skip-auto-rehash to disable.)
-  -A, --no-auto-rehash 
-                      No automatic rehashing. One has to use 'rehash' to get
-                      table and field completion. This gives a quicker start of
-                      mysql and disables rehashing on reconnect.
-  --auto-vertical-output 
-                      Automatically switch to vertical output mode if the
-                      result is wider than the terminal width.
-  -B, --batch         Don't use history file. Disable interactive behavior.
-                      (Enables --silent.)
-  --bind-address=name IP address to bind to.
-  --character-sets-dir=name 
-                      Directory for character set files.
-  --column-type-info  Display column type information.
-  -c, --comments      Preserve comments. Send comments to the server. The
-                      default is --skip-comments (discard comments), enable
-                      with --comments.
-  -C, --compress      Use compression in server/client protocol.
-  -#, --debug[=#]     This is a non-debug version. Catch this and exit.
-  --debug-check       This is a non-debug version. Catch this and exit.
-  -T, --debug-info    This is a non-debug version. Catch this and exit.
-  -D, --database=name Database to use.
-  --default-character-set=name 
-                      Set the default character set.
-  --delimiter=name    Delimiter to be used.
-  --enable-cleartext-plugin 
-                      Enable/disable the clear text authentication plugin.
-  -e, --execute=name  Execute command and quit. (Disables --force and history
-                      file.)
-  -E, --vertical      Print the output of a query (rows) vertically.
-  -f, --force         Continue even if we get an SQL error.
-  --histignore=name   A colon-separated list of patterns to keep statements
-                      from getting logged into syslog and mysql history.
-  -G, --named-commands 
-                      Enable named commands. Named commands mean this program's
-                      internal commands; see mysql> help . When enabled, the
-                      named commands can be used from any line of the query,
-                      otherwise only from the first line, before an enter.
-                      Disable with --disable-named-commands. This option is
-                      disabled by default.
-  -i, --ignore-spaces Ignore space after function names.
-  --init-command=name SQL Command to execute when connecting to MySQL server.
-                      Will automatically be re-executed when reconnecting.
-  --local-infile      Enable/disable LOAD DATA LOCAL INFILE.
-  -b, --no-beep       Turn off beep on error.
-  -h, --host=name     Connect to host.
-  -H, --html          Produce HTML output.
-  -X, --xml           Produce XML output.
-  --line-numbers      Write line numbers for errors.
-                      (Defaults to on; use --skip-line-numbers to disable.)
-  -L, --skip-line-numbers 
-                      Don't write line number for errors.
-  -n, --unbuffered    Flush buffer after each query.
-  --column-names      Write column names in results.
-                      (Defaults to on; use --skip-column-names to disable.)
-  -N, --skip-column-names 
-                      Don't write column names in results.
-  --sigint-ignore     Ignore SIGINT (CTRL-C).
-  -o, --one-database  Ignore statements except those that occur while the
-                      default database is the one named at the command line.
-  --pager[=name]      Pager to use to display results. If you don't supply an
-                      option, the default pager is taken from your ENV variable
-                      PAGER. Valid pagers are less, more, cat [> filename],
-                      etc. See interactive help (\h) also. This option does not
-                      work in batch mode. Disable with --disable-pager. This
-                      option is disabled by default.
-  -p, --password[=name] 
-                      Password to use when connecting to server. If password is
-                      not given it's asked from the tty.
-  -P, --port=#        Port number to use for connection or 0 for default to, in
-                      order of preference, my.cnf, $MYSQL_TCP_PORT,
-                      /etc/services, built-in default (3306).
-  --prompt=name       Set the mysql prompt to this value.
-  --protocol=name     The protocol to use for connection (tcp, socket, pipe,
-                      memory).
-  -q, --quick         Don't cache result, print it row by row. This may slow
-                      down the server if the output is suspended. Doesn't use
-                      history file.
-  -r, --raw           Write fields without conversion. Used with --batch.
-  --reconnect         Reconnect if the connection is lost. Disable with
-                      --disable-reconnect. This option is enabled by default.
-                      (Defaults to on; use --skip-reconnect to disable.)
-  -s, --silent        Be more silent. Print results with a tab as separator,
-                      each row on new line.
-  -S, --socket=name   The socket file to use for connection.
-  --ssl-mode=name     SSL connection mode.
-  --ssl               Deprecated. Use --ssl-mode instead.
-                      (Defaults to on; use --skip-ssl to disable.)
-  --ssl-verify-server-cert 
-                      Deprecated. Use --ssl-mode=VERIFY_IDENTITY instead.
-  --ssl-ca=name       CA file in PEM format.
-  --ssl-capath=name   CA directory.
-  --ssl-cert=name     X509 cert in PEM format.
-  --ssl-cipher=name   SSL cipher to use.
-  --ssl-key=name      X509 key in PEM format.
-  --ssl-crl=name      Certificate revocation list.
-  --ssl-crlpath=name  Certificate revocation list path.
-  --tls-version=name  TLS version to use, permitted values are: TLSv1, TLSv1.1,
-                      TLSv1.2
-  -t, --table         Output in table format.
-  --tee=name          Append everything into outfile. See interactive help (\h)
-                      also. Does not work in batch mode. Disable with
-                      --disable-tee. This option is disabled by default.
-  -u, --user=name     User for login if not current user.
-  -U, --safe-updates  Only allow UPDATE and DELETE that uses keys.
-  -U, --i-am-a-dummy  Synonym for option --safe-updates, -U.
-  -v, --verbose       Write more. (-v -v -v gives the table output format).
-  -V, --version       Output version information and exit.
-  -w, --wait          Wait and retry if connection is down.
-  --connect-timeout=# Number of seconds before connection timeout.
-  --max-allowed-packet=# 
-                      The maximum packet length to send to or receive from
-                      server.
-  --net-buffer-length=# 
-                      The buffer size for TCP/IP and socket communication.
-  --select-limit=#    Automatic limit for SELECT when using --safe-updates.
-  --max-join-size=#   Automatic limit for rows in a join when using
-                      --safe-updates.
-  --secure-auth       Refuse client connecting to server if it uses old
-                      (pre-4.1.1) protocol. Deprecated. Always TRUE
-  --server-arg=name   Send embedded server this as a parameter.
-  --show-warnings     Show warnings after every statement.
-  -j, --syslog        Log filtered interactive commands to syslog. Filtering of
-                      commands depends on the patterns supplied via histignore
-                      option besides the default patterns.
-  --plugin-dir=name   Directory for client-side plugins.
-  --default-auth=name Default authentication client-side plugin to use.
-  --binary-mode       By default, ASCII '\0' is disallowed and '\r\n' is
-                      translated to '\n'. This switch turns off both features,
-                      and also turns off parsing of all clientcommands except
-                      \C and DELIMITER, in non-interactive mode (for input
-                      piped to mysql or loaded using the 'source' command).
-                      This is necessary when processing output from mysqlbinlog
-                      that may contain blobs.
-  --server-public-key-path=name 
-                      File path to the server public RSA key in PEM format.
-  --connect-expired-password 
-                      Notify the server that this client is prepared to handle
-                      expired password sandbox mode.
+--
+-- Table structure for table `Accounts`
+--
 
-Default options are read from the following files in the given order:
-/etc/my.cnf /etc/mysql/my.cnf /usr/local/etc/my.cnf ~/.my.cnf 
-The following groups are read: mysql client
-The following options may be given as the first argument:
---print-defaults        Print the program argument list and exit.
---no-defaults           Don't read default options from any option file,
-                        except for login file.
---defaults-file=#       Only read default options from the given file #.
---defaults-extra-file=# Read this file after the global files are read.
---defaults-group-suffix=#
-                        Also read groups with concat(group, suffix)
---login-path=#          Read this path from the login file.
+DROP TABLE IF EXISTS `Accounts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Accounts` (
+  `Account_number` int(11) NOT NULL AUTO_INCREMENT,
+  `Account_creation_date` date NOT NULL,
+  `Credit_card_number` int(11) NOT NULL,
+  `UserId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Account_number`,`Credit_card_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=900022 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-Variables (--variable-name=value)
-and boolean options {FALSE|TRUE}  Value (after reading options)
---------------------------------- ----------------------------------------
-auto-rehash                       TRUE
-auto-vertical-output              FALSE
-bind-address                      (No default value)
-character-sets-dir                (No default value)
-column-type-info                  FALSE
-comments                          FALSE
-compress                          FALSE
-database                          (No default value)
-default-character-set             auto
-delimiter                         ;
-enable-cleartext-plugin           FALSE
-vertical                          FALSE
-force                             FALSE
-histignore                        (No default value)
-named-commands                    FALSE
-ignore-spaces                     FALSE
-init-command                      (No default value)
-local-infile                      FALSE
-no-beep                           FALSE
-host                              (No default value)
-html                              FALSE
-xml                               FALSE
-line-numbers                      TRUE
-unbuffered                        FALSE
-column-names                      TRUE
-sigint-ignore                     FALSE
-port                              0
-prompt                            mysql> 
-quick                             FALSE
-raw                               FALSE
-reconnect                         FALSE
-socket                            (No default value)
-ssl                               TRUE
-ssl-verify-server-cert            FALSE
-ssl-ca                            (No default value)
-ssl-capath                        (No default value)
-ssl-cert                          (No default value)
-ssl-cipher                        (No default value)
-ssl-key                           (No default value)
-ssl-crl                           (No default value)
-ssl-crlpath                       (No default value)
-tls-version                       (No default value)
-table                             FALSE
-user                              root
-safe-updates                      FALSE
-i-am-a-dummy                      FALSE
-connect-timeout                   0
-max-allowed-packet                16777216
-net-buffer-length                 16384
-select-limit                      1000
-max-join-size                     1000000
-secure-auth                       TRUE
-show-warnings                     FALSE
-plugin-dir                        (No default value)
-default-auth                      (No default value)
-binary-mode                       FALSE
-server-public-key-path            (No default value)
-connect-expired-password          FALSE
+--
+-- Dumping data for table `Accounts`
+--
+
+LOCK TABLES `Accounts` WRITE;
+/*!40000 ALTER TABLE `Accounts` DISABLE KEYS */;
+INSERT INTO `Accounts` VALUES (1,'2016-11-07',100000001,1),(2,'2016-11-07',100000002,2),(3,'2016-11-07',100000003,3),(4,'2016-11-07',100000004,4),(5,'2016-11-07',100000005,5),(6,'2016-11-07',100000006,6),(7,'2016-11-07',100000007,7),(8,'2016-11-07',100000008,8),(9,'2016-11-07',100000009,9),(10,'2016-11-07',100000010,10),(900001,'2016-11-17',1000000031,100001),(900002,'2016-11-17',100000020,100002),(900003,'2016-11-17',100000021,100003),(900004,'2016-11-17',100000022,100004),(900005,'2016-11-17',100000023,100005),(900006,'2016-11-17',100000024,100006),(900007,'2016-11-17',100000025,100007),(900008,'2016-11-17',100000026,100008),(900009,'2016-11-17',100000027,100009),(900010,'2016-11-17',100000028,100010),(900011,'2016-11-17',100000029,100011),(900012,'2016-11-17',100000030,100012),(900013,'2016-11-17',100000031,100013),(900014,'2016-11-17',100000032,100014),(900015,'2016-11-17',100000033,100015),(900016,'2016-11-17',100000034,100016),(900017,'2016-11-17',100000035,100017),(900018,'2016-11-17',100000036,100018),(900019,'2016-11-17',100000037,100019),(900020,'2016-11-17',100000038,100020),(900021,'2016-11-28',1,1);
+/*!40000 ALTER TABLE `Accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Advertisements_data`
+--
+
+DROP TABLE IF EXISTS `Advertisements_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Advertisements_data` (
+  `AdvertisementId` int(11) NOT NULL AUTO_INCREMENT,
+  `EmployeeId` int(11) DEFAULT NULL,
+  `Type` char(30) NOT NULL,
+  `Date` date NOT NULL,
+  `Company` char(30) NOT NULL,
+  `Item_name` char(30) NOT NULL,
+  `Content` text NOT NULL,
+  `Unit_price` decimal(10,0) NOT NULL,
+  `Number_of_available_units` int(11) NOT NULL,
+  PRIMARY KEY (`AdvertisementId`),
+  KEY `EmployeeId` (`EmployeeId`),
+  CONSTRAINT `advertisements_data_ibfk_1` FOREIGN KEY (`EmployeeId`) REFERENCES `Employee_data` (`Social_security_number`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Advertisements_data`
+--
+
+LOCK TABLES `Advertisements_data` WRITE;
+/*!40000 ALTER TABLE `Advertisements_data` DISABLE KEYS */;
+INSERT INTO `Advertisements_data` VALUES (1,100000000,'Car','2016-11-07','Company1','Car1','NEW CAR ITS GREAT',1000,10),(2,100000000,'Car','2016-11-07','Company1','Car1','NEW CAR ITS GREAT',1000,10),(3,100000000,'Car','2016-11-07','Company1','Car2','NEW CAR ITS GREAT',1000,10),(4,100000001,'Car','2016-11-07','Company2','Car3','NEW CAR ITS GREAT',1000,10),(5,100000002,'House','2016-11-07','Company3','House1','NEW HOUSE ITS GREAT',100000,10),(6,100000004,'Boat','2016-11-07','Company4','Boat1','NEW BOAT ITS GREAT',100,10),(7,100000004,'Car','2016-11-07','Company5','Car4','NEW CAR ITS GREAT',1010,10),(8,100000006,'Phone','2016-11-07','Company2','Phone1','NEW PHONE ITS GREAT',200,10),(9,100000007,'Phone','2016-11-07','Company4','Phone2','NEW PHONE ITS GREAT',500,10),(10,100000008,'Phone','2016-11-07','Company5','Phone3','NEW PHONE ITS GREAT',500,10);
+/*!40000 ALTER TABLE `Advertisements_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Comments_data`
+--
+
+DROP TABLE IF EXISTS `Comments_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Comments_data` (
+  `CommentId` int(11) NOT NULL AUTO_INCREMENT,
+  `PostId` int(11) DEFAULT NULL,
+  `Date` date NOT NULL,
+  `Content` text NOT NULL,
+  `Author` int(11) DEFAULT NULL,
+  PRIMARY KEY (`CommentId`),
+  KEY `Author` (`Author`),
+  KEY `PostId` (`PostId`),
+  CONSTRAINT `comments_data_ibfk_1` FOREIGN KEY (`Author`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `comments_data_ibfk_2` FOREIGN KEY (`PostId`) REFERENCES `Posts_data` (`PostId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Comments_data`
+--
+
+LOCK TABLES `Comments_data` WRITE;
+/*!40000 ALTER TABLE `Comments_data` DISABLE KEYS */;
+INSERT INTO `Comments_data` VALUES (2,2,'2016-11-07','content2',2),(3,3,'2016-11-07','content3',3),(4,4,'2016-11-07','content4',4),(5,5,'2016-11-07','content5',5),(6,6,'2016-11-07','content6',6),(7,7,'2016-11-07','content7',7),(8,8,'2016-11-07','content8',8),(9,9,'2016-11-07','content9',9),(10,10,'2016-11-07','content10',10),(34,39,'2016-12-02','23 2',1),(36,2,'2016-12-03','new comment bou',1),(37,57,'2016-12-05','new comment 23',1),(38,58,'2016-12-05','new comment 33',1),(39,58,'2016-12-05','new comment 55',1),(40,58,'2016-12-05','fifth comment 2',1),(41,60,'2016-12-05','add comment',1),(42,60,'2016-12-05','new comment',1),(43,60,'2016-12-05','3rd',1);
+/*!40000 ALTER TABLE `Comments_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Friends`
+--
+
+DROP TABLE IF EXISTS `Friends`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Friends` (
+  `User1` int(11) NOT NULL,
+  `User2` int(11) NOT NULL,
+  PRIMARY KEY (`User1`,`User2`),
+  KEY `User2` (`User2`),
+  CONSTRAINT `friends_ibfk_1` FOREIGN KEY (`User1`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `friends_ibfk_2` FOREIGN KEY (`User2`) REFERENCES `User` (`UserId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Friends`
+--
+
+LOCK TABLES `Friends` WRITE;
+/*!40000 ALTER TABLE `Friends` DISABLE KEYS */;
+INSERT INTO `Friends` VALUES (10,1),(1,2),(2,3),(3,4),(4,5),(5,6),(6,7),(7,8),(8,9),(9,10);
+/*!40000 ALTER TABLE `Friends` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Groups_data`
+--
+
+DROP TABLE IF EXISTS `Groups_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Groups_data` (
+  `GroupId` int(11) NOT NULL AUTO_INCREMENT,
+  `Group_name` varchar(30) DEFAULT NULL,
+  `Type` varchar(20) NOT NULL,
+  `Owner` int(11) DEFAULT NULL,
+  PRIMARY KEY (`GroupId`),
+  KEY `Owner` (`Owner`),
+  CONSTRAINT `groups_data_ibfk_1` FOREIGN KEY (`Owner`) REFERENCES `User` (`UserId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=200007 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Groups_data`
+--
+
+LOCK TABLES `Groups_data` WRITE;
+/*!40000 ALTER TABLE `Groups_data` DISABLE KEYS */;
+INSERT INTO `Groups_data` VALUES (1,'group1','club',1),(2,'group2','club',2),(3,'group3','club',3),(4,'group4','club',4),(5,'group5','club',5),(6,'group6','club',6),(7,'group7','club',7),(8,'group8','club',8),(9,'group9','club',9),(10,'group10','club',10),(200000,'My Friends','Friends',100007),(200001,'My Friends','Friends',100001),(200002,'Best Friends','Friends',100002),(200003,'StonyBrookGang','Friends',100003),(200004,'CS Folks','Friends',100004),(200005,'My Family','Friends',100005),(200006,'Microsoft Groupies','Friends',100006);
+/*!40000 ALTER TABLE `Groups_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Joins`
+--
+
+DROP TABLE IF EXISTS `Joins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Joins` (
+  `Stat` enum('accepted','rejected','pending') DEFAULT NULL,
+  `UserId` int(11) NOT NULL,
+  `GroupId` int(11) NOT NULL,
+  PRIMARY KEY (`UserId`,`GroupId`),
+  KEY `GroupId` (`GroupId`),
+  CONSTRAINT `joins_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `joins_ibfk_2` FOREIGN KEY (`GroupId`) REFERENCES `Groups_data` (`GroupId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Joins`
+--
+
+LOCK TABLES `Joins` WRITE;
+/*!40000 ALTER TABLE `Joins` DISABLE KEYS */;
+INSERT INTO `Joins` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
+/*!40000 ALTER TABLE `Joins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Likes_data`
+--
+
+DROP TABLE IF EXISTS `Likes_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Likes_data` (
+  `LikeId` int(11) NOT NULL AUTO_INCREMENT,
+  `PostId` int(11) DEFAULT NULL,
+  `CommentId` int(11) DEFAULT NULL,
+  `UserId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`LikeId`),
+  KEY `PostId` (`PostId`),
+  KEY `CommentId` (`CommentId`),
+  KEY `UserId` (`UserId`),
+  CONSTRAINT `likes_data_ibfk_1` FOREIGN KEY (`PostId`) REFERENCES `Posts_data` (`PostId`) ON DELETE CASCADE,
+  CONSTRAINT `likes_data_ibfk_2` FOREIGN KEY (`CommentId`) REFERENCES `Comments_data` (`CommentId`) ON DELETE CASCADE,
+  CONSTRAINT `likes_data_ibfk_3` FOREIGN KEY (`UserId`) REFERENCES `User` (`UserId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Likes_data`
+--
+
+LOCK TABLES `Likes_data` WRITE;
+/*!40000 ALTER TABLE `Likes_data` DISABLE KEYS */;
+INSERT INTO `Likes_data` VALUES (2,2,NULL,2),(3,3,NULL,3),(4,4,NULL,4),(5,5,NULL,5),(6,NULL,6,6),(7,NULL,7,7),(8,NULL,8,8),(9,NULL,9,9),(10,NULL,10,10),(11,NULL,34,1),(12,NULL,2,1),(13,2,NULL,1);
+/*!40000 ALTER TABLE `Likes_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Messages_data`
+--
+
+DROP TABLE IF EXISTS `Messages_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Messages_data` (
+  `MessageId` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date NOT NULL,
+  `Subject` char(255) DEFAULT NULL,
+  `Content` text NOT NULL,
+  `Sender` int(11) DEFAULT NULL,
+  `Receiver` int(11) DEFAULT NULL,
+  `Visible_by_sender` char(1) DEFAULT 'Y',
+  `Visible_by_receiver` char(1) DEFAULT 'Y',
+  PRIMARY KEY (`MessageId`),
+  KEY `Sender` (`Sender`),
+  KEY `Receiver` (`Receiver`),
+  CONSTRAINT `messages_data_ibfk_1` FOREIGN KEY (`Sender`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `messages_data_ibfk_2` FOREIGN KEY (`Receiver`) REFERENCES `User` (`UserId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Messages_data`
+--
+
+LOCK TABLES `Messages_data` WRITE;
+/*!40000 ALTER TABLE `Messages_data` DISABLE KEYS */;
+INSERT INTO `Messages_data` VALUES (1,'2016-11-07','Subject1','Content1',1,2,'Y','Y'),(2,'2016-11-07','Subject2','Content2',2,3,'Y','Y'),(3,'2016-11-07','Subject3','Content3',3,4,'Y','Y'),(4,'2016-11-07','Subject4','Content4',4,5,'Y','Y'),(5,'2016-11-07','Subject5','Content5',5,6,'Y','Y'),(6,'2016-11-07','Subject6','Content6',6,7,'Y','Y'),(7,'2016-11-07','Subject7','Content7',7,8,'Y','Y'),(8,'2016-11-07','Subject8','Content8',8,9,'Y','Y'),(9,'2016-11-07','Subject9','Content9',9,10,'Y','Y'),(10,'2016-11-07','Subject10','Content10',10,1,'Y','Y');
+/*!40000 ALTER TABLE `Messages_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Pages`
+--
+
+DROP TABLE IF EXISTS `Pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Pages` (
+  `PageId` int(11) NOT NULL AUTO_INCREMENT,
+  `Owner` int(11) DEFAULT NULL,
+  `Associated_group` int(11) DEFAULT NULL,
+  `Post_count` int(11) NOT NULL,
+  PRIMARY KEY (`PageId`),
+  KEY `Owner` (`Owner`),
+  KEY `Associated_group` (`Associated_group`),
+  CONSTRAINT `pages_ibfk_1` FOREIGN KEY (`Owner`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `pages_ibfk_2` FOREIGN KEY (`Associated_group`) REFERENCES `Groups_data` (`GroupId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Pages`
+--
+
+LOCK TABLES `Pages` WRITE;
+/*!40000 ALTER TABLE `Pages` DISABLE KEYS */;
+INSERT INTO `Pages` VALUES (1,1,1,10),(2,2,2,16),(3,3,3,17),(4,4,4,3),(5,5,5,10),(6,6,6,6),(7,7,7,7),(8,8,8,9),(9,9,9,17),(10,10,10,10);
+/*!40000 ALTER TABLE `Pages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Posts_data`
+--
+
+DROP TABLE IF EXISTS `Posts_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Posts_data` (
+  `PostId` int(11) NOT NULL AUTO_INCREMENT,
+  `PageId` int(11) DEFAULT NULL,
+  `Post_date` date NOT NULL,
+  `Content` text NOT NULL,
+  `Comment_count` int(11) NOT NULL,
+  PRIMARY KEY (`PostId`),
+  KEY `PageId` (`PageId`),
+  CONSTRAINT `posts_data_ibfk_1` FOREIGN KEY (`PageId`) REFERENCES `Pages` (`PageId`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Posts_data`
+--
+
+LOCK TABLES `Posts_data` WRITE;
+/*!40000 ALTER TABLE `Posts_data` DISABLE KEYS */;
+INSERT INTO `Posts_data` VALUES (2,2,'2016-11-07','content2',5),(3,3,'2016-11-07','content3',4),(4,4,'2016-11-07','content4',2),(5,5,'2016-11-07','content5',7),(6,6,'2016-11-07','content6',42),(7,7,'2016-11-07','content7',9),(8,8,'2016-11-07','content8',11),(9,9,'2016-11-07','content9',31),(10,10,'2016-11-07','content10',6),(13,NULL,'2016-12-01','word',0),(26,NULL,'2016-12-02','new status',0),(39,1,'2016-12-02','post 23',0),(57,1,'2016-12-02','new status yay',0),(58,1,'2016-12-05','post something 23',0),(59,1,'2016-12-05','',0),(60,1,'2016-12-05','',0);
+/*!40000 ALTER TABLE `Posts_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Requests_friends`
+--
+
+DROP TABLE IF EXISTS `Requests_friends`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Requests_friends` (
+  `Stat` enum('accepted','rejected','pending') DEFAULT NULL,
+  `Sender` int(11) NOT NULL,
+  `Receiver` int(11) NOT NULL,
+  PRIMARY KEY (`Sender`,`Receiver`),
+  KEY `Receiver` (`Receiver`),
+  CONSTRAINT `requests_friends_ibfk_1` FOREIGN KEY (`Sender`) REFERENCES `User` (`UserId`) ON DELETE CASCADE,
+  CONSTRAINT `requests_friends_ibfk_2` FOREIGN KEY (`Receiver`) REFERENCES `User` (`UserId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Requests_friends`
+--
+
+LOCK TABLES `Requests_friends` WRITE;
+/*!40000 ALTER TABLE `Requests_friends` DISABLE KEYS */;
+INSERT INTO `Requests_friends` VALUES ('accepted',1,2),('rejected',1,3),('pending',1,5),('accepted',1,7),('rejected',2,9),('pending',3,6),('accepted',4,8),('rejected',5,9),('accepted',6,10),('pending',7,2);
+/*!40000 ALTER TABLE `Requests_friends` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `Sales_data`
+--
+
+DROP TABLE IF EXISTS `Sales_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Sales_data` (
+  `TransactionId` int(11) NOT NULL AUTO_INCREMENT,
+  `Sale_date_time` datetime NOT NULL,
+  `AdvertisementId` int(11) DEFAULT NULL,
+  `Number_of_units` int(11) NOT NULL,
+  `Account_number` int(11) DEFAULT NULL,
+  PRIMARY KEY (`TransactionId`),
+  KEY `AdvertisementId` (`AdvertisementId`),
+  KEY `Account_number` (`Account_number`),
+  CONSTRAINT `sales_data_ibfk_1` FOREIGN KEY (`AdvertisementId`) REFERENCES `Advertisements_data` (`AdvertisementId`) ON DELETE CASCADE,
+  CONSTRAINT `sales_data_ibfk_2` FOREIGN KEY (`Account_number`) REFERENCES `Accounts` (`Account_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `Sales_data`
+--
+
+LOCK TABLES `Sales_data` WRITE;
+/*!40000 ALTER TABLE `Sales_data` DISABLE KEYS */;
+INSERT INTO `Sales_data` VALUES (1,'2016-11-07 16:27:16',1,10,1),(2,'2016-11-07 16:27:16',2,10,2),(3,'2016-11-07 16:27:16',3,10,3),(4,'2016-11-07 16:27:16',4,10,4),(5,'2016-11-07 16:27:16',5,10,5),(6,'2016-11-07 16:27:16',6,10,6),(7,'2016-11-07 16:27:16',7,10,7),(8,'2016-11-07 16:27:16',8,10,8),(9,'2016-11-07 16:27:16',9,10,9),(10,'2016-11-07 16:27:16',10,10,10);
+/*!40000 ALTER TABLE `Sales_data` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `UserId` int(11) NOT NULL AUTO_INCREMENT,
+  `First_name` varchar(30) NOT NULL,
+  `Last_name` varchar(30) NOT NULL,
+  `Address` varchar(30) DEFAULT NULL,
+  `City` varchar(20) DEFAULT NULL,
+  `State` varchar(2) DEFAULT NULL,
+  `Zip_code` int(5) DEFAULT NULL,
+  `Telephone` varchar(15) DEFAULT NULL,
+  `Email` varchar(55) NOT NULL,
+  `Password` varchar(255) NOT NULL,
+  `Preferences` varchar(255) DEFAULT NULL,
+  `Rating` int(11) DEFAULT NULL,
+  `LoggedIn` char(1) DEFAULT 'F',
+  `EmployeeId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`UserId`),
+  KEY `Employee` (`EmployeeId`),
+  CONSTRAINT `Employee` FOREIGN KEY (`EmployeeId`) REFERENCES `Employee_data` (`Social_security_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=100023 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `User`
+--
+
+LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+INSERT INTO `User` VALUES (1,'first1','last1','address1','city1','NY',10001,'631-568-0001','1@gmail.com','password1','preference1',5,'F',100000000),(2,'first2','last2','address2','city2','NY',10002,'631-568-0002','2@gmail.com','password2','preference2',6,'F',100000001),(3,'first3','last3','address3','city3','NY',10003,'631-568-0003','3@gmail.com','password3','preference3',4,'F',100000002),(4,'first4','last4','address4','city4','NY',10004,'631-568-0004','4@gmail.com','password4','preference4',5,'F',100000003),(5,'first5','last5','address5','city5','NY',10005,'631-568-0005','5@gmail.com','password5','preference5',7,'F',100000004),(6,'first6','last6','address6','city6','NY',10006,'631-568-0006','6@gmail.com','password6','preference6',8,'F',100000005),(7,'first7','last7','address7','city7','NY',10007,'631-568-0007','7@gmail.com','password7','preference7',4,'F',100000006),(8,'first8','last8','address8','city8','NY',10008,'631-568-0008','8@gmail.com','password8','preference8',1,'F',100000007),(9,'first9','last9','address9','city9','NY',10009,'631-568-0009','9@gmail.com','password9','preference9',9,'F',100000008),(10,'first10','last10','address10','city10','NY',10010,'631-568-0010','10@gmail.com','password10','preference10',5,'F',100000009),(100001,'Michael','Collins',NULL,'Washington','DC',12345,'228807080','Michael.Collins@cse305.stonybrook.edu','care2cash','Slacklining,Skateboarding,Surfing,Orienteering,Water sports',NULL,'F',NULL),(100002,'Aria','Rose',NULL,'New York','NY',10001,'263303749','Aria.Rose@cse305.stonybrook.edu','dawn4call','Topiary,Jogging',NULL,'F',NULL),(100003,'Jase','Black',NULL,'Washington','DC',12345,'917443776','Jase.Black@cse305.stonybrook.edu','data6bell','Rugby,Roller skating,Life insurance,Rock climbing,Scouting',NULL,'F',NULL),(100004,'Ellie','Franklin',NULL,'Stony Brook','NY',11794,'381870672','Ellie.Franklin@cse305.stonybrook.edu','able1cash','Cars,Skydiving,Bird watching,Sailing,Shopping,Skimboarding,Kayaking,Camping,Blacksmithing',NULL,'F',NULL),(100005,'Mackenzie','Wells',NULL,'New York','NY',10001,'736594241','Mackenzie.Wells@cse305.stonybrook.edu','burn2coat','Hunting,Topiary,Nordic skating,Foraging,Metal detecting,Camping,Astronomy',NULL,'F',NULL),(100006,'Cameron','Armstrong',NULL,'New York','NY',10001,'182209299','Cameron.Armstrong@cse305.stonybrook.edu','aged6area','Skydiving,Topiary,Scuba diving,Sailing,Beekeeping,Tai chi,Brazilian jiu-jitsu,Astronomy,Jogging',NULL,'F',NULL),(100007,'Levi','Ross',NULL,'Stony Brook','NY',11794,'127536938','Levi.Ross@cse305.stonybrook.edu','been7beer','Urban exploration,Freestyle football',NULL,'F',NULL),(100008,'Levi','West',NULL,'New York','NY',10001,'699136094','Levi.West@cse305.stonybrook.edu','coal3cell','BASE jumping,Letterboxing,Roller skating,Metal detecting,Swimming,Mountaineering,Sculling or Rowing,Basketball,Surfing',NULL,'F',NULL),(100009,'Christian','Davies',NULL,'Stony Brook','NY',11794,'364390765','Christian.Davies@cse305.stonybrook.edu','bush1bone','BASE jumping,Driving,Mountaineering',NULL,'F',NULL),(100010,'Kylie','Davies',NULL,'New York','NY',10001,'562348521','Kylie.Davies@cse305.stonybrook.edu','coat7calm','Toys,Graffiti,Skiing,Road biking,Kayaking',NULL,'F',NULL),(100011,'Tyler','Long',NULL,'Stony Brook','NY',11794,'306139234','Tyler.Long@cse305.stonybrook.edu','area3boom','Topiary,Basketball',NULL,'F',NULL),(100012,'Henry','Stewart',NULL,'Washington','DC',12345,'503422119','Henry.Stewart@cse305.stonybrook.edu','boat3also','Roller skating,Netball,Flag football,Water sports',NULL,'F',NULL),(100013,'Isaiah','Bennett',NULL,'Washington','DC',12345,'929342276','Isaiah.Bennett@cse305.stonybrook.edu','book6bank','Walking,Baseball,Scuba diving,Running,Shopping',NULL,'F',NULL),(100014,'Arianna','Dunn',NULL,'New York','NY',10001,'311083148','Arianna.Dunn@cse305.stonybrook.edu','chip2calm','Shooting,Ghost hunting,Horseback riding,Netball,Astronomy',NULL,'F',NULL),(100015,'Victoria','Powell',NULL,'New York','NY',10001,'854902993','Victoria.Powell@cse305.stonybrook.edu','cash7bush','LARPing,Walking,Slacklining,Foraging,Rock climbing,Taekwondo,Inline skating',NULL,'F',NULL),(100016,'Blakely','Alexander',NULL,'Washington','DC',12345,'140361398','Blakely.Alexander@cse305.stonybrook.edu','bear3cope','Hooping,Bird watching,Shooting,Board sports,Graffiti,Sculling or Rowing',NULL,'F',NULL),(100017,'Connor','Collins',NULL,'New York','NY',10001,'282433780','Connor.Collins@cse305.stonybrook.edu','ball1days','Rugby,Skiing,Snowboarding,Rock climbing,Swimming,Skimboarding,Scouting',NULL,'F',NULL),(100018,'Jeremiah','Miller',NULL,'New York','NY',10001,'533130991','Jeremiah.Miller@cse305.stonybrook.edu','code3case','Urban exploration,Roller skating,Bird watching,Skiing,Kayaking,Mushroom hunting/Mycology',NULL,'F',NULL),(100019,'Riley','Field',NULL,'New York','NY',10001,'477174572','Riley.Field@cse305.stonybrook.edu','cash7born','Photography,LARPing,Shooting,Archery,Kayaking,Fishing ,Astronomy',NULL,'F',NULL),(100020,'Lucy','Phillips',NULL,'New York','NY',10001,'995652638','Lucy.Phillips@cse305.stonybrook.edu','away2bath','Parkour,Rock climbing,Handball,Surfing',NULL,'F',NULL),(100022,'freddy','estevez','adress 19','city 19','ny',11426,'','19@gmail.com','password19','one,two,three',NULL,'F',NULL);
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `employee_data`
+--
+
+DROP TABLE IF EXISTS `employee_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `employee_data` (
+  `Social_security_number` int(11) NOT NULL AUTO_INCREMENT,
+  `Last_name` varchar(30) DEFAULT NULL,
+  `First_name` varchar(30) DEFAULT NULL,
+  `Address` char(30) DEFAULT NULL,
+  `City` char(2) DEFAULT NULL,
+  `State` char(2) DEFAULT NULL,
+  `Zipcode` int(5) DEFAULT NULL,
+  `Telephone` varchar(15) DEFAULT NULL,
+  `Start_date` date NOT NULL,
+  `Hourly_rate` int(11) NOT NULL,
+  `Role` char(10) DEFAULT NULL,
+  PRIMARY KEY (`Social_security_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=100000010 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee_data`
+--
+
+LOCK TABLES `employee_data` WRITE;
+/*!40000 ALTER TABLE `employee_data` DISABLE KEYS */;
+INSERT INTO `employee_data` VALUES (100000000,'EmployeeLast1','EmployeeFirst1','Address1','C1','S1',12345,'999-999-9999','2016-11-01',10,'Manager'),(100000001,'EmployeeLast2','EmployeeFirst2','Address1','C2','S2',10001,'999-999-9998','2016-11-01',10,'Employee'),(100000002,'EmployeeLast3','EmployeeFirst3','Address3','C3','S3',10002,'999-999-9997','2016-11-01',10,'Employee'),(100000003,'EmployeeLast4','EmployeeFirst4','Address4','C4','S4',10003,'999-999-9996','2016-11-01',10,'Employee'),(100000004,'EmployeeLast5','EmployeeFirst5','Address5','C5','S5',10004,'999-999-9995','2016-11-01',10,'Employee'),(100000005,'EmployeeLast6','EmployeeFirst6','Address6','C6','S6',10005,'999-999-9994','2016-11-01',10,'Employee'),(100000006,'EmployeeLast7','EmployeeFirst7','Address7','C7','S7',10006,'999-999-9993','2016-11-01',10,'Employee'),(100000007,'EmployeeLast8','EmployeeFirst8','Address8','C8','S8',10007,'999-999-9992','2016-11-01',10,'Employee'),(100000008,'EmployeeLast9','EmployeeFirst9','Address9','C9','S9',10008,'999-999-9991','2016-11-01',10,'Employee'),(100000009,'EmployeeLast10','EmployeeFirst10','Address10','C1','S1',10009,'999-999-9990','2016-11-01',10,'Employee');
+/*!40000 ALTER TABLE `employee_data` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2016-12-05 19:59:36
