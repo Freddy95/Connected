@@ -4,7 +4,7 @@ var User;
 function initiate() {
   $.ajax({ // get user first and last name
     type: 'GET',
-    url: 'http://localhost:1337/getFriend',
+    url: 'http://localhost:1337/getOtherUser',
     dataType: 'json',
     async: false,
     success: function(data) {
@@ -35,6 +35,20 @@ function initiate() {
     success: function(data) {
     },
   });
+
+  $.ajax({//get groups user is the owner of
+    type: 'GET',
+    url: 'http://localhost:1337/getPersonInGroup',
+    dataType: 'json',
+    async: false,
+    data:{
+      user: User
+    },
+    success: function(data) {
+      document.getElementById("AddUserButton").setAttribute('style', 'display:none');
+    },
+  });
+
   $.ajax({//get groups user is the owner of
     type: 'GET',
     url: 'http://localhost:1337/getownergroups',

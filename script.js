@@ -77,6 +77,7 @@ app.get('/getPageId',function(req,resp){
 						console.log("PAGE ID -> " + rows[0].PageId);
 						sess.PageId = rows[0].PageId;
 						resp.jsonp(sess.PageId);
+						resp.end();
 					}
 
 				});
@@ -117,7 +118,7 @@ app.get('/getuser',function(req,resp){
 });
 
 
-app.get('/getFriend',function(req,resp){
+app.get('/getOtherUser',function(req,resp){
 	sess = req.session;//get session
 	console.log('loggedin');
 	if(sess.user){
@@ -127,7 +128,7 @@ app.get('/getFriend',function(req,resp){
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select First_name, Last_name, UserId from User WHERE UserId=?", [sess.friend], function(error,rows,fields){
+				tempCont.query("select First_name, Last_name, UserId from User WHERE UserId=?", [sess.otherUser], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -135,8 +136,8 @@ app.get('/getFriend',function(req,resp){
 						resp.end();
 					}
 					else{
-						console.log(sess.friend);
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -194,6 +195,7 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 						console.log("rows: "+ rows);
 						resp.json(rows);
 						resp.end();
+
 					}
 
 				});
@@ -222,6 +224,7 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 					else{
 						console.log("PAGE ID -> " + sess.PageId);
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -250,6 +253,7 @@ app.get('/getcomments',function(req,resp){//get posts on user page
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -308,6 +312,7 @@ app.get('/editPost', function (req, resp) {
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -335,6 +340,7 @@ app.get('/editComment', function (req, resp) {
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -364,6 +370,7 @@ app.get('/getlikes',function(req,resp){//get likes on post
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -393,6 +400,7 @@ app.get('/getuserlikes',function(req,resp){//get likes on post
 					}
 					else{
 						resp.json(rows);
+						resp.end();
 					}
 
 				});
@@ -589,6 +597,7 @@ app.post('/PostMessage',function(req,resp){
 
 app.get('/login', function(req, res) {//starting point
     res.render('login2.html');
+		res.end();
 });
 app.post('/signup', function (req, resp) {
 	connection.getConnection(function(error,tempCont){
@@ -671,6 +680,7 @@ app.get('/getLastComment', function (req, resp) {
 
 app.get('/register', function (req, res) {
 	res.render('Register.html');
+	resp.end();
 });
 app.get('/logout', function (req, res) {
 	sess = req.session;
@@ -713,6 +723,7 @@ app.get('/getgroupname',function(req,resp){
 					else{
 						console.log("group name: "+rows[0].Group_name);
 						resp.jsonp(rows[0].Group_name);
+						resp.end();
 					}
 
 				});
@@ -751,11 +762,30 @@ app.get('/getFriends',function(req,resp){
 
 
 
-app.post('/goToFriendPage',function(req,resp){
+app.get('/getPersonInGroup',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
-		sess.friend = req.body.FriendId;
-		resp.render('FriendPage.html')
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select U.UserId from User U, Groups_data G, Joins J WHERE J.GroupId=G.GroupId and J.UserId=U.UserId and U.UserId=?", [req.query.user, req.query.user, req.query.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
 	}
 });
 
@@ -847,5 +877,48 @@ app.post('/PostGroupMessage',function(req,resp){
 
 });
 
+app.post('/goToUserPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		sess.otherUser= req.body.UserId;
+		resp.render('UserPage.html')
+	}
+	resp.end();
+});
 
+
+
+
+app.get('/getUsersPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		resp.render('Users.html');
+	}
+});
+
+
+app.get('/getAllUsers',function(req,resp){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select First_name, Last_name, UserId from User WHERE UserId!=?", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
 app.listen(1337);

@@ -24,6 +24,7 @@ function initiate() {
     success: function(data) {
     },
   });
+
   $.ajax({//get groups user is the owner of
     type: 'GET',
     url: 'http://localhost:1337/getownergroups',
@@ -78,12 +79,12 @@ function initiate() {
     success: function(data) {
       for(var i = 0; i < data.length; i++){
         var listElement = document.createElement('li');
-
+        listElement.setAttribute('class', 'listElement');
         var form = document.createElement('form');
-        form.setAttribute('action', 'http://localhost:1337/goToFriendPage');
+        form.setAttribute('action', 'http://localhost:1337/goToUserPage');
         form.setAttribute('method', 'post');
         var friendId = document.createElement('input');
-        friendId.setAttribute('name', 'FriendId');
+        friendId.setAttribute('name', 'UserId');
         friendId.setAttribute('id', 'Friend' + data[i].UserId);
         friendId.setAttribute('style', 'display:none');
         friendId.setAttribute('value' , data[i].UserId);
@@ -513,7 +514,7 @@ function editCommentRequest(CommentId) {
 
     }
   });
-  document.getElementById('postValue').value="";
+  document.getElementById('commentValue').value="";
 
 }
 
@@ -546,12 +547,12 @@ function addComment(PostId) {
           var cDiv = document.createElement('div');
           cDiv.setAttribute('class', 'col-md-12 comment');
           cDiv.setAttribute('id', 'comment ' + rows[0].CommentId);
-          var name = document.createElement('h1');
+          var name = document.createElement('h4');
           var comment = document.createElement('p');
           var likes = document.createElement('p');
           likes.setAttribute('style', 'display:inline-block');
           var likeCommentButton = document.createElement('button');
-
+          comment.setAttribute('id', 'Comment' + rows[0].CommentId);
           cDiv.appendChild(name);
           cDiv.appendChild(comment);
           cDiv.appendChild(likes);
