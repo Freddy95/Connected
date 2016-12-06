@@ -57,8 +57,8 @@ function initiate() {
         groupid.setAttribute('value' , data[i].GroupId);
 
         var pageid = document.createElement('input');
-        pageid.setAttribute('name', 'pageid');
-        pageid.setAttribute('id', 'pageid' + data[i].PageId);
+        pageid.setAttribute('name', 'PageId');
+        pageid.setAttribute('id', 'PageId' + data[i].PageId);
         pageid.setAttribute('style', 'display:none');
         pageid.setAttribute('value' , data[i].PageId);
         form.appendChild(pageid);
@@ -104,8 +104,8 @@ function initiate() {
         groupid.setAttribute('value' , data[i].GroupId);
 
         var pageid = document.createElement('input');
-        pageid.setAttribute('name', 'pageid');
-        pageid.setAttribute('id', 'pageid' + data[i].PageId);
+        pageid.setAttribute('name', 'PageId');
+        pageid.setAttribute('id', 'PageId' + data[i].PageId);
         pageid.setAttribute('style', 'display:none');
         pageid.setAttribute('value' , data[i].PageId);
         form.appendChild(pageid);
