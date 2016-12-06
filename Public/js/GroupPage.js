@@ -34,6 +34,13 @@ function initiate() {
       if(data.Owner == 1){//person is the owner of the page
         var leave = document.getElementById("LeaveGroup");
         leave.setAttribute('style', 'display:none');
+        var editGroupButton = document.getElementById('name');
+        editGroupButton.setAttribute('data-toggle', 'modal');
+        editGroupButton.setAttribute('data-target', '#myNameModal');
+        var editName = document.getElementById('Name_modal_button');
+        editName.setAttribute('onclick', 'editGroupName()');
+        var nameVal = document.getElementById('nameValue');
+        document.getElementById('nameValue').value=editGroupButton.innerHTML;
       }else{
         var deleteGroup = document.getElementById("DeleteGroup");
         deleteGroup.setAttribute('style', 'display:none');
@@ -654,10 +661,35 @@ function editCommentRequest(CommentId) {
 
     }
   });
-  document.getElementById('postValue').value="";
+  document.getElementById('commentValue').value="";
 
 }
 
+function editGroupName(GroupId) {
+  console.log("request edit");
+  var content = document.getElementById('nameValue').value;
+
+  $.ajax({// get likes of post
+    type: 'GET',
+    url: 'http://localhost:1337/editGroupName',
+    dataType: 'json',
+    jsonp: 'callback',
+    data:{
+      Content : content
+    },
+    async: false,
+    success: function(rows) {
+      console.log(rows);
+      var name = document.getElementById("name");
+      name.innerHTML = content;
+      },
+    error: function (rows) {
+
+    }
+  });
+  document.getElementById('nameValue').value=content;
+
+}
 function getUser(id) {//get id of user viewing the page
   User = id;
 }

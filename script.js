@@ -341,6 +341,33 @@ app.get('/editComment', function (req, resp) {
 	});
 });
 
+app.get('/editGroupName', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+			if(error){
+				tempCont.release();
+			}else{
+				tempCont.query(
+
+					"UPDATE Groups_data SET Group_name=? WHERE GroupId=?", [req.query.Content, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+	});
+});
+
+
+
 app.get('/getlikes',function(req,resp){//get likes on post
 	sess = req.session;//get session
 	console.log('GETTING POST LIKES');
@@ -591,17 +618,40 @@ app.post('/signup', function (req, resp) {
 			console.log('Error');
 		}
 		else{
+			if(!req.body.Zip_code){//zipcode must be a number
+				console.log();
+				req.body.Zip_code=null;
+			}
 			tempCont.query(
 				"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences) VALUES(?,?,?,?,?,?,?,?,?,?)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.Preferences], function(error,rows,fields){
-				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);
 					resp.jsonp("error");
 					resp.end();
 				}
 				else{
-					resp.render('login2.html');
-					resp.end();
+					tempCont.query(
+						"SELECT UserId FROM  User ORDER BY UserId DESC LIMIT 1",  function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query'+error);
+							resp.jsonp("error");
+							resp.end();
+						}
+						else{
+							tempCont.query(
+								"INSERT INTO  Pages (Owner, Post_count) VALUES(?,?)", [rows2[0].UserId, 0], function(error,rows3,fields){
+								if (error){
+									console.log('Error in the query'+error);
+									resp.jsonp("error");
+									resp.end();
+								}
+								else{
+									resp.render('login2.html');
+									resp.end();
+								}
+							});
+						}
+					});
 				}
 			});
 		}
@@ -660,7 +710,7 @@ app.get('/getLastComment', function (req, resp) {
 
 app.get('/register', function (req, res) {
 	res.render('Register.html');
-	resp.end();
+	res.end();
 });
 app.get('/logout', function (req, res) {
 	sess = req.session;
@@ -809,7 +859,7 @@ app.get('/getownerofgroup',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Groups_data G WHERE G.GroupId=? AND G.Owner = U.UserId;", sess.GroupId, function(error,rows,fields){
+				tempCont.query("select U.First_name, U.Last_name, U.UserId, G.GroupId from User U, Groups_data G WHERE G.GroupId=? AND G.Owner = U.UserId;", sess.GroupId, function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
