@@ -15,6 +15,23 @@ function initiate() {
       document.getElementById("name").innerHTML = data;
     },
   });
+  $.ajax({// get owner of the group
+    type: 'GET',
+    url: 'http://localhost:1337/getownerofgroup',
+    dataType: 'json',
+    success: function(data) {
+      for(var i = 0; i < data.length; i++){
+        console.log(data[i].Member_name)
+        var member = document.createElement("li");
+        var link = document.createElement("a");
+        link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
+        link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
+        // group.innerHTML = data[i].Group_name;
+        member.appendChild(link);
+        document.getElementById("Members").appendChild(member);
+      }
+    },
+  });
   $.ajax({// get members in the group
     type: 'GET',
     url: 'http://localhost:1337/getmembers',
@@ -32,6 +49,7 @@ function initiate() {
       }
     },
   });
+
 
   $.ajax({// get posts
     type: 'GET',

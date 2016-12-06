@@ -816,6 +816,36 @@ app.get('/getmembers',function(req,resp){//get groups user has joined
 	}
 });
 
+app.get('/getownerofgroup',function(req,resp){//get groups user has joined
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Groups_data G WHERE G.GroupId=? AND G.Owner = U.UserId;", sess.GroupId, function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log('?///////////////////////////////');
+						console.log("rows: "+ rows);
+						console.log('?///////////////////////////////');
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
 app.get('/getgroupposts',function(req,resp){//get posts on user page
 	sess = req.session;//get session
 	if(sess.user){
