@@ -49,6 +49,8 @@ function initiate() {
         form.appendChild(Member);//submit button
         listElement.appendChild(form);
         document.getElementById("Members").appendChild(listElement);
+        GroupOwner = data.rows[i].UserId;
+
       }
     },
   });
