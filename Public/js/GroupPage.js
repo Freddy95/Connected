@@ -24,6 +24,28 @@ function initiate() {
     getUser(data[0].UserId);
     },
   });
+  $.ajax({ // check if user is already in group
+    type: 'GET',
+    url: 'http://localhost:1337/userInGroup',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      if(data.length != 1){
+        var deleteGroupButton = document.getElementById('DeleteGroup');
+        var leaveGroupButton = document.getElementById('LeaveGroup');
+
+
+        deleteGroupButton.setAttribute('style', 'display:none');
+        leaveGroupButton.setAttribute('style', 'display:none');
+
+        var form = document.getElementById('ActionForm');
+        form.setAttribute('action', 'http://localhost:1337/joinGroup');
+
+        var button2 = document.getElementById('SearchForUser');
+        button2.setAttribute('value', 'Join Group');
+      }
+    },
+  });
   $.ajax({// get owner of the group
     type: 'GET',
     url: 'http://localhost:1337/getownerofgroup',

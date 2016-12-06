@@ -952,6 +952,15 @@ app.post('/goToUserPage',function(req,resp){
 	resp.end();
 });
 
+app.post('/goToUserPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		sess.GroupId= req.body.GroupId;
+		resp.render('GroupPage.html')
+	}
+	resp.end();
+});
+
 app.get('/getUsersPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
@@ -959,6 +968,12 @@ app.get('/getUsersPage',function(req,resp){
 	}
 });
 
+app.get('/getGroupsPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		resp.render('Groups.html');
+	}
+});
 app.get('/getAllUsers',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
@@ -984,14 +999,15 @@ app.get('/getAllUsers',function(req,resp){
 
 });
 
-app.get('/addUser',function(req,resp){//add user to group
+
+app.get('/getAllGroups',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
 				tempCont.release();
 				console.log('Error');
 			}
 			else{
-				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.otherUser, sess.GroupId], function(error,rows,fields){
+				tempCont.query("select Group_name, GroupId from Groups_data",  function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -999,8 +1015,31 @@ app.get('/addUser',function(req,resp){//add user to group
 						resp.end();
 					}
 					else{
-						console.log("User to add -> " + sess.otherUser);
-						resp.json("success");
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+app.get('/userInGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT UserId FROM JOINS WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
 						resp.end();
 					}
 
@@ -1010,6 +1049,56 @@ app.get('/addUser',function(req,resp){//add user to group
 
 });
 
+app.get('/joinGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.render('GroupPage.html');
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+
+app.get('/joinGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.render('GroupPage.html');
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
 app.get('/removeUser',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
