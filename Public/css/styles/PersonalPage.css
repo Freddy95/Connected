@@ -16,7 +16,7 @@
 	background-color: #cccccc;
 }
 
-.friend{
+.friend, .group{
      background:none!important;
      border:none;
      padding:0!important;

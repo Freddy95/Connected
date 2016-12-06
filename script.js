@@ -690,17 +690,13 @@ app.get('/logout', function (req, res) {
 	res.end();
 });
 
-app.get('/getGroupPage',function(req,res){
-	sess = req.session;
-	// res.jsonp('success');
-	res.render('GroupPage.html');
-	// res.redirect('GroupPage.html');
-	// res.redirect('GroupPage.html',req.id);
-
-	// res.redirect('GroupPage.html', function(err, html) {
- //  		res.send(html);
-	// });
-	res.end();
+app.post('/goToGroupPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		sess.group= req.body.GroupId;
+		resp.render('GroupPage.html')
+	}
+	resp.end();
 
 });
 

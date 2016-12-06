@@ -34,17 +34,36 @@ function initiate() {
     },
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        var group = document.createElement("li");
-        var link = document.createElement("a");
-        link.innerHTML = data[i].Group_name;
-        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
-        // link.setAttribute('action','http://localhost:1337/getGroupPage');
-        // link.setAttribute('type','submit');
-        // link.setAttribute('method','POST');
-        // link        data[i].GroupId
-        // group.innerHTML = data[i].Group_name;
-        group.appendChild(link);
-        document.getElementById("groups").appendChild(group);
+        // var group = document.createElement("li");
+        // var link = document.createElement("a");
+        // link.innerHTML = data[i].Group_name;
+        // link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // // link.setAttribute('action','http://localhost:1337/getGroupPage');
+        // // link.setAttribute('type','submit');
+        // // link.setAttribute('method','POST');
+        // // link        data[i].GroupId
+        // // group.innerHTML = data[i].Group_name;
+        // group.appendChild(link);
+        // document.getElementById("groups").appendChild(group);
+        var listElement = document.createElement('li');
+        listElement.setAttribute('class', 'listElement');
+        var form = document.createElement('form');
+        form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
+        form.setAttribute('method', 'post');
+        var groupid = document.createElement('input');
+        groupid.setAttribute('name', 'GroupId');
+        groupid.setAttribute('id', 'Group' + data[i].GroupId);
+        groupid.setAttribute('style', 'display:none');
+        groupid.setAttribute('value' , data[i].GroupId);
+        var group = document.createElement('input');
+        group.setAttribute('class', 'group')
+        group.setAttribute('value', data[i].Group_name);
+        group.setAttribute('type', 'submit');
+
+        form.appendChild(groupid);//id
+        form.appendChild(group);//submit button
+        listElement.appendChild(form);
+        document.getElementById("groups").appendChild(listElement);
       }
     },
   });
@@ -58,18 +77,37 @@ function initiate() {
     },
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        var group = document.createElement("li");
-        var link = document.createElement("a");
-        link.innerHTML = data[i].Group_name;
-        link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
-        // group.innerHTML = data[i].Group_name;
-        group.appendChild(link);
-        document.getElementById("groups").appendChild(group);
+        // var group = document.createElement("li");
+        // var link = document.createElement("a");
+        // link.innerHTML = data[i].Group_name;
+        // link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // // group.innerHTML = data[i].Group_name;
+        // group.appendChild(link);
+        // document.getElementById("groups").appendChild(group);
+        var listElement = document.createElement('li');
+        listElement.setAttribute('class', 'listElement');
+        var form = document.createElement('form');
+        form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
+        form.setAttribute('method', 'post');
+        var groupid = document.createElement('input');
+        groupid.setAttribute('name', 'GroupId');
+        groupid.setAttribute('id', 'Group' + data[i].GroupId);
+        groupid.setAttribute('style', 'display:none');
+        groupid.setAttribute('value' , data[i].GroupId);
+        var group = document.createElement('input');
+        group.setAttribute('class', 'group')
+        group.setAttribute('value', data[i].Group_name);
+        group.setAttribute('type', 'submit');
+
+        form.appendChild(groupid);//id
+        form.appendChild(group);//submit button
+        listElement.appendChild(form);
+        document.getElementById("groups").appendChild(listElement);
       }
     },
   });
 
-  $.ajax({// get groups user has joined
+  $.ajax({ // gets list of friends
     type: 'GET',
     url: 'http://localhost:1337/getFriends',
     dataType: 'json',
@@ -611,37 +649,6 @@ function deletePost(PostId) {
     }
 });
 }
-function enter_group_page(id){
-  // window.location = "http://localhost:1337/getGroupPage";
-  window.postMessage(id,"http://localhost:1337/getGroupPage");
-  // $.post("http://localhost:1337/getGroupPage",id);
-  console.log("here");
-    // $.ajax({//get likes for each comment
-    // type: "GET",
-    // url: "http://localhost:1337/getGroupPage",
-
-    // // The name of the callback parameter, as specified by the YQL service
-    // jsonp: "callback",
-    // async: false,
-
-    // // Tell jQuery we're expecting JSONP
-    // // dataType: "html",
-
-    // // Tell YQL what we want and that we want JSON
-    // data: {
-    //   id: id,
-    //   format: "json"
-    // },
-    // success: function( response ) {
-    //   alert("success function");
-    // },
-    // error: function (response) {
-    //   alert("error function");
-    // }
-    // });
-
-}
-
 
 function deleteComment(CommentId, PostId) {
     $.ajax({// get comments on post
