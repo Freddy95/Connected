@@ -21,14 +21,34 @@ function initiate() {
     dataType: 'json',
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        console.log(data[i].Member_name)
-        var member = document.createElement("li");
-        var link = document.createElement("a");
-        link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
-        link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
-        // group.innerHTML = data[i].Group_name;
-        member.appendChild(link);
-        document.getElementById("Members").appendChild(member);
+        // console.log(data[i].Member_name)
+        // var member = document.createElement("li");
+        // var link = document.createElement("a");
+        // link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
+        // link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
+        // // group.innerHTML = data[i].Group_name;
+        // member.appendChild(link);
+        // document.getElementById("Members").appendChild(member
+
+        var listElement = document.createElement('li');
+        listElement.setAttribute('class', 'listElement');
+        var form = document.createElement('form');
+        form.setAttribute('action', 'http://localhost:1337/goToUserPage');
+        form.setAttribute('method', 'post');
+        var MemberId = document.createElement('input');
+        MemberId.setAttribute('name', 'UserId');
+        MemberId.setAttribute('id', 'Member' + data[i].UserId);
+        MemberId.setAttribute('style', 'display:none');
+        MemberId.setAttribute('value' , data[i].UserId);
+        var Member = document.createElement('input');
+        Member.setAttribute('class', 'Member')
+        Member.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
+        Member.setAttribute('type', 'submit');
+
+        form.appendChild(MemberId);//id
+        form.appendChild(Member);//submit button
+        listElement.appendChild(form);
+        document.getElementById("Members").appendChild(listElement);
       }
     },
   });
@@ -38,14 +58,33 @@ function initiate() {
     dataType: 'json',
     success: function(data) {
       for(var i = 0; i < data.length; i++){
-        console.log(data[i].Member_name)
-        var member = document.createElement("li");
-        var link = document.createElement("a");
-        link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
-        link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
-        // group.innerHTML = data[i].Group_name;
-        member.appendChild(link);
-        document.getElementById("Members").appendChild(member);
+        // console.log(data[i].Member_name)
+        // var member = document.createElement("li");
+        // var link = document.createElement("a");
+        // link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
+        // link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
+        // // group.innerHTML = data[i].Group_name;
+        // member.appendChild(link);
+        // document.getElementById("Members").appendChild(member);
+        var listElement = document.createElement('li');
+        listElement.setAttribute('class', 'listElement');
+        var form = document.createElement('form');
+        form.setAttribute('action', 'http://localhost:1337/goToUserPage');
+        form.setAttribute('method', 'post');
+        var MemberId = document.createElement('input');
+        MemberId.setAttribute('name', 'UserId');
+        MemberId.setAttribute('id', 'Member' + data[i].UserId);
+        MemberId.setAttribute('style', 'display:none');
+        MemberId.setAttribute('value' , data[i].UserId);
+        var Member = document.createElement('input');
+        Member.setAttribute('class', 'Member')
+        Member.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
+        Member.setAttribute('type', 'submit');
+
+        form.appendChild(MemberId);//id
+        form.appendChild(Member);//submit button
+        listElement.appendChild(form);
+        document.getElementById("Members").appendChild(listElement);
       }
     },
   });
