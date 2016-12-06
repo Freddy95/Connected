@@ -652,3 +652,29 @@ function removeUser() {
     }
  });
 }
+
+function sendMessage() {
+    var content = document.getElementById('content').value;
+    var subject = document.getElementById('subject').value;
+    $.ajax({// get likes of post
+      type: 'GET',
+      url: 'http://localhost:1337/sendMessage',
+      dataType: 'json',
+      jsonp: 'callback',
+      data:{
+        Content : content,
+        Subject : subject,
+      },
+      async: false,
+      success: function(rows) {
+        document.getElementById('content').value = "";
+        document.getElementById('subject').value = "";
+        },
+      error: function (rows) {
+        document.getElementById('content').value = "";
+        document.getElementById('subject').value = "";
+      }
+    });
+
+
+}

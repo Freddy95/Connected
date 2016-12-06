@@ -239,7 +239,7 @@ app.get('/getReceivedMessages',function(req,resp){//get all messages received by
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Receiver=? AND Sender=UserId and Visible_by_receiver='Y'", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Receiver=? AND Sender=UserId and Visible_by_receiver='Y' ORDER BY MessageId DESC", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -266,7 +266,7 @@ app.get('/getSentMessages',function(req,resp){//get all messages sent by user
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Sender=? AND Receiver=UserId and Visible_by_sender='Y'", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Sender=? AND Receiver=UserId and Visible_by_sender='Y' ORDER BY MessageId DESC", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -710,6 +710,36 @@ app.post('/PostMessage',function(req,resp){
 					resp.render('PersonalPage.html');
 					//resp.render('PersonalPage.html');
 					// req.session.reload();
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.get('/sendMessage',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+
+			tempCont.query("insert into Messages_data (Sender,Receiver, Subject, Content, Date) Values (?, ?, ?, ?, CURDATE())", [sess.user, sess.otherUser, req.query.Subject, req.query.Content], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.send("Success sending message");
 					resp.end();
 				}
 
