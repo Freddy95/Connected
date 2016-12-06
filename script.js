@@ -86,8 +86,6 @@ app.get('/getPageId',function(req,resp){
 	}
 });
 
-
-
 app.get('/getuser',function(req,resp){
 	sess = req.session;//get session
 	console.log('loggedin');
@@ -117,7 +115,6 @@ app.get('/getuser',function(req,resp){
 	}
 });
 
-
 app.get('/getOtherUser',function(req,resp){
 	sess = req.session;//get session
 	console.log('loggedin');
@@ -145,7 +142,6 @@ app.get('/getOtherUser',function(req,resp){
 		});
 	}
 });
-
 
 app.get('/getownergroups',function(req,resp){// get groups user is the owner of
 	sess = req.session;//get session
@@ -204,7 +200,6 @@ app.get('/getgroups',function(req,resp){//get groups user has joined
 	}
 });
 
-
 app.get('/getuserposts',function(req,resp){//get posts on user page
 	sess = req.session;//get session
 	if(sess.user){
@@ -233,7 +228,6 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 	}
 });
 
-
 app.get('/getcomments',function(req,resp){//get posts on user page
 	sess = req.session;//get session
 	if(sess.user){
@@ -261,7 +255,6 @@ app.get('/getcomments',function(req,resp){//get posts on user page
 		});
 	}
 });
-
 
 app.get('/getcommentlikes',function(req,resp){//get posts on user page
 	sess = req.session;//get session
@@ -347,8 +340,6 @@ app.get('/editComment', function (req, resp) {
 			}
 	});
 });
-
-
 
 app.get('/getlikes',function(req,resp){//get likes on post
 	sess = req.session;//get session
@@ -440,7 +431,6 @@ app.get('/getusercommentlike',function(req,resp){//get likes on post
 	}
 });
 
-
 app.get('/likePost', function (req, resp) {
 	sess = req.session;
 	connection.getConnection(function (error, tempCont) {
@@ -499,7 +489,6 @@ app.get('/deletePost', function (req, resp) {
 		}
 	});
 });
-
 
 app.get('/deleteComment', function (req, resp) {
 	sess = req.session;
@@ -560,8 +549,6 @@ app.get('/unlikeComment', function (req, resp) {
 	});
 });
 
-
-
 app.post('/PostMessage',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -593,8 +580,6 @@ app.post('/PostMessage',function(req,resp){
 
 });
 
-
-
 app.get('/login', function(req, res) {//starting point
     res.render('login2.html');
 		res.end();
@@ -622,8 +607,6 @@ app.post('/signup', function (req, resp) {
 		}
 	});
 });
-
-
 
 app.get('/addComment', function (req, resp) {
 	sess = req.session;
@@ -674,9 +657,6 @@ app.get('/getLastComment', function (req, resp) {
 		}
 	});
 });
-
-
-
 
 app.get('/register', function (req, res) {
 	res.render('Register.html');
@@ -729,7 +709,6 @@ app.get('/getgroupname',function(req,resp){
 	}
 });
 
-
 app.get('/getFriends',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
@@ -756,8 +735,6 @@ app.get('/getFriends',function(req,resp){
 		});
 	}
 });
-
-
 
 app.get('/getPersonInGroup',function(req,resp){
 	sess = req.session;//get session
@@ -913,16 +890,12 @@ app.post('/goToUserPage',function(req,resp){
 	resp.end();
 });
 
-
-
-
 app.get('/getUsersPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
 		resp.render('Users.html');
 	}
 });
-
 
 app.get('/getAllUsers',function(req,resp){
 		connection.getConnection(function(error,tempCont){
@@ -972,7 +945,6 @@ app.get('/addUser',function(req,resp){//add user to group
 		});
 
 });
-
 
 app.get('/removeUser',function(req,resp){//add user to group
 		connection.getConnection(function(error,tempCont){
