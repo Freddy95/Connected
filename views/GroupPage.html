@@ -22,23 +22,33 @@ and open the template in the editor.
           <div class="row">
             <div class="col-md-3">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" align="center">
               <h1 id="companyTitle">Connected</h1>
             </div>
-            <div class="col-md-3" align="right">
-              <button type="button" class="btn" id="Invite" >Invite People</button>
+            <div class="col-md-1" align="right">
+              <!-- <button type="button" class="btn" id="Invite" >Invite People</button> -->
               <button type="button" class="btn" id="DeleteGroup" >Delete Group</button>
-              <button type="button" class="btn" id="LeaveGroup" >Leave Group</button>
-              <button type="button" class="btn" id="Options" >Options</button>
-              <form action ="http://localhost:1337/logout">
-                <input type="submit" class="btn btn-danger"  id="Logout" value="Logout">
-              </form>
+            </div>
+              <div class="col-md-1" align="right">
+                <form>
+                  <input type="submit" class="btn" value="Leave Group" id="LeaveGroup" />
+                </form>
+              </div>
+              <!-- <button type="button" class="btn" id="Options" >Options</button> -->
+              <div class="col-md-1" align="right">
+                <form action ="http://localhost:1337/logout">
+                  <input type="submit" class="btn btn-danger"  id="Logout" value="Logout">
+                </form>
+              </div>
             </div>
 
           </div>
           <div class="row">
             <div class="col-md-3" id="Group info">
               <h1 id="name">Group Name </h1>
+              <form action ="http://localhost:1337/getUsersPage" method="get">
+                <input type="submit" class="btn-success" value="Search for Users">
+              </form>
               <!-- <button type="button" class="btn-primary"id="messages">Create Post</button>
               <button type="button" class="btn-primary"id="messages">Messages</button> -->
               <h2>Members</h2>

@@ -946,7 +946,7 @@ app.get('/addUser',function(req,resp){//add user to group
 
 });
 
-app.get('/removeUser',function(req,resp){//add user to group
+app.get('/removeUser',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
 				tempCont.release();

@@ -150,3 +150,51 @@ insert into Likes_data (CommentId, UserId) Values (7,7);
 insert into Likes_data (CommentId, UserId) Values (8,8);
 insert into Likes_data (CommentId, UserId) Values (9,9);
 insert into Likes_data (CommentId, UserId) Values (10,10);
+
+
+
+
+
+
+
+
+
+
+
+
+
+12/6/16:
+
+update Pages set Associated_group = NULL where pageid<11;
+
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,1,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,2,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,3,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,4,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,5,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,6,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,7,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,8,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,9,0);
+insert into Pages (Owner,Associated_group,Post_count) values (NULL,10,0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
