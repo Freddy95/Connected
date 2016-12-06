@@ -1,156 +1,109 @@
+// must be passed in group id !!!!!!!!!!!!!!!!!!###########
+// when changing to this page session.pageid must also be changed
+//!!!!!!!!!!!!!!!!!!!!11
+//!!!!!!!!!!!!!!!!!!!!
 var postContent = {};
 var commentContent={};
 var User;
 function initiate() {
-  $.ajax({ // get user first and last name
+  $.ajax({ // get group name
+    type: 'GET',
+    url: 'http://localhost:1337/getgroupname',
+    dataType: 'json',
+    success: function(data) {
+      j = data;
+      document.getElementById("name").innerHTML = data;
+    },
+  });
+  $.ajax({ // get user visiting site
     type: 'GET',
     url: 'http://localhost:1337/getuser',
     dataType: 'json',
     async: false,
     success: function(data) {
-      name = data;
-      document.getElementById("name").innerHTML = data[0].First_name + " " + data[0].Last_name;
-      getUser(data[0].UserId);
+    getUser(data[0].UserId);
     },
   });
-  $.ajax({//get groups user is the owner of
+  $.ajax({// get owner of the group
     type: 'GET',
-    url: 'http://localhost:1337/getPageId',
+    url: 'http://localhost:1337/getownerofgroup',
     dataType: 'json',
-    data: {
-      user: User
-    },
-    async: false,
     success: function(data) {
-    },
-  });
-
-  $.ajax({//get groups user is the owner of
-    type: 'GET',
-    url: 'http://localhost:1337/getownergroups',
-    dataType: 'json',
-    data:{
-      user: User
-    },
-    success: function(data) {
-      for(var i = 0; i < data.length; i++){
-        // var group = document.createElement("li");
-        // var link = document.createElement("a");
-        // link.innerHTML = data[i].Group_name;
-        // link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
-        // // link.setAttribute('action','http://localhost:1337/getGroupPage');
-        // // link.setAttribute('type','submit');
-        // // link.setAttribute('method','POST');
-        // // link        data[i].GroupId
-        // // group.innerHTML = data[i].Group_name;
-        // group.appendChild(link);
-        // document.getElementById("groups").appendChild(group);
-        var listElement = document.createElement('li');
-        listElement.setAttribute('class', 'listElement');
-        var form = document.createElement('form');
-        form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
-        form.setAttribute('method', 'post');
-        var groupid = document.createElement('input');
-        groupid.setAttribute('name', 'GroupId');
-        groupid.setAttribute('id', 'Group' + data[i].GroupId);
-        groupid.setAttribute('style', 'display:none');
-        groupid.setAttribute('value' , data[i].GroupId);
-
-        var pageid = document.createElement('input');
-        pageid.setAttribute('name', 'PageId');
-        pageid.setAttribute('id', 'PageId' + data[i].PageId);
-        pageid.setAttribute('style', 'display:none');
-        pageid.setAttribute('value' , data[i].PageId);
-        form.appendChild(pageid);
-
-        var group = document.createElement('input');
-        group.setAttribute('class', 'group')
-        group.setAttribute('value', data[i].Group_name);
-        group.setAttribute('type', 'submit');
-
-        form.appendChild(groupid);//id
-        form.appendChild(group);//submit button
-        listElement.appendChild(form);
-        document.getElementById("groups").appendChild(listElement);
+      console.log("OWNER -> " + data.Owner);
+      console.log("row ");
+      if(data.Owner == 1){//person is the owner of the page
+        var leave = document.getElementById("LeaveGroup");
+        leave.setAttribute('style', 'display:none');
+      }else{
+        var deleteGroup = document.getElementById("DeleteGroup");
+        deleteGroup.setAttribute('style', 'display:none');
       }
-    },
-  });
-
-  $.ajax({// get groups user has joined
-    type: 'GET',
-    url: 'http://localhost:1337/getgroups',
-    dataType: 'json',
-    data:{
-      user: User
-    },
-    success: function(data) {
-      for(var i = 0; i < data.length; i++){
-        // var group = document.createElement("li");
+      for(var i = 0; i < data.rows.length; i++){
+        // console.log(data[i].Member_name)
+        // var member = document.createElement("li");
         // var link = document.createElement("a");
-        // link.innerHTML = data[i].Group_name;
-        // link.setAttribute('onclick','enter_group_page('+data[i].GroupId+')');
+        // link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
+        // link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
         // // group.innerHTML = data[i].Group_name;
-        // group.appendChild(link);
-        // document.getElementById("groups").appendChild(group);
-        var listElement = document.createElement('li');
-        listElement.setAttribute('class', 'listElement');
-        var form = document.createElement('form');
-        form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
-        form.setAttribute('method', 'post');
-        var groupid = document.createElement('input');
-        groupid.setAttribute('name', 'GroupId');
-        groupid.setAttribute('id', 'Group' + data[i].GroupId);
-        groupid.setAttribute('style', 'display:none');
-        groupid.setAttribute('value' , data[i].GroupId);
+        // member.appendChild(link);
+        // document.getElementById("Members").appendChild(member
 
-        var pageid = document.createElement('input');
-        pageid.setAttribute('name', 'PageId');
-        pageid.setAttribute('id', 'PageId' + data[i].PageId);
-        pageid.setAttribute('style', 'display:none');
-        pageid.setAttribute('value' , data[i].PageId);
-        form.appendChild(pageid);
-
-        var group = document.createElement('input');
-        group.setAttribute('class', 'group')
-        group.setAttribute('value', data[i].Group_name);
-        group.setAttribute('type', 'submit');
-
-        form.appendChild(groupid);//id
-        form.appendChild(group);//submit button
-        listElement.appendChild(form);
-        document.getElementById("groups").appendChild(listElement);
-      }
-    },
-  });
-
-  $.ajax({ // gets list of friends
-    type: 'GET',
-    url: 'http://localhost:1337/getFriends',
-    dataType: 'json',
-    data:{
-      user: User
-    },
-    success: function(data) {
-      for(var i = 0; i < data.length; i++){
         var listElement = document.createElement('li');
         listElement.setAttribute('class', 'listElement');
         var form = document.createElement('form');
         form.setAttribute('action', 'http://localhost:1337/goToUserPage');
         form.setAttribute('method', 'post');
-        var friendId = document.createElement('input');
-        friendId.setAttribute('name', 'UserId');
-        friendId.setAttribute('id', 'Friend' + data[i].UserId);
-        friendId.setAttribute('style', 'display:none');
-        friendId.setAttribute('value' , data[i].UserId);
-        var friend = document.createElement('input');
-        friend.setAttribute('class', 'friend')
-        friend.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
-        friend.setAttribute('type', 'submit');
+        var MemberId = document.createElement('input');
+        MemberId.setAttribute('name', 'UserId');
+        MemberId.setAttribute('id', 'Member' + data.rows[i].UserId);
+        MemberId.setAttribute('style', 'display:none');
+        MemberId.setAttribute('value' , data.rows[i].UserId);
+        var Member = document.createElement('input');
+        Member.setAttribute('class', 'Member')
+        Member.setAttribute('value', data.rows[i].First_name + " " + data.rows[i].Last_name);
+        Member.setAttribute('type', 'submit');
 
-        form.appendChild(friendId);//id
-        form.appendChild(friend);//submit button
+        form.appendChild(MemberId);//id
+        form.appendChild(Member);//submit button
         listElement.appendChild(form);
-        document.getElementById("friends").appendChild(listElement);
+        document.getElementById("Members").appendChild(listElement);
+      }
+    },
+  });
+
+  $.ajax({// get members in the group
+    type: 'GET',
+    url: 'http://localhost:1337/getmembers',
+    dataType: 'json',
+    success: function(data) {
+      for(var i = 0; i < data.length; i++){
+        // console.log(data[i].Member_name)
+        // var member = document.createElement("li");
+        // var link = document.createElement("a");
+        // link.innerHTML = data[i].First_name +" "+ data[i].Last_name;
+        // link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
+        // // group.innerHTML = data[i].Group_name;
+        // member.appendChild(link);
+        // document.getElementById("Members").appendChild(member);
+        var listElement = document.createElement('li');
+        listElement.setAttribute('class', 'listElement');
+        var form = document.createElement('form');
+        form.setAttribute('action', 'http://localhost:1337/goToUserPage');
+        form.setAttribute('method', 'post');
+        var MemberId = document.createElement('input');
+        MemberId.setAttribute('name', 'UserId');
+        MemberId.setAttribute('id', 'Member' + data[i].UserId);
+        MemberId.setAttribute('style', 'display:none');
+        MemberId.setAttribute('value' , data[i].UserId);
+        var Member = document.createElement('input');
+        Member.setAttribute('class', 'Member')
+        Member.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
+        Member.setAttribute('type', 'submit');
+
+        form.appendChild(MemberId);//id
+        form.appendChild(Member);//submit button
+        listElement.appendChild(form);
+        document.getElementById("Members").appendChild(listElement);
       }
     },
   });
@@ -158,18 +111,15 @@ function initiate() {
 
   $.ajax({// get posts
     type: 'GET',
-    url: 'http://localhost:1337/getuserposts',
+    url: 'http://localhost:1337/getgroupposts',
     dataType: 'json',
     async: false,
-    data:{
-      user: User
-    },
     success: function(data) {
-      for(var i = 0; i < data.length; i++){// get each post
+      for(var i = 0; i < data.rows.length; i++){// get each post
         var postsDiv = document.getElementById('posts');// posts div
         var post = document.createElement("div");// the specific post div
         post.setAttribute('class', 'col-md-12 well');
-        post.setAttribute('id', 'post ' + data[i].PostId);
+        post.setAttribute('id', 'post ' + data.rows[i].PostId);
 
         var deleteDiv = document.createElement('div');
         deleteDiv.setAttribute('class', 'col-md-12');
@@ -177,26 +127,32 @@ function initiate() {
         var deletePostButton = document.createElement("button");
         deletePostButton.setAttribute('class', 'btn-danger');
         deletePostButton.innerHTML = 'Delete Post';
-        deletePostButton.setAttribute('onclick', 'deletePost(' + data[i].PostId +")");
+        deletePostButton.setAttribute('onclick', 'deletePost(' + data.rows[i].PostId +")");
         deleteDiv.appendChild(deletePostButton);
         post.appendChild(deleteDiv);
         var contentDiv = document.createElement("div");// content of post div
         contentDiv.setAttribute('class', 'col-md-12');
 
         var content = document.createElement("p");
-        content.setAttribute('id', data[i].PostId);
+        content.setAttribute('id', data.rows[i].PostId);
         content.setAttribute('class', 'content');
-        content.innerHTML=data[i].Content;
+        content.innerHTML=data.rows[i].Content;
         contentDiv.appendChild(content);//append content to contentdiv
         post.appendChild(contentDiv);// append contentdiv to post
         postsDiv.appendChild(post);//append post to postsdiv
         var commentsDiv = document.createElement('div');
         commentsDiv.setAttribute('class', 'col-md-12');
-        commentsDiv.setAttribute('id', 'PostCommentDiv' + data[i].PostId);
+        commentsDiv.setAttribute('id', 'PostCommentDiv' + data.rows[i].PostId);
         var header = document.createElement('h3');
         header.innerHTML="Comments";
         commentsDiv.appendChild(header);
         post.appendChild(commentsDiv);//apend commentsDiv to posts
+
+
+
+
+
+
 
         $.ajax({// get comments on post
           type: 'GET',
@@ -204,7 +160,7 @@ function initiate() {
           url: 'http://localhost:1337/getcomments',
           dataType: 'json',
           data:{
-            post : data[i].PostId
+            post : data.rows[i].PostId
           },
           async: false,
           success: function(rows) {
@@ -228,7 +184,7 @@ function initiate() {
 
               cDiv.appendChild(likeCommentButton);
 
-              if(rows[x].UserId == data[i].Owner ){
+              if(rows[x].UserId == data.UserId ){
                 var editCommentButton = document.createElement('button');
                 editCommentButton.innerHTML = "Edit";
                 editCommentButton.setAttribute('onclick', 'editComment(' + rows[x].CommentId + ')');
@@ -240,7 +196,7 @@ function initiate() {
                 var deleteCommentButton = document.createElement('button');
                 deleteCommentButton.innerHTML = "Delete";
                 deleteCommentButton.setAttribute('class', 'btn-danger');
-                deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[x].CommentId + "," + data[i].PostId + ')');
+                deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[x].CommentId + "," + data.rows[i].PostId + ')');
                 cDiv.appendChild(deleteCommentButton);
               }
 
@@ -248,6 +204,9 @@ function initiate() {
               likeCommentButton.setAttribute('id', "LikeComment"+ rows[x].CommentId);
               comment.innerHTML = rows[x].Content;
               name.innerHTML = rows[x].First_name + " " + rows[x].Last_name;
+
+
+
               $.ajax({//get likes for each comment
                 type: "GET",
                   url: "http://localhost:1337/getcommentlikes",
@@ -307,7 +266,7 @@ function initiate() {
         var span = document.createElement('span');
         var likeButton = document.createElement('button');
         likeButton.setAttribute('class', 'btn');
-        likeButton.setAttribute('id', "LikePost" + data[i].PostId);
+        likeButton.setAttribute('id', "LikePost" + data.rows[i].PostId);
 
         var editPostButton = document.createElement('button');
         var commentButton = document.createElement('button');
@@ -320,28 +279,28 @@ function initiate() {
         commentButton.setAttribute('data-target', '#myModal');
 
         var likeCount = document.createElement('p');
-        likeCount.setAttribute('id', 'LikePostCount' + data[i].PostId);
+        likeCount.setAttribute('id', 'LikePostCount' + data.rows[i].PostId);
         $.ajax({// finds out if user has liked the post
           type: 'GET',
           url: 'http://localhost:1337/getuserlikes',
           dataType: 'json',
           jsonp: 'callback',
           data:{
-            post : data[i].PostId
+            post : data.rows[i].PostId
           },
           async: false,
           success: function(rows) {
             if(rows.length == 0){//user didnt like post
-              likeButton.setAttribute('onclick', 'likePost(' + data[i].PostId + ", " + "LikePost"+ data[i].PostId +", " + 'LikePostCount' + data[i].PostId + ")");
+              likeButton.setAttribute('onclick', 'likePost(' + data.rows[i].PostId + ", " + "LikePost"+ data.rows[i].PostId +", " + 'LikePostCount' + data.rows[i].PostId + ")");
               likeButton.innerHTML = "Like";
             }else{//user has already liked the post
-              likeButton.setAttribute('onclick', 'unlikePost(' + data[i].PostId + ", " + "LikePost" + data[i].PostId +", " + 'LikePostCount' + data[i].PostId + ")");
+              likeButton.setAttribute('onclick', 'unlikePost(' + data.rows[i].PostId + ", " + "LikePost" + data.rows[i].PostId +", " + 'LikePostCount' + data.rows[i].PostId + ")");
               likeButton.innerHTML = "unlike";
             }
           },
           error: function (rows) {//user hasnt liked the post
-            console.log("ERROR ID -> " + data[i].PostId);
-            likeButton.setAttribute('onclick', 'likePost(' + data[i].PostId + ", "  + "LikePost" + data[i].PostId +", " + 'LikePostCount' + data[i].PostId + ")");
+            console.log("ERROR ID -> " + data.rows[i].PostId);
+            likeButton.setAttribute('onclick', 'likePost(' + data.rows[i].PostId + ", "  + "LikePost" + data.rows[i].PostId +", " + 'LikePostCount' + data.rows[i].PostId + ")");
             likeButton.innerHTML = "Like";
           }
         });
@@ -353,7 +312,7 @@ function initiate() {
           dataType: 'json',
           jsonp: 'callback',
           data:{
-            post : data[i].PostId
+            post : data.rows[i].PostId
           },
           async: false,
           success: function(rows) {
@@ -368,12 +327,12 @@ function initiate() {
 
         commentButton.innerHTML = "Comment";
         editPostButton.innerHTML = "Edit";
-        commentButton.setAttribute('onclick', 'comment(' + data[i].PostId + ')');
+        commentButton.setAttribute('onclick', 'comment(' + data.rows[i].PostId + ')');
 
-        console.log('editPost(' + data[i].PostId  +')');
-        console.log( data[i].Content + "a");
-        editPostButton.setAttribute('onclick', 'editPost(' +data[i].PostId + ')');
-        addPostContent(data[i].PostId, data[i].Content);
+        console.log('editPost(' + data.rows[i].PostId  +')');
+        console.log( data.rows[i].Content + "a");
+        editPostButton.setAttribute('onclick', 'editPost(' +data.rows[i].PostId + ')');
+        addPostContent(data.rows[i].PostId, data.rows[i].Content);
         span.appendChild(likeButton);
         span.appendChild(commentButton);
         span.appendChild(editPostButton);
@@ -382,6 +341,133 @@ function initiate() {
       }
     }
   });
+}
+
+
+
+
+
+
+function deleteComment(CommentId, PostId) {
+    $.ajax({// get comments on post
+      type: 'GET',
+      jsonp : 'callback',
+      url: 'http://localhost:1337/deleteComment',
+      dataType: 'json',
+      data:{
+        CommentId : CommentId
+      },
+      success: function(rows) {
+        document.getElementById('PostCommentDiv' +PostId).removeChild(document.getElementById('comment ' + CommentId));
+      }
+  });
+}
+
+function addPostContent(PostId, content) {
+
+    postContent[PostId] = content;
+
+}
+
+function addCommentContent(CommentId, content) {
+  commentContent[CommentId] = content;
+}
+
+function getUser(id) {
+  console.log("USER -> " + id);
+  User = id;
+}
+function addComment(PostId) {
+  var content = document.getElementById('commentValue').value;
+  $.ajax({// get likes of post
+    type: 'GET',
+    url: 'http://localhost:1337/addComment',
+    dataType: 'json',
+    jsonp: 'callback',
+    data:{
+      CommentValue : content,
+      Post: PostId
+    },
+    async: false,
+    success: function(data) {
+      var commentsDiv = document.getElementById('PostCommentDiv' + PostId);
+
+      $.ajax({// get comments on post
+        type: 'GET',
+        jsonp : 'callback',
+        url: 'http://localhost:1337/getLastComment',
+        dataType: 'json',
+        data:{
+          Post : PostId
+        },
+        success: function(rows) {
+          var cDiv = document.createElement('div');
+          cDiv.setAttribute('class', 'col-md-12 comment');
+          cDiv.setAttribute('id', 'comment ' + rows[0].CommentId);
+          var name = document.createElement('h4');
+          var comment = document.createElement('p');
+          var likes = document.createElement('p');
+          likes.setAttribute('style', 'display:inline-block');
+          var likeCommentButton = document.createElement('button');
+
+          comment.setAttribute('id','Comment' + rows[0].CommentId);
+          cDiv.appendChild(name);
+          cDiv.appendChild(comment);
+          cDiv.appendChild(likes);
+          cDiv.appendChild(likeCommentButton);
+
+          addCommentContent(rows[0].CommentId, content);
+
+          var editCommentButton = document.createElement('button');
+          editCommentButton.innerHTML = "Edit";
+          editCommentButton.setAttribute('onclick', 'editComment(' + rows[0].CommentId + ')');
+          editCommentButton.setAttribute('class', 'btn-info');
+          editCommentButton.setAttribute('data-toggle', 'modal');
+          editCommentButton.setAttribute('data-target', '#myModal');
+          cDiv.appendChild(editCommentButton);
+
+          var deleteCommentButton = document.createElement('button');
+          deleteCommentButton.innerHTML = "Delete";
+          deleteCommentButton.setAttribute('class', 'btn-danger');
+          deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[0].CommentId + "," + PostId + ')');
+          cDiv.appendChild(deleteCommentButton);
+
+
+          commentsDiv.appendChild(cDiv);
+          likeCommentButton.innerHTML="Like";
+          comment.innerHTML = rows[0].Content;
+          name.innerHTML = rows[0].First_name + " " + rows[0].Last_name;
+          likes.innerHTML = "0 Likes";
+          likes.val = 0;
+          likeCommentButton.setAttribute('id', 'LikeComment' + rows[0].CommentId);
+          likes.setAttribute('id', 'LikeCommentCount'+ rows[0].CommentId);
+          likeCommentButton.setAttribute('onclick', 'likeComment(' + rows[0].CommentId + ", " + "LikeComment" + rows[0].CommentId +", " + 'LikeCommentCount' + rows[0].CommentId + ")");
+          console.log("LIKE COUNT -> " +likes.innerHTML);
+          document.getElementById('commentValue').value = "";
+        },
+        error: function (rows) {
+        }
+    });
+  },
+  error: function (data) {
+  }
+});
+}
+
+
+function deletePost(PostId) {
+  $.ajax({// get comments on post
+    type: 'GET',
+    jsonp : 'callback',
+    url: 'http://localhost:1337/deletePost',
+    dataType: 'json',
+    data:{
+      Post : PostId
+    },
+    success: function(rows) {
+      document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
+    }
+});
 }
 
 function likePost(PostId, Ele, count) {
@@ -568,175 +654,10 @@ function editCommentRequest(CommentId) {
 
     }
   });
-  document.getElementById('commentValue').value="";
+  document.getElementById('postValue').value="";
 
 }
 
-
-
-function addComment(PostId) {
-  var content = document.getElementById('commentValue').value;
-  $.ajax({// get likes of post
-    type: 'GET',
-    url: 'http://localhost:1337/addComment',
-    dataType: 'json',
-    jsonp: 'callback',
-    data:{
-      CommentValue : content,
-      Post: PostId
-    },
-    async: false,
-    success: function(data) {
-      var commentsDiv = document.getElementById('PostCommentDiv' + PostId);
-
-      $.ajax({// get comments on post
-        type: 'GET',
-        jsonp : 'callback',
-        url: 'http://localhost:1337/getLastComment',
-        dataType: 'json',
-        data:{
-          Post : PostId
-        },
-        success: function(rows) {
-          var cDiv = document.createElement('div');
-          cDiv.setAttribute('class', 'col-md-12 comment');
-          cDiv.setAttribute('id', 'comment ' + rows[0].CommentId);
-          var name = document.createElement('h4');
-          var comment = document.createElement('p');
-          var likes = document.createElement('p');
-          likes.setAttribute('style', 'display:inline-block');
-          var likeCommentButton = document.createElement('button');
-          comment.setAttribute('id', 'Comment' + rows[0].CommentId);
-          cDiv.appendChild(name);
-          cDiv.appendChild(comment);
-          cDiv.appendChild(likes);
-          cDiv.appendChild(likeCommentButton);
-
-          addCommentContent(rows[0].CommentId, content);
-
-          var editCommentButton = document.createElement('button');
-          editCommentButton.innerHTML = "Edit";
-          editCommentButton.setAttribute('onclick', 'editComment(' + rows[0].CommentId + ')');
-          editCommentButton.setAttribute('class', 'btn-info');
-          editCommentButton.setAttribute('data-toggle', 'modal');
-          editCommentButton.setAttribute('data-target', '#myModal');
-          cDiv.appendChild(editCommentButton);
-
-          var deleteCommentButton = document.createElement('button');
-          deleteCommentButton.innerHTML = "Delete";
-          deleteCommentButton.setAttribute('class', 'btn-danger');
-          deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[0].CommentId + "," + PostId + ')');
-          cDiv.appendChild(deleteCommentButton);
-
-
-          commentsDiv.appendChild(cDiv);
-          likeCommentButton.innerHTML="Like";
-          comment.innerHTML = rows[0].Content;
-          name.innerHTML = rows[0].First_name + " " + rows[0].Last_name;
-          likes.innerHTML = "0 Likes";
-          likes.val = 0;
-          likeCommentButton.setAttribute('id', 'LikeComment' + rows[0].CommentId);
-          likes.setAttribute('id', 'LikeCommentCount'+ rows[0].CommentId);
-          likeCommentButton.setAttribute('onclick', 'likeComment(' + rows[0].CommentId + ", " + "LikeComment" + rows[0].CommentId +", " + 'LikeCommentCount' + rows[0].CommentId + ")");
-          console.log("LIKE COUNT -> " +likes.innerHTML);
-          document.getElementById('commentValue').value = "";
-        },
-        error: function (rows) {
-        }
-    });
-  },
-  error: function (data) {
-  }
-});
-}
-
-
-function deletePost(PostId) {
-  $.ajax({// get comments on post
-    type: 'GET',
-    jsonp : 'callback',
-    url: 'http://localhost:1337/deletePost',
-    dataType: 'json',
-    data:{
-      Post : PostId
-    },
-    success: function(rows) {
-      document.getElementById('posts').removeChild(document.getElementById('post ' + PostId));
-    }
-});
-}
-
-function deleteComment(CommentId, PostId) {
-    $.ajax({// get comments on post
-      type: 'GET',
-      jsonp : 'callback',
-      url: 'http://localhost:1337/deleteComment',
-      dataType: 'json',
-      data:{
-        CommentId : CommentId
-      },
-      success: function(rows) {
-        document.getElementById('PostCommentDiv' +PostId).removeChild(document.getElementById('comment ' + CommentId));
-      }
-  });
-}
-
-function addPostContent(PostId, content) {
-
-    postContent[PostId] = content;
-
-}
-
-function addCommentContent(CommentId, content) {
-  commentContent[CommentId] = content;
-}
-
-function getUser(id) {
-  console.log("USER -> " + id);
+function getUser(id) {//get id of user viewing the page
   User = id;
-}
-function CreateGroup(){
-    var groupname = document.getElementById('GroupName');
-
-
-    $.ajax({// get comments on post
-      type: 'POST',
-      jsonp : 'callback',
-      url: 'http://localhost:1337/CreateGroup',
-      dataType: 'json',
-      data:{
-        GroupName : groupname.value
-      },
-      success: function(data) {
-          var listElement = document.createElement('li');
-          listElement.setAttribute('class', 'listElement');
-          var form = document.createElement('form');
-          form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
-          form.setAttribute('method', 'post');
-          var groupid = document.createElement('input');
-          groupid.setAttribute('name', 'GroupId');
-          groupid.setAttribute('id', 'Group' + data[0].GroupId);
-          groupid.setAttribute('style', 'display:none');
-          groupid.setAttribute('value' , data[0].GroupId);
-
-          var pageid = document.createElement('input');
-          pageid.setAttribute('name', 'PageId');
-          pageid.setAttribute('id', 'PageId' + data[0].PageId);
-          pageid.setAttribute('style', 'display:none');
-          pageid.setAttribute('value' , data[0].PageId);
-          form.appendChild(pageid);
-
-          var group = document.createElement('input');
-          group.setAttribute('class', 'group')
-          group.setAttribute('value', data[0].Group_name);
-          group.setAttribute('type', 'submit');
-
-          form.appendChild(groupid);//id
-          form.appendChild(group);//submit button
-          listElement.appendChild(form);
-          document.getElementById("groups").appendChild(listElement);
-      }
-  });
-
-
 }

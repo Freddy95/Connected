@@ -27,7 +27,9 @@ and open the template in the editor.
             </div>
             <div class="col-md-1" align="right">
               <!-- <button type="button" class="btn" id="Invite" >Invite People</button> -->
-              <button type="button" class="btn" id="DeleteGroup" >Delete Group</button>
+              <form action ="http://localhost:1337/DeleteGroup" method="Post">
+                <input type="submit" class="btn" value="Delete Group" id="DeleteGroup" />
+              </form>
             </div>
               <div class="col-md-1" align="right">
                 <form action ="http://localhost:1337/leaveGroup" method="Post">
@@ -41,7 +43,6 @@ and open the template in the editor.
                 </form>
               </div>
             </div>
-
           </div>
           <div class="row">
             <div class="col-md-3" id="Group info">

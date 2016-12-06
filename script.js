@@ -1008,7 +1008,89 @@ app.post('/leaveGroup',function(req,resp){
 				});
 			}
 		});
+});
 
+app.post('/DeleteGroup',function(req,resp){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("DELETE FROM Groups_data WHERE GroupId=?", [sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						sess.GroupId = -1;
+						resp.render('PersonalPage.html')
+						resp.end();
+					}
+
+				});
+			}
+		});
+});
+
+app.post('/CreateGroup',function(req,resp){
+	console.log('input = '+ req.body.GroupName);
+
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				console.log('input = '+ req.body.GroupName);
+				tempCont.query("insert into Groups_data(Group_name,Type,Owner) values(?,'club',?)", [req.body.GroupName,sess.user], function(error,rows,fields){
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						tempCont.query("Select * from Groups_data order by GroupId desc limit 1;", function(error,rows2,fields){
+							if (error){
+								console.log('Error in the query2 '+error);
+								resp.jsonp("error");
+								resp.end();
+							}
+							else{
+								console.log('groupid '+rows2[0].GroupId);
+								tempCont.query("insert into Pages (Owner,Associated_group,Post_count) values(NULL,?,0);", [rows2[0].GroupId], function(error,rows3,fields){
+									if (error){
+										console.log('Error in the query'+error);
+										resp.jsonp("error");
+										resp.end();
+									}
+									else{
+										tempCont.query("Select * from Groups_data G, Pages P where P.Associated_group = G.GroupId order by GroupId desc limit 1;", function(error,rows4,fields){
+											tempCont.release();
+											if (error){
+												console.log('Error in the query'+error);
+												resp.jsonp("error");
+												resp.end();
+											}
+											else{
+												resp.jsonp(rows4);
+												resp.end();
+											}
+
+										});
+									}
+
+								});
+							}
+
+						});
+					}
+
+				});
+			}
+		});
 });
 
 app.listen(1337);
