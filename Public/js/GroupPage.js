@@ -24,6 +24,28 @@ function initiate() {
     getUser(data[0].UserId);
     },
   });
+  $.ajax({ // check if user is already in group
+    type: 'GET',
+    url: 'http://localhost:1337/userInGroup',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      if(data.length != 1){
+        var deleteGroupButton = document.getElementById('DeleteGroup');
+        var leaveGroupButton = document.getElementById('LeaveGroup');
+
+
+        deleteGroupButton.setAttribute('style', 'display:none');
+        leaveGroupButton.setAttribute('style', 'display:none');
+
+        var form = document.getElementById('ActionForm');
+        form.setAttribute('action', 'http://localhost:1337/joinGroup');
+
+        var button2 = document.getElementById('SearchForUser');
+        button2.setAttribute('value', 'Join Group');
+      }
+    },
+  });
   $.ajax({// get owner of the group
     type: 'GET',
     url: 'http://localhost:1337/getownerofgroup',
@@ -34,6 +56,13 @@ function initiate() {
       if(data.Owner == 1){//person is the owner of the page
         var leave = document.getElementById("LeaveGroup");
         leave.setAttribute('style', 'display:none');
+        var editGroupButton = document.getElementById('name');
+        editGroupButton.setAttribute('data-toggle', 'modal');
+        editGroupButton.setAttribute('data-target', '#myNameModal');
+        var editName = document.getElementById('Name_modal_button');
+        editName.setAttribute('onclick', 'editGroupName()');
+        var nameVal = document.getElementById('nameValue');
+        document.getElementById('nameValue').value=editGroupButton.innerHTML;
       }else{
         var deleteGroup = document.getElementById("DeleteGroup");
         deleteGroup.setAttribute('style', 'display:none');
@@ -654,10 +683,35 @@ function editCommentRequest(CommentId) {
 
     }
   });
-  document.getElementById('postValue').value="";
+  document.getElementById('commentValue').value="";
 
 }
 
+function editGroupName(GroupId) {
+  console.log("request edit");
+  var content = document.getElementById('nameValue').value;
+
+  $.ajax({// get likes of post
+    type: 'GET',
+    url: 'http://localhost:1337/editGroupName',
+    dataType: 'json',
+    jsonp: 'callback',
+    data:{
+      Content : content
+    },
+    async: false,
+    success: function(rows) {
+      console.log(rows);
+      var name = document.getElementById("name");
+      name.innerHTML = content;
+      },
+    error: function (rows) {
+
+    }
+  });
+  document.getElementById('nameValue').value=content;
+
+}
 function getUser(id) {//get id of user viewing the page
   User = id;
 }

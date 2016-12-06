@@ -228,6 +228,118 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 	}
 });
 
+
+
+app.get('/getReceivedMessages',function(req,resp){//get all messages received by user
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Receiver=? AND Sender=UserId and Visible_by_receiver='Y'", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+app.get('/getSentMessages',function(req,resp){//get all messages sent by user
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Sender=? AND Receiver=UserId and Visible_by_sender='Y'", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/deleteReceivedMessage',function(req,resp){//get posts on user page
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("UPDATE Messages_data SET Visible_by_receiver='N' WHERE MessageId=?", [req.query.MessageId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json("deleted message");
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/deleteSentMessage',function(req,resp){//delete sent message
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("UPDATE Messages_data SET Visible_by_sender='N' WHERE MessageId=?", [req.query.MessageId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json("deleted messsage");
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
 app.get('/getcomments',function(req,resp){//get posts on user page
 	sess = req.session;//get session
 	if(sess.user){
@@ -340,6 +452,33 @@ app.get('/editComment', function (req, resp) {
 			}
 	});
 });
+
+app.get('/editGroupName', function (req, resp) {
+	sess = req.session;
+	connection.getConnection(function (error, tempCont) {
+			if(error){
+				tempCont.release();
+			}else{
+				tempCont.query(
+
+					"UPDATE Groups_data SET Group_name=? WHERE GroupId=?", [req.query.Content, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+	});
+});
+
+
 
 app.get('/getlikes',function(req,resp){//get likes on post
 	sess = req.session;//get session
@@ -591,17 +730,40 @@ app.post('/signup', function (req, resp) {
 			console.log('Error');
 		}
 		else{
+			if(!req.body.Zip_code){//zipcode must be a number
+				console.log();
+				req.body.Zip_code=null;
+			}
 			tempCont.query(
 				"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences) VALUES(?,?,?,?,?,?,?,?,?,?)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.Preferences], function(error,rows,fields){
-				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);
 					resp.jsonp("error");
 					resp.end();
 				}
 				else{
-					resp.render('login2.html');
-					resp.end();
+					tempCont.query(
+						"SELECT UserId FROM  User ORDER BY UserId DESC LIMIT 1",  function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query'+error);
+							resp.jsonp("error");
+							resp.end();
+						}
+						else{
+							tempCont.query(
+								"INSERT INTO  Pages (Owner, Post_count) VALUES(?,?)", [rows2[0].UserId, 0], function(error,rows3,fields){
+								if (error){
+									console.log('Error in the query'+error);
+									resp.jsonp("error");
+									resp.end();
+								}
+								else{
+									resp.render('login2.html');
+									resp.end();
+								}
+							});
+						}
+					});
 				}
 			});
 		}
@@ -660,7 +822,12 @@ app.get('/getLastComment', function (req, resp) {
 
 app.get('/register', function (req, res) {
 	res.render('Register.html');
-	resp.end();
+	res.end();
+});
+
+app.get('/getMessagesPage', function (req, res) {
+	res.render('Messages.html');
+	res.end();
 });
 app.get('/logout', function (req, res) {
 	sess = req.session;
@@ -809,7 +976,7 @@ app.get('/getownerofgroup',function(req,resp){//get groups user has joined
 				console.log('Error');
 			}
 			else{
-				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Groups_data G WHERE G.GroupId=? AND G.Owner = U.UserId;", sess.GroupId, function(error,rows,fields){
+				tempCont.query("select U.First_name, U.Last_name, U.UserId, G.GroupId from User U, Groups_data G WHERE G.GroupId=? AND G.Owner = U.UserId;", sess.GroupId, function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -902,6 +1069,15 @@ app.post('/goToUserPage',function(req,resp){
 	resp.end();
 });
 
+app.post('/goToUserPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		sess.GroupId= req.body.GroupId;
+		resp.render('GroupPage.html')
+	}
+	resp.end();
+});
+
 app.get('/getUsersPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
@@ -909,6 +1085,12 @@ app.get('/getUsersPage',function(req,resp){
 	}
 });
 
+app.get('/getGroupsPage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		resp.render('Groups.html');
+	}
+});
 app.get('/getAllUsers',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
@@ -934,14 +1116,15 @@ app.get('/getAllUsers',function(req,resp){
 
 });
 
-app.get('/addUser',function(req,resp){//add user to group
+
+app.get('/getAllGroups',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){
 				tempCont.release();
 				console.log('Error');
 			}
 			else{
-				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.otherUser, sess.GroupId], function(error,rows,fields){
+				tempCont.query("select Group_name, GroupId from Groups_data",  function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -949,8 +1132,31 @@ app.get('/addUser',function(req,resp){//add user to group
 						resp.end();
 					}
 					else{
-						console.log("User to add -> " + sess.otherUser);
-						resp.json("success");
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+app.get('/serInGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT UserId FROM JOINS WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
 						resp.end();
 					}
 
@@ -960,6 +1166,56 @@ app.get('/addUser',function(req,resp){//add user to group
 
 });
 
+app.get('/joinGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.render('GroupPage.html');
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+
+app.get('/joinGroup',function(req,resp){//add user to group
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.render('GroupPage.html');
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
 app.get('/removeUser',function(req,resp){
 		connection.getConnection(function(error,tempCont){
 			if (error){

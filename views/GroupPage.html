@@ -46,9 +46,9 @@ and open the template in the editor.
           </div>
           <div class="row">
             <div class="col-md-3" id="Group info">
-              <h1 id="name">Group Name </h1>
-              <form action ="http://localhost:1337/getUsersPage" method="get">
-                <input type="submit" class="btn-success" value="Search for Users">
+              <button id="name">Group Name</button>
+              <form action ="http://localhost:1337/getUsersPage" method="get" id="ActionForm">
+                <input type="submit" class="btn-success" value="Search for Users" id="SearchForUser">
               </form>
               <!-- <button type="button" class="btn-primary"id="messages">Create Post</button>
               <button type="button" class="btn-primary"id="messages">Messages</button> -->
@@ -114,6 +114,27 @@ and open the template in the editor.
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal" id="Post_modal_button">Finish</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="myNameModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Group Name</h4>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="nameValue">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="Name_modal_button">Finish</button>
         </div>
       </div>
 

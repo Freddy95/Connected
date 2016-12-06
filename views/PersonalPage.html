@@ -27,8 +27,9 @@ and open the template in the editor.
               <h1 id="companyTitle">Connected</h1>
             </div>
             <div class="col-md-3" align="right">
-              <button type="button" class="btn" id="Messages" >Messages</button>
-              <button type="button" class="btn" id="Friends" >Friends</button>
+              <form action ="http://localhost:1337/getMessagesPage" method="get">
+                <input type="submit" class="btn" value="Messages">
+              </form>
               <button type="button" class="btn" id="Options" >Options</button>
               <button type="button" data-target="#CreateModal" data-toggle="modal" class="btn"  id="CreateGroup">Create Group</button>
               <form action ="http://localhost:1337/logout">
@@ -40,6 +41,9 @@ and open the template in the editor.
           <div class="row">
             <div class="col-md-3" id="personal info">
               <h1 id="name">First Name Last Name</h1>
+              <form action ="http://localhost:1337/getGroupsPage" method="get">
+                <input type="submit" class="btn-success" value="Search for Groups">
+              </form>
               <h2>Groups</h2>
               <ul id="groups">
 

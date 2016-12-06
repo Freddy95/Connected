@@ -1,4 +1,4 @@
-.Member{
+.group{
      background:none!important;
      border:none;
      padding:0!important;
@@ -6,14 +6,8 @@
      /*border is optional*/
      cursor: pointer;
 
-}
-.btn{
-	background-color: #cccccc;
-}
 
-#name{
-  background:none!important;
-  border:none;
-  padding:0!important;
-  font-size: 200%;
+}
+.list-group-item:hover{
+  background-color: gray;
 }
