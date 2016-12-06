@@ -5,6 +5,7 @@
 var postContent = {};
 var commentContent={};
 var User;
+var isOwner;
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -24,28 +25,7 @@ function initiate() {
     getUser(data[0].UserId);
     },
   });
-  $.ajax({ // check if user is already in group
-    type: 'GET',
-    url: 'http://localhost:1337/userInGroup',
-    dataType: 'json',
-    async: false,
-    success: function(data) {
-      if(data.length != 1){
-        var deleteGroupButton = document.getElementById('DeleteGroup');
-        var leaveGroupButton = document.getElementById('LeaveGroup');
 
-
-        deleteGroupButton.setAttribute('style', 'display:none');
-        leaveGroupButton.setAttribute('style', 'display:none');
-
-        var form = document.getElementById('ActionForm');
-        form.setAttribute('action', 'http://localhost:1337/joinGroup');
-
-        var button2 = document.getElementById('SearchForUser');
-        button2.setAttribute('value', 'Join Group');
-      }
-    },
-  });
   $.ajax({// get owner of the group
     type: 'GET',
     url: 'http://localhost:1337/getownerofgroup',
@@ -54,6 +34,7 @@ function initiate() {
       console.log("OWNER -> " + data.Owner);
       console.log("row ");
       if(data.Owner == 1){//person is the owner of the page
+        isOwner = true;
         var leave = document.getElementById("LeaveGroup");
         leave.setAttribute('style', 'display:none');
         var editGroupButton = document.getElementById('name');
@@ -75,8 +56,8 @@ function initiate() {
         // link.setAttribute('onclick','enter_member_page('+data[i].UserId+')');
         // // group.innerHTML = data[i].Group_name;
         // member.appendChild(link);
-        // document.getElementById("Members").appendChild(member
-
+        // document.getElementById("Memb ers").appendChild(member
+        isOwner = false;
         var listElement = document.createElement('li');
         listElement.setAttribute('class', 'listElement');
         var form = document.createElement('form');
@@ -96,6 +77,31 @@ function initiate() {
         form.appendChild(Member);//submit button
         listElement.appendChild(form);
         document.getElementById("Members").appendChild(listElement);
+      }
+    },
+  });
+
+  $.ajax({ // check if user is already in group
+    type: 'GET',
+    url: 'http://localhost:1337/userInGroup',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      console.log("data length -> "  + data.length);
+      if(data.length != 1 && isOwner != 1){//not in group
+        console.log("OWNER  -> " + isOwner);
+        var deleteGroupButton = document.getElementById('DeleteGroup');
+        var leaveGroupButton = document.getElementById('LeaveGroup');
+
+
+        deleteGroupButton.setAttribute('style', 'display:none');
+        leaveGroupButton.setAttribute('style', 'display:none');
+
+        var form = document.getElementById('ActionForm');
+        form.setAttribute('action', 'http://localhost:1337/joinGroup');
+
+        var button2 = document.getElementById('SearchForUser');
+        button2.setAttribute('value', 'Join Group');
       }
     },
   });
