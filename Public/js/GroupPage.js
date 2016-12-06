@@ -5,8 +5,6 @@
 var postContent = {};
 var commentContent={};
 var User;
-var GroupOwner;
-var User;
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -17,30 +15,12 @@ function initiate() {
       document.getElementById("name").innerHTML = data;
     },
   });
-  $.ajax({ // get user visiting site
-    type: 'GET',
-    url: 'http://localhost:1337/getuser',
-    dataType: 'json',
-    async: false,
-    success: function(data) {
-    User=data[0].UserId;
-    },
-  });
   $.ajax({// get owner of the group
     type: 'GET',
     url: 'http://localhost:1337/getownerofgroup',
     dataType: 'json',
     success: function(data) {
-      console.log("OWNER -> " + data.Owner);
-      console.log("row ");
-      if(data.Owner == 1){//person is the owner of the page
-        var leave = document.getElementById("LeaveGroup");
-        leave.setAttribute('style', 'display:none');
-      }else{
-        var deleteGroup = document.getElementById("DeleteGroup");
-        deleteGroup.setAttribute('style', 'display:none');
-      }
-      for(var i = 0; i < data.rows.length; i++){
+      for(var i = 0; i < data.length; i++){
         // console.log(data[i].Member_name)
         // var member = document.createElement("li");
         // var link = document.createElement("a");
@@ -57,30 +37,21 @@ function initiate() {
         form.setAttribute('method', 'post');
         var MemberId = document.createElement('input');
         MemberId.setAttribute('name', 'UserId');
-        MemberId.setAttribute('id', 'Member' + data.rows[i].UserId);
+        MemberId.setAttribute('id', 'Member' + data[i].UserId);
         MemberId.setAttribute('style', 'display:none');
-        MemberId.setAttribute('value' , data.rows[i].UserId);
+        MemberId.setAttribute('value' , data[i].UserId);
         var Member = document.createElement('input');
         Member.setAttribute('class', 'Member')
-        Member.setAttribute('value', data.rows[i].First_name + " " + data.rows[i].Last_name);
+        Member.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
         Member.setAttribute('type', 'submit');
 
         form.appendChild(MemberId);//id
         form.appendChild(Member);//submit button
         listElement.appendChild(form);
         document.getElementById("Members").appendChild(listElement);
-        GroupOwner = data[i].UserId;
       }
     },
   });
-  if (GroupOwner == User){
-    var button = getElementById('LeaveGroup');
-    button.setAttribute('style', 'display:none');
-  }
-  else{
-    var button = getElementById('DeleteGroup');
-    button.setAttribute('style', 'display:none');
-  }
   $.ajax({// get members in the group
     type: 'GET',
     url: 'http://localhost:1337/getmembers',
