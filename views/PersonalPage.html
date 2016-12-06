@@ -27,8 +27,9 @@ and open the template in the editor.
               <h1 id="companyTitle">Connected</h1>
             </div>
             <div class="col-md-3" align="right">
-              <button type="button" class="btn" id="Messages" >Messages</button>
-              <button type="button" class="btn" id="Friends" >Friends</button>
+              <form action ="http://localhost:1337/getMessagesPage" method="get">
+                <input type="submit" class="btn" value="Messages">
+              </form>
               <button type="button" class="btn" id="Options" >Options</button>
               <form action ="http://localhost:1337/logout">
                 <input type="submit" class="btn-danger"  id="Logout" value="Logout">

@@ -228,6 +228,118 @@ app.get('/getuserposts',function(req,resp){//get posts on user page
 	}
 });
 
+
+
+app.get('/getReceivedMessages',function(req,resp){//get all messages received by user
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Receiver=? AND Sender=UserId and Visible_by_receiver='Y'", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+app.get('/getSentMessages',function(req,resp){//get all messages sent by user
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT *, First_name, Last_name FROM Messages_data, User WHERE Sender=? AND Receiver=UserId and Visible_by_sender='Y'", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/deleteReceivedMessage',function(req,resp){//get posts on user page
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("UPDATE Messages_data SET Visible_by_receiver='N' WHERE MessageId=?", [req.query.MessageId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json("deleted message");
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+
+app.get('/deleteSentMessage',function(req,resp){//delete sent message
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("UPDATE Messages_data SET Visible_by_sender='N' WHERE MessageId=?", [req.query.MessageId], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json("deleted messsage");
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
 app.get('/getcomments',function(req,resp){//get posts on user page
 	sess = req.session;//get session
 	if(sess.user){
@@ -712,6 +824,11 @@ app.get('/register', function (req, res) {
 	res.render('Register.html');
 	res.end();
 });
+
+app.get('/getMessagesPage', function (req, res) {
+	res.render('Messages.html');
+	res.end();
+});
 app.get('/logout', function (req, res) {
 	sess = req.session;
 	sess.user = null;
@@ -1024,7 +1141,7 @@ app.get('/getAllGroups',function(req,resp){
 		});
 
 });
-app.get('/userInGroup',function(req,resp){//add user to group
+app.get('/serInGroup',function(req,resp){//add user to group
 		connection.getConnection(function(error,tempCont){
 			if (error){
 				tempCont.release();
