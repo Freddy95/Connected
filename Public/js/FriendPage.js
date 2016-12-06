@@ -45,9 +45,12 @@ function initiate() {
       user: User
     },
     success: function(data) {
-      if(data.indexOf(FriendId) >= 0){
+      console.log("DATA -> " + FriendId);
+      console.log("index -> " + data.indexOf(FriendId));
+      if(data.length == 1){
         var addUserButton = document.getElementById("AddUserButton");
-        addUserButton.innerHTML = "Remove User From Group";
+        addUserButton.setAttribute('value', 'Remove User From Group');
+        addUserButton.setAttribute('class', 'btn-danger');
         addUserButton.setAttribute('onclick', 'removeUser()');
       }
     },
@@ -631,9 +634,7 @@ function addUser() {
       url: 'http://localhost:1337/addUser',
       dataType: 'json',
       success: function(rows) {
-        var addUserButton = document.getElementById("AddUserButton");
-        addUserButton.innerHTML = "Remove User From Group";
-        addUserButton.setAttribute('onclick', 'removeUser()');
+
       }
    });
 }
@@ -646,9 +647,8 @@ function removeUser() {
     url: 'http://localhost:1337/removeUser',
     dataType: 'json',
     success: function(rows) {
-      var addUserButton = document.getElementById("AddUserButton");
-      addUserButton.innerHTML = "Add User to Group";
-      addUserButton.setAttribute('onclick', 'addUser()');
+      console.log("Halp");
+
     }
  });
 }

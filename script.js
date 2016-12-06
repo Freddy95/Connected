@@ -681,6 +681,12 @@ app.post('/goToGroupPage',function(req,resp){
 
 });
 
+app.get('/returnToGroupPage' ,function(req,resp){
+	sess = req.session;//get session
+	resp.render('GroupPage.html');
+	resp.end();
+});
+
 app.get('/getgroupname',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
@@ -754,6 +760,7 @@ app.get('/getPersonInGroup',function(req,resp){
 					}
 					else{
 						resp.json(rows);
+						console.log(rows);
 						resp.end();
 					}
 
@@ -813,7 +820,12 @@ app.get('/getownerofgroup',function(req,resp){//get groups user has joined
 						console.log('?///////////////////////////////');
 						console.log("rows: "+ rows);
 						console.log('?///////////////////////////////');
-						resp.json(rows);
+						if(rows[0].UserId == sess.user){
+							resp.json({rows:rows, Owner: 1});
+						}else{
+							resp.json({rows:rows, Owner:0});
+						}
+
 						resp.end();
 					}
 
@@ -937,6 +949,8 @@ app.get('/addUser',function(req,resp){//add user to group
 						resp.end();
 					}
 					else{
+						console.log("User to add -> " + sess.otherUser);
+						resp.json("success");
 						resp.end();
 					}
 
@@ -961,6 +975,7 @@ app.get('/removeUser',function(req,resp){
 						resp.end();
 					}
 					else{
+						resp.jsonp("success");
 						resp.end();
 					}
 

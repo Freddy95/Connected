@@ -20,7 +20,16 @@ function initiate() {
     url: 'http://localhost:1337/getownerofgroup',
     dataType: 'json',
     success: function(data) {
-      for(var i = 0; i < data.length; i++){
+      console.log("OWNER -> " + data.Owner);
+      console.log("row ");
+      if(data.Owner == 1){//person is the owner of the page
+        var leave = document.getElementById("LeaveGroup");
+        leave.setAttribute('style', 'display:none');
+      }else{
+        var deleteGroup = document.getElementById("DeleteGroup");
+        deleteGroup.setAttribute('style', 'display:none');
+      }
+      for(var i = 0; i < data.rows.length; i++){
         // console.log(data[i].Member_name)
         // var member = document.createElement("li");
         // var link = document.createElement("a");
@@ -37,12 +46,12 @@ function initiate() {
         form.setAttribute('method', 'post');
         var MemberId = document.createElement('input');
         MemberId.setAttribute('name', 'UserId');
-        MemberId.setAttribute('id', 'Member' + data[i].UserId);
+        MemberId.setAttribute('id', 'Member' + data.rows[i].UserId);
         MemberId.setAttribute('style', 'display:none');
-        MemberId.setAttribute('value' , data[i].UserId);
+        MemberId.setAttribute('value' , data.rows[i].UserId);
         var Member = document.createElement('input');
         Member.setAttribute('class', 'Member')
-        Member.setAttribute('value', data[i].First_name + " " + data[i].Last_name);
+        Member.setAttribute('value', data.rows[i].First_name + " " + data.rows[i].Last_name);
         Member.setAttribute('type', 'submit');
 
         form.appendChild(MemberId);//id
