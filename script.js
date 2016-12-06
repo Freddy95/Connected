@@ -759,6 +759,93 @@ app.post('/goToFriendPage',function(req,resp){
 	}
 });
 
+app.get('/getmembers',function(req,resp){//get groups user has joined
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select U.First_name, U.Last_name, U.UserId from User U, Joins J WHERE J.GroupId=? AND J.Stat='accepted' AND J.UserId=U.UserId", 1, function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log('?///////////////////////////////');
+						console.log("rows: "+ rows);
+						console.log('?///////////////////////////////');
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+	}
+});
+
+app.get('/getgroupposts',function(req,resp){//get posts on user page
+	sess = req.session;//get session
+	if(sess.user){
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT P.Content, P.PostId, S.Associated_group FROM Posts_data P, Pages S WHERE S.Associated_group=? AND P.PageId=? ORDER BY PostId DESC", [1, 11], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						console.log("----------group Posts:" + rows);
+						resp.json({rows:rows, UserId: sess.user});
+					}
+
+				});
+			}
+		});
+	}
+});
+
+app.post('/PostGroupMessage',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+
+			tempCont.query("insert into Posts_data (PageId,Post_date,Content,Comment_count) Values (?,CURDATE(),?,0);", [11, req.body.message], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					resp.render('GroupPage.html');
+					//resp.render('PersonalPage.html');
+					// req.session.reload();
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
 
 
 app.listen(1337);

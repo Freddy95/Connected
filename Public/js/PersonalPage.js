@@ -101,7 +101,7 @@ function initiate() {
   });
 
 
-  $.ajax({// get groups user has joined
+  $.ajax({// get posts
     type: 'GET',
     url: 'http://localhost:1337/getuserposts',
     dataType: 'json',
