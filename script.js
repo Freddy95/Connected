@@ -1208,7 +1208,7 @@ app.get('/joinGroup',function(req,resp){//add user to group
 				console.log('Error');
 			}
 			else{
-				tempCont.query("insert into joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
+				tempCont.query("insert into Joins values ('accepted', ?, ?)", [sess.user, sess.GroupId], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -1240,7 +1240,7 @@ app.get('/userInGroup',function(req,resp){//add user to group
 
 			else{
 
-				tempCont.query("SELECT UserId FROM JOINS WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
+				tempCont.query("SELECT UserId FROM Joins WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
 
 					tempCont.release();
 
