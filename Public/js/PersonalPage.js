@@ -24,6 +24,24 @@ function initiate() {
     success: function(data) {
     },
   });
+  $.ajax({//check if user is an employee
+    type: 'GET',
+    url: 'http://localhost:1337/getEmployeeStatus',
+    dataType: 'json',
+    async: false,
+    success: function(data) {
+      var man = document.getElementById('MangerButton');
+      var emp = document.getElementById('EmployeeButton');
+      if(data.length == 1){//is an employee
+        if(data[0].Role='Employee'){//not manager
+          man.setAttribute('style', 'display:none');
+        }
+      }else{//not an employee
+        man.setAttribute('style', 'display:none');
+        emp.setAttribute('style', 'display:none');
+      }
+    },
+  });
 
   $.ajax({//get groups user is the owner of
     type: 'GET',

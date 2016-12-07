@@ -30,6 +30,7 @@ function initiate() {
     type: 'GET',
     url: 'http://localhost:1337/getownerofgroup',
     dataType: 'json',
+    async:false,
     success: function(data) {
       console.log("OWNER -> " + data.Owner);
       console.log("row ");
