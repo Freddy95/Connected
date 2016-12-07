@@ -5,7 +5,7 @@
 var postContent = {};
 var commentContent={};
 var User;
-var isOwner;
+var isOwner = 0;
 function initiate() {
   $.ajax({ // get group name
     type: 'GET',
@@ -34,7 +34,7 @@ function initiate() {
       console.log("OWNER -> " + data.Owner);
       console.log("row ");
       if(data.Owner == 1){//person is the owner of the page
-        isOwner = true;
+        isOwner = 1;
         var leave = document.getElementById("LeaveGroup");
         leave.setAttribute('style', 'display:none');
         var editGroupButton = document.getElementById('name');
@@ -47,6 +47,7 @@ function initiate() {
       }else{
         var deleteGroup = document.getElementById("DeleteGroup");
         deleteGroup.setAttribute('style', 'display:none');
+        isOwner = 0;
       }
       for(var i = 0; i < data.rows.length; i++){
         // console.log(data[i].Member_name)
@@ -57,7 +58,7 @@ function initiate() {
         // // group.innerHTML = data[i].Group_name;
         // member.appendChild(link);
         // document.getElementById("Memb ers").appendChild(member
-        isOwner = false;
+
         var listElement = document.createElement('li');
         listElement.setAttribute('class', 'listElement');
         var form = document.createElement('form');
@@ -88,7 +89,8 @@ function initiate() {
     async: false,
     success: function(data) {
       console.log("data length -> "  + data.length);
-      if(data.length != 1 && isOwner === 0){//not in group
+
+      if(data.length == 0 && isOwner === 0){//not in group
         console.log("OWNER  -> " + isOwner);
         var deleteGroupButton = document.getElementById('DeleteGroup');
         var leaveGroupButton = document.getElementById('LeaveGroup');

@@ -1240,7 +1240,7 @@ app.get('/userInGroup',function(req,resp){//add user to group
 
 			else{
 
-				tempCont.query("SELECT UserId FROM JOINS WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
+				tempCont.query("SELECT UserId FROM Joins WHERE UserId=? AND GroupId=? AND Stat='accepted'", [sess.user, sess.GroupId], function(error,rows,fields){
 
 					tempCont.release();
 
