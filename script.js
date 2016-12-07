@@ -1406,4 +1406,24 @@ app.post('/CreateGroup',function(req,resp){
 		});
 });
 
+app.post('/goToManager',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		resp.render('ManagerPage.html')
+	}
+	resp.end();
+
+});
+app.post('/goToEmployeePage',function(req,resp){
+	sess = req.session;//get session
+	if(sess.user){
+		resp.render('EmployeePage.html')
+	}
+	resp.end();
+
+});
+
+
+
+
 app.listen(1337);
