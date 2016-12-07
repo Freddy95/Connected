@@ -1226,7 +1226,7 @@ app.get('/joinGroup',function(req,resp){//add user to group
 
 });
 
-app.get('/userInGroup',function(req,resp){//add user to group
+app.get('/userInGroup',function(req,resp){//check to see if user in group
 
 		connection.getConnection(function(error,tempCont){
 
@@ -1404,6 +1404,31 @@ app.post('/CreateGroup',function(req,resp){
 				});
 			}
 		});
+});
+
+app.get('/getEmployeeStatus',function(req,resp){//check if user is an employee and what kind
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT E.Role FROM Employee_data E, User U WHERE U.UserId=? AND E.Social_security_number=U.EmployeeId", [sess.user], function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.jsonp(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
 });
 
 app.listen(1337);
