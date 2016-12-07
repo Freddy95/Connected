@@ -88,7 +88,7 @@ function initiate() {
     async: false,
     success: function(data) {
       console.log("data length -> "  + data.length);
-      if(data.length != 1 && isOwner != 1){//not in group
+      if(data.length != 1 && isOwner === 0){//not in group
         console.log("OWNER  -> " + isOwner);
         var deleteGroupButton = document.getElementById('DeleteGroup');
         var leaveGroupButton = document.getElementById('LeaveGroup');
