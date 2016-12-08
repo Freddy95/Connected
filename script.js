@@ -1702,6 +1702,31 @@ app.get('/getEveryUser',function(req,resp){//check if user is an employee and wh
 
 });
 
+app.get('/getAllItemTypes',function(req,resp){// gets all item types
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select distinct A.Type from Sales_data S, Advertisements_data A where S.AdvertisementId = A.AdvertisementId;", function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.jsonp(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
 app.post('/getUserTransactions',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -1740,6 +1765,87 @@ app.post('/getItemTransactions',function(req,resp){
 		}
 		else{
 			tempCont.query("select S.TransactionId , S.Sale_date_time, S.Number_of_units from Sales_data S, Advertisements_data A where S.AdvertisementId = A.AdvertisementId and A.Item_name =?; ", [req.body.Item_name], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					resp.jsonp(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+app.post('/getUserSummary',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("select Ad.Unit_price, S.Number_of_units from Sales_data S, Accounts A, User U, Advertisements_data Ad where Ad.AdvertisementId = S.AdvertisementId and S.Account_number = A.Account_number and A.UserId = U.UserId and U.UserId =?; ", [req.body.UserId], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					resp.jsonp(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+app.post('/getItemSummary',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("select A.Unit_price, S.Number_of_units from Sales_data S, Advertisements_data A where S.AdvertisementId = A.AdvertisementId and A.Item_name=?; ", [req.body.Item_name], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					resp.jsonp(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+app.post('/getItemTypeSummary',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("select A.Unit_price, S.Number_of_units from Sales_data S, Advertisements_data A where S.AdvertisementId = A.AdvertisementId and A.Type=?;", [req.body.Type], function(error,rows,fields){
 				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);

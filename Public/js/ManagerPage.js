@@ -43,36 +43,88 @@ function initiate() {
     url: 'http://localhost:1337/getAllItems',
     dataType: 'json',
     success: function(data) {
+
+      // Transaction 37
       var ItemList = document.getElementById('ItemTrans');
+      // Transaction 38
+      var ItemList2 = document.getElementById('ItemSummary');
+
+
       for(var i = 0; i < data.length; i++){
+
+        // Transaction 37
         var listElement = document.createElement('li');
         var a = document.createElement('a');
         a.innerHTML=data[i].Item_name;
         a.setAttribute('onclick', 'generateItemTransList(' + "'" +data[i].Item_name+"'" +")");
-
-
         listElement.appendChild(a);
         ItemList.appendChild(listElement);
+
+        // Transaction 38
+        var listElement2 = document.createElement('li');
+        var a2 = document.createElement('a');
+        a2.innerHTML=data[i].Item_name;
+        a2.setAttribute('onclick', 'generateItemSummary(' + "'" +data[i].Item_name+"'" +")");
+        listElement2.appendChild(a2);
+        ItemList2.appendChild(listElement2);
 
 
       }
     },
   });
-  $.ajax({// gets list of all distinct User Names
+  $.ajax({// gets list of all distinct User Names This is Used for Transaction 37,38
     type: 'GET',
     url: 'http://localhost:1337/getEveryUser',
     dataType: 'json',
     success: function(data) {
+
+      // Transaction 37
       var ItemList = document.getElementById('UserTrans');
+      //Transaction 38
+      var ItemList2 = document.getElementById('UserSummary');
+
       for(var i = 0; i < data.length; i++){
+
+        //Transaction 37
         var listElement = document.createElement('li');
         var a = document.createElement('a');
         a.innerHTML=data[i].UserId + " "+data[i].First_name +" "+ data[i].Last_name;
         a.setAttribute('onclick', 'generateUserTransList(' + data[i].UserId +")");
-
         listElement.appendChild(a);
         ItemList.appendChild(listElement);
 
+        //Transaction 38
+        var listElement2 = document.createElement('li');
+        var a2 = document.createElement('a');
+        a2.innerHTML=data[i].UserId + " "+data[i].First_name +" "+ data[i].Last_name;
+        a2.setAttribute('onclick', 'generateUserSummary(' + data[i].UserId +", '"+data[i].First_name+"', '"+data[i].Last_name+"')");
+        listElement2.appendChild(a2);
+        ItemList2.appendChild(listElement2);
+
+
+
+      }
+    },
+  });
+
+  $.ajax({// gets list of all Item Types Transaction 38
+    type: 'GET',
+    url: 'http://localhost:1337/getAllItemTypes',
+    dataType: 'json',
+    success: function(data) {
+
+      // Transaction 38
+      var ItemList = document.getElementById('ItemTypeSummary');
+
+      for(var i = 0; i < data.length; i++){
+
+        //Transaction 38
+        var listElement = document.createElement('li');
+        var a = document.createElement('a');
+        a.innerHTML=data[i].Type;
+        a.setAttribute('onclick', 'generateItemTypeSummary(' + "'" +data[i].Type+"'" +")");
+        listElement.appendChild(a);
+        ItemList.appendChild(listElement);
 
       }
     },
@@ -119,7 +171,6 @@ function getEmployeeData(UserId) {
 
 
 function generateItemTransList(ItemName){
-    console.log("inside generateUserTransList fn")
     $.ajax({// gets list of all distinct User Names
       type: 'POST',
       url: 'http://localhost:1337/getItemTransactions',
@@ -146,7 +197,6 @@ function generateItemTransList(ItemName){
 }
 
 function generateUserTransList(User){
-    console.log("inside generateUserTransList fn")
     $.ajax({// gets list of all distinct User Names
       type: 'POST',
       url: 'http://localhost:1337/getUserTransactions',
@@ -167,6 +217,69 @@ function generateUserTransList(User){
 
 
         }
+      },
+    });
+
+}
+
+function generateUserSummary(User,First,Last){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getUserSummary',
+      dataType: 'json',
+      data:{
+        UserId : User
+      },
+      success: function(data) {
+        var Total = 0;
+        var summary = document.getElementById('Summary');
+        for(var i = 0; i < data.length; i++){
+            Total += data[i].Unit_price * data[i].Number_of_units;
+        }
+        summary.innerHTML=First + " " + Last +" Bought $" +Total+" worth of Items";
+
+      },
+    });
+
+}
+
+function generateItemSummary(ItemName){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getItemSummary',
+      dataType: 'json',
+      data:{
+        Item_name : ItemName
+      },
+      success: function(data) {
+        var Total = 0;
+        var summary = document.getElementById('Summary');
+        for(var i = 0; i < data.length; i++){
+            Total += data[i].Unit_price * data[i].Number_of_units;
+        }
+        summary.innerHTML=ItemName+" generated $" +Total+" Revenue";
+
+      },
+    });
+
+}
+
+function generateItemTypeSummary(Type){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getItemTypeSummary',
+      dataType: 'json',
+      data:{
+        Type : Type
+      },
+      success: function(data) {
+        var Total = 0;
+        var summary = document.getElementById('Summary');
+        for(var i = 0; i < data.length; i++){
+            Total += data[i].Unit_price * data[i].Number_of_units;
+        }
+        summary.innerHTML=Type+"(s) generated $" +Total+" Revenue";
+
       },
     });
 
