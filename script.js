@@ -1862,4 +1862,126 @@ app.post('/getItemTypeSummary',function(req,resp){
 
 });
 
+app.get('/deleteEmployee',function(req,resp){//delete employee
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			console.log("EmployeeId -> " + req.query.UserId);
+			tempCont.query("DELETE FROM Employee_data WHERE Social_security_number = (SELECT EmployeeId FROM User WHERE UserId=?)", [req.query.UserId], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS DELETING EMPLOYEE");
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.get('/makeEmployee',function(req,resp){//delete employee
+	resp.render('MakeEmployee.html');
+
+});
+
+
+app.post('/addEmployee', function (req, resp) {
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			if(!req.body.Zip_code){//zipcode must be a number
+				req.body.Zip_code=null;
+			}
+			tempCont.query(// add employee
+				"INSERT INTO  Employee_data (Social_security_number, First_name, Last_name, Address, City, State, Zipcode, Telephone, Start_date, Hourly_rate, Role) VALUES(?,?,?,?,?,?,?,?,CURDATE(),?, 'Employee')", [req.body.SSN,req.body.First_name, req.body.Last_name, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.Hourly_rate], function(error,rows,fields){
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					tempCont.query(//add to user
+						"INSERT INTO  User (First_name, Last_name, Email, Password, Address, City, State, Zip_code, Telephone, Preferences, EmployeeId) VALUES(?,?,?,?,?,?,?,?,?,?,?)", [req.body.First_name, req.body.Last_name, req.body.Email, req.body.Password, req.body.Address, req.body.City, req.body.State, req.body.Zip_code, req.body.Telephone, req.body.Preferences, req.body.SSN], function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query'+error);
+							resp.jsonp("error");
+							resp.end();
+						}
+						else{
+							tempCont.query(
+								"SELECT UserId FROM  User ORDER BY UserId DESC LIMIT 1",  function(error,rows3,fields){
+								if (error){
+									console.log('Error in the query'+error);
+									resp.jsonp("error");
+									resp.end();
+								}
+								else{
+									tempCont.query(
+										"INSERT INTO  Pages (Owner, Post_count) VALUES(?,?)", [rows3[0].UserId, 0], function(error,rows4,fields){
+										if (error){
+											console.log('Error in the query'+error);
+											resp.jsonp("error");
+											resp.end();
+										}
+										else{
+											resp.render('ManagerPage.html');
+											resp.end();
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+
+
+
+app.get('/getMonthlyReport',function(req,resp){//delete employee
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("Select * from Sales_data where month(Sale_date_time)=?", [req.query.Month], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS getting montly report");
+					resp.json(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
 app.listen(1337);

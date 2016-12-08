@@ -29,6 +29,7 @@ function initiate() {
         console.log(data);
         var listElement = document.createElement('li');
         listElement.setAttribute('class', 'list-group-item');
+        listElement.setAttribute('id', 'Employee' + data[i].UserId);
         var button = document.createElement('button');
         button.setAttribute('onclick', 'getEmployeeData(' + data[i].UserId +")");
         button.innerHTML = data[i].First_name + " " + data[i].Last_name;
@@ -283,4 +284,48 @@ function generateItemTypeSummary(Type){
       },
     });
 
+}
+
+//fred code starts here
+
+//deletes an employee
+function deleteEmployee() {
+  var User = document.getElementById('UserId');
+  $.ajax({// gets list of all distinct User Names
+    type: 'GET',
+    url: 'http://localhost:1337/deleteEmployee',
+    dataType: 'json',
+    data:{
+      UserId : User.value
+    },
+    success: function(data) {
+      var list = document.getElementById('Employees');
+      list.removeChild(document.getElementById('Employee' + User.value));
+      User.value = '';
+    },
+  });
+}
+
+function getSalesReport(Month) {
+  $.ajax({// gets list of all transactions for that month
+    type: 'GET',
+    url: 'http://localhost:1337/getMonthlyReport',
+    dataType: 'json',
+    data:{
+      Month : Month
+    },
+    success: function(data) {
+      var div = document.getElementById('MonthReportDiv');
+      var list = document.getElementById('MonthReport');
+      list.remove();//delete list
+      list = document.createElement('ul');
+      list.setAttribute('id', 'MonthReport');//remake list
+      div.appendChild(list);//put list back
+      for(var i = 0; i< data.length; i++){
+        var listElement = document.createElement('li');
+        listElement.innerHTML="<b>TransactionId:</b> "+data[i].TransactionId + "   <b>Sale Time:</b> "+data[i].Sale_date_time +"   <b>#Purchased</b> "+ data[i].Number_of_units;
+        list.appendChild(listElement);
+      }
+    },
+  });
 }
