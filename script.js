@@ -1407,7 +1407,7 @@ app.post('/CreateGroup',function(req,resp){
 		});
 });
 
-app.post('/goToManager',function(req,resp){
+app.post('/goToManagerPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
 		resp.render('ManagerPage.html')
