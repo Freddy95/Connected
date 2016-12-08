@@ -1,32 +1,101 @@
 function initiate() {
 
-  $.ajax({//get groups user is the owner of
+
+  $.ajax({// gets list of all distinct item names
     type: 'GET',
-    url: 'http://localhost:1337/getAllUsers',
+    url: 'http://localhost:1337/getAllItems',
     dataType: 'json',
     success: function(data) {
-      var listOfUsers = document.getElementById('Users');
+      var ItemList = document.getElementById('ItemTrans');
       for(var i = 0; i < data.length; i++){
-        console.log(data);
         var listElement = document.createElement('li');
-        var button = document.createElement('button');
-        var userId = document.createElement('input');
-        var userName = document.createElement('input');
-
-        listElement.setAttribute('class', 'list-group-item');
+        var a = document.createElement('a');
+        a.innerHTML=data[i].Item_name;
+        a.setAttribute('onclick', 'generateItemTransList(' + "'" +data[i].Item_name+"'" +")");
 
 
-        button.setAttribute('action', 'http://localhost:1337/goToUserPage');
-        button.setAttribute('method', 'post');
-        button.setAttribute('class', 'text-center');
+        listElement.appendChild(a);
+        ItemList.appendChild(listElement);
 
 
-
-        button.appendChild(userId);
-        button.appendChild(userName);
-        listElement.appendChild(button);
-        listOfUsers.appendChild(listElement);
       }
     },
   });
+  $.ajax({// gets list of all distinct User Names
+    type: 'GET',
+    url: 'http://localhost:1337/getEveryUser',
+    dataType: 'json',
+    success: function(data) {
+      var ItemList = document.getElementById('UserTrans');
+      for(var i = 0; i < data.length; i++){
+        var listElement = document.createElement('li');
+        var a = document.createElement('a');
+        a.innerHTML=data[i].UserId + " "+data[i].First_name +" "+ data[i].Last_name;
+        a.setAttribute('onclick', 'generateUserTransList(' + data[i].UserId +")");
+
+        listElement.appendChild(a);
+        ItemList.appendChild(listElement);
+
+
+      }
+    },
+  });
+
+
+
+}
+
+
+function generateItemTransList(ItemName){
+    console.log("inside generateUserTransList fn")
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getItemTransactions',
+      dataType: 'json',
+      data:{
+        Item_name : ItemName
+      },
+      success: function(data) {
+        document.getElementById("TransactionReportList").remove();
+        var div = document.getElementById('TransactionReport');
+        var ItemList = document.createElement('ul');
+        ItemList.setAttribute('id', 'TransactionReportList');
+        for(var i = 0; i < data.length; i++){
+            var listElement = document.createElement('li');
+            listElement.innerHTML="<b>TransactionId:</b> "+data[i].TransactionId + "   <b>Sale Time:</b> "+data[i].Sale_date_time +"   <b>#Purchased</b> "+ data[i].Number_of_units;
+            ItemList.appendChild(listElement);
+            div.appendChild(ItemList);
+
+
+        }
+      },
+    });
+
+}
+
+function generateUserTransList(User){
+    console.log("inside generateUserTransList fn")
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getUserTransactions',
+      dataType: 'json',
+      data:{
+        UserId : User
+      },
+      success: function(data) {
+        document.getElementById("TransactionReportList").remove();
+        var div = document.getElementById('TransactionReport');
+        var ItemList = document.createElement('ul');
+        ItemList.setAttribute('id', 'TransactionReportList');
+        for(var i = 0; i < data.length; i++){
+            var listElement = document.createElement('li');
+            listElement.innerHTML="<b>TransactionId:</b> "+data[i].TransactionId + "   <b>Sale Time:</b> "+data[i].Sale_date_time +"   <b>#Purchased</b> "+ data[i].Number_of_units;
+            ItemList.appendChild(listElement);
+            div.appendChild(ItemList);
+
+
+        }
+      },
+    });
+
 }

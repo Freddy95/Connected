@@ -15,7 +15,7 @@ and open the template in the editor.
         <!-- <link rel="stylesheet" href="css/styles/PersonalPage.css"> -->
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
-        <!-- <script src="js/PersonalPage.js"></script> -->
+        <script src="js/ManagerPage.js"></script>
     </head>
     <body onload="initiate();">
         <div class="container-fluid">
@@ -116,22 +116,35 @@ and open the template in the editor.
             <hr>
             <!-- Produce List By Item Name User Name -->
             <div class="row">
-                <div class="col-md-2">
-                    <button>
-                        Item Name
-                    </button>
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Item Name
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="ItemTrans">
+                                </ul>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="col-md-10">
-                    <button>
-                        User Name
-                    </button>
+                <div class="col-md-6">
+                    <div class="container">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User Name
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="UserTrans">
+                                </ul>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <ul>
+                <div class="col-md-12" id="TransactionReport">
+                    <ul id="TransactionReportList">
 
                     </ul>
+
                 </div>
             </div>
             <hr>
@@ -163,6 +176,7 @@ and open the template in the editor.
 
 
         </div>
+        <!-- Put all Modals here PLease be neat! -->
 
 
     </body>
