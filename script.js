@@ -36,11 +36,12 @@ app.post('/PersonalPage',function(req,resp){
 			console.log('Error');
 		}
 		else{
-			tempCont.query("select UserId from User WHERE email=? AND password=?;", [req.body.email, req.body.psw], function(error,rows,fields){
+			tempCont.query("select UserId from User WHERE Email=? AND Password=?", [req.body.email, req.body.psw], function(error,rows,fields){
 				tempCont.release();
-				if (error){
+				if (rows.length === 0){
 					console.log('Error in the query'+error);
-					resp.jsonp("error");
+					resp.render('login2.html');
+					// resp.jsonp("error");
 					resp.end();
 				}
 				else{
