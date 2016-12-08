@@ -27,12 +27,12 @@ and open the template in the editor.
                 </div>
                 <div class="col-md-3">
                     <h3>
-                        Top Customer:
+                        Top Customer: <p id="BestCustomer"></p>
                     </h3>
                 </div>
                 <div class="col-md-3">
                     <h3>
-                        Top Employee:
+                        Top Employee: <p id="BestEmployee"></p>
                     </h3>
                 </div>
             </div>
@@ -40,25 +40,24 @@ and open the template in the editor.
             <!--edit employee info  -->
             <div class="row">
                 <div class="col-md-8">
-                    <form>
-                        <input class="form-control" type="text" placeholder="SSN"   name="ssn">
-                        <input class="form-control" type="text" placeholder="FirstName"   name="ssn">
-                        <input class="form-control" type="text" placeholder="LastName"   name="ssn">
-                        <input class="form-control" type="text" placeholder="address"   name="ssn">
-                        <input class="form-control" type="text" placeholder="city"   name="ssn">
-                        <input class="form-control" type="text" placeholder="zip"   name="ssn">
-                        <input class="form-control" type="text" placeholder="phone"   name="ssn">
-                        <input class="form-control" type="text" placeholder="hourly"   name="ssn">
-                        <input class="form-control" type="text" placeholder="rate"   name="ssn">
-                        <input class="form-control" type="text" placeholder="role"   name="ssn">
-                        <input class="btn" type="submit" placeholder="SSN"   name="ssn">
+                    <form action="http://localhost:1337/updateEmployeeInfo" method="post">
+                        <input class="form-control" id="FirstName" type="text" placeholder="First Name"   name="First_name" required>
+                        <input class="form-control" id="LastName" type="text" placeholder="Last Name"   name="Last_name" required>
+                        <input class="form-control" id="Address" type="text" placeholder="Address"   name="Address">
+                        <input class="form-control" id="City" type="text" placeholder="City"   name="City">
+                        <input class="form-control" id="State" type="text" placeholder="State"   name="State">
+                        <input class="form-control" id="ZipCode" type="text" placeholder="Zip Code"   name="Zip_code">
+                        <input class="form-control" id="Phone" type="text" placeholder="Phone"   name="Phone">
+                        <input class="form-control" id="Preferences" type="text" placeholder="Preferences"   name="Preferences">
+                        <input class="form-control" id="HourlyRate" type="text" placeholder="Hourly Rate"   name="Hourly_rate" required maxlength="5">
+                        <input class="form-control" id="UserId" type="text" style="display:none" name="UserId" >
+                        <input class="btn" type="submit" value="Edit">
                     </form>
                 </div>
 
-                <div class="col-md-6 well">
+                <div class="col-md-4 well">
                   <h2>Employees</h2>
                   <ul class="list-group" id="Employees" align="center"><!--List of employees-->
-                    <li></li>
 
 
 
