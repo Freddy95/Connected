@@ -60,7 +60,7 @@ function initiate() {
     },
   });
 
-  $.ajax({// gets list of all distinct item names
+  $.ajax({// gets list of all distinct item names This is Used for Transaction 37,38,42,36
     type: 'GET',
     url: 'http://localhost:1337/getAllItems',
     dataType: 'json',
@@ -72,6 +72,9 @@ function initiate() {
       var ItemList2 = document.getElementById('ItemSummary');
       // Transaction 36
       var ItemList3 = document.getElementById('AllItems');
+      // Transaction 42
+      var ItemList4 = document.getElementById('ItemList');
+
 
       for(var i = 0; i < data.length; i++){
 
@@ -96,6 +99,15 @@ function initiate() {
         listElement3.setAttribute('class', 'list-group-item');
         listElement3.innerHTML = data[i].Item_name;
         ItemList3.appendChild(listElement3);
+
+        // Transaction 42
+        var listElement4 = document.createElement('li');
+        var a4 = document.createElement('a');
+        a4.innerHTML=data[i].Item_name;
+        a4.setAttribute('onclick', 'generateListOfPurchasers(' + "'" +data[i].Item_name+"'" +")");
+        listElement4.appendChild(a4);
+        ItemList4.appendChild(listElement4);
+
 
       }
     },
@@ -531,3 +543,28 @@ function getSalesReport(Month) {
 
 
 //
+function generateListOfPurchasers(ItemName){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getPurchasers',
+      dataType: 'json',
+      data:{
+        Item_name : ItemName
+      },
+      success: function(data) {
+        document.getElementById("PurchaserList").remove();
+        var div = document.getElementById('PurchaserDiv');
+        var ItemList = document.createElement('ul');
+        ItemList.setAttribute('id', 'PurchaserList');
+        for(var i = 0; i < data.length; i++){
+            var listElement = document.createElement('li');
+            listElement.innerHTML=data[i].First_name + " "+ data[i].Last_name;
+            ItemList.appendChild(listElement);
+            div.appendChild(ItemList);
+
+
+        }
+      },
+    });
+
+}
