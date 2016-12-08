@@ -1,6 +1,6 @@
 function initiate() {
 
-  $.ajax({//get all employee names and create the list for them
+  $.ajax({//get all employee names and create the list for them.
     type: 'GET',
     url: 'http://localhost:1337/getBestCustomer',
     dataType: 'json',
