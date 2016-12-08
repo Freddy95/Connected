@@ -41,6 +41,7 @@ app.post('/PersonalPage',function(req,resp){
 				if (rows.length==0){
 					console.log('Error in the query'+error);
 					resp.render('login2.html');
+
 					resp.end();
 				}
 				else{
