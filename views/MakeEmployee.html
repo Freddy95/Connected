@@ -22,7 +22,10 @@
             <div class="col-md-12 text-center">
               <h2> Connected </h2>
             </div>
-          <form action="http://localhost:1337/signup" method="post" id="form">
+          <form action="http://localhost:1337/addEmployee" method="post" id="form">
+          <div class="col-md-12">
+            <input type="text" class="form-control" name="SSN" placeholder="Social Security Number" required>
+          </div>
            <div class="col-md-6">
              <input type="text" class="form-control" name="First_name" placeholder="First Name" required>
            </div>
@@ -59,16 +62,17 @@
 
            <br>
 
-           <div class="col-md-3"></div>
-           <div class="col-md-6">
-             <input type="password" class="form-control" name="Password" placeholder="Password" required >
+           <div class="col-md-9">
+               <input type="password" class="form-control" name="Password" placeholder="Password" required >
            </div>
-           <div class="col-md-3"></div>
+           <div class="col-md-3">
+             <input type="text" class="form-control" name="Hourly_rate" placeholder="Hourly Rate" maxlength="5">
+           </div>
 
            <div class="col-md-12">
               <div class="col-md-3"></div>
              <div class="col-md-6 text-center">
-               <input type="Submit" value="Register" class="btn-primary">
+               <input type="Submit" value="Add Employee" class="btn-primary">
              </div>
              <div class="col-md-3"></div>
            </div>
