@@ -39,7 +39,7 @@ function initiate() {
     },
   });
 
-  $.ajax({// gets list of all distinct item names
+  $.ajax({// gets list of all distinct item names This is Used for Transaction 37,38,42
     type: 'GET',
     url: 'http://localhost:1337/getAllItems',
     dataType: 'json',
@@ -49,6 +49,8 @@ function initiate() {
       var ItemList = document.getElementById('ItemTrans');
       // Transaction 38
       var ItemList2 = document.getElementById('ItemSummary');
+      // Transaction 42
+      var ItemList3 = document.getElementById('ItemList');
 
 
       for(var i = 0; i < data.length; i++){
@@ -68,6 +70,14 @@ function initiate() {
         a2.setAttribute('onclick', 'generateItemSummary(' + "'" +data[i].Item_name+"'" +")");
         listElement2.appendChild(a2);
         ItemList2.appendChild(listElement2);
+
+        // Transaction 42
+        var listElement3 = document.createElement('li');
+        var a3 = document.createElement('a');
+        a3.innerHTML=data[i].Item_name;
+        a3.setAttribute('onclick', 'generateListOfPurchasers(' + "'" +data[i].Item_name+"'" +")");
+        listElement3.appendChild(a3);
+        ItemList3.appendChild(listElement3);
 
 
       }
@@ -328,4 +338,30 @@ function getSalesReport(Month) {
       }
     },
   });
+}
+
+function generateListOfPurchasers(ItemName){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getPurchasers',
+      dataType: 'json',
+      data:{
+        Item_name : ItemName
+      },
+      success: function(data) {
+        document.getElementById("PurchaserList").remove();
+        var div = document.getElementById('PurchaserDiv');
+        var ItemList = document.createElement('ul');
+        ItemList.setAttribute('id', 'PurchaserList');
+        for(var i = 0; i < data.length; i++){
+            var listElement = document.createElement('li');
+            listElement.innerHTML=data[i].First_name + " "+ data[i].Last_name;
+            ItemList.appendChild(listElement);
+            div.appendChild(ItemList);
+
+
+        }
+      },
+    });
+
 }
