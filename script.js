@@ -1431,7 +1431,7 @@ app.get('/getEmployeeStatus',function(req,resp){//check if user is an employee a
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT E.Role FROM employee_data E, User U WHERE U.UserId=? AND E.Social_security_number=U.EmployeeId", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT E.role FROM Employee_data E, User U WHERE U.UserId=? AND E.Social_security_number=U.EmployeeId", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
@@ -1448,5 +1448,211 @@ app.get('/getEmployeeStatus',function(req,resp){//check if user is an employee a
 		});
 
 });
+
+
+app.get('/getAllEmployees',function(req,resp){//check if user is an employee and what kind
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("Select DISTINCT U.* from User U, Employee_data E where U.EmployeeId>0 and E.Role!='Manager' and U.EmployeeId=E.Social_security_number",  function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.json(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+
+app.get('/getEmployeeData',function(req,resp){//check if user is an employee and what kind
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("SELECT U.*, E.Hourly_rate FROM User U, Employee_data E where U.UserId=? AND U.EmployeeId = E.Social_security_number",[req.query.User],  function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.jsonp(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+app.post('/updateEmployeeInfo',function(req,resp){//check if user is an employee and what kind
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("UPDATE User U INNER JOIN Employee_data E ON (U.EmployeeId = E.Social_security_number) SET U.First_name=?, U.Last_name=?, U.Address=?, U.City=?, U.State=?, U.Zip_code=?, U.Telephone=?, U.Preferences=?, E.Hourly_rate=? WHERE U.UserId=?",[req.body.First_name, req.body.Last_name,req.body.Address, req.body.City,req.body.State, req.body.Zip_code,req.body.Phone, req.body.Preferences,req.body.Hourly_rate, req.body.UserId],  function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.render('ManagerPage.html');
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
+app.get('/getBestCustomer', function (req, resp) {//get best customer
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query(//create max c view
+				"CREATE VIEW MaxC AS SELECT UserId, Accounts.Account_number, Sales_data.Number_of_units * Unit_price AS Revenue FROM Sales_data LEFT JOIN Accounts ON Accounts.Account_number=Sales_data.Account_number LEFT JOIN Advertisements_data ON Advertisements_data.AdvertisementId=Sales_data.AdvertisementId",  function(error,rows,fields){
+				if (error){
+					console.log('Error in the query'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					tempCont.query(//create Best cutomer view
+						"CREATE VIEW BestCustomer AS SELECT UserId, SUM(Revenue) AS TOTAL FROM MaxC GROUP BY UserId;",  function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query'+error);
+							resp.jsonp("error");
+							resp.end();
+						}
+						else{
+							tempCont.query(//get the customer
+								"SELECT U.First_name, U.Last_name FROM User U WHERE U.UserId = (SELECT UserId FROM BestCustomer WHERE Total=(SELECT MAX(Total) FROM BestCustomer))",  function(error,rows3,fields){
+								if (error){
+									console.log('Error in the query'+error);
+									resp.jsonp("error");
+									resp.end();
+								}
+								else{
+									tempCont.query(//drop view maxc
+										"DROP VIEW BestCustomer",  function(error,rows4,fields){
+										if (error){
+											console.log('Error in the query'+error);
+											resp.jsonp("error");
+											resp.end();
+										}
+										else{
+											tempCont.query(//drop view best customer
+												"DROP VIEW MaxC",  function(error,rows5,fields){
+												if (error){
+													console.log('Error in the query'+error);
+													resp.jsonp("error");
+													resp.end();
+												}
+												else{
+													resp.json(rows3);
+													resp.end();
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+app.get('/getBestEmployee', function (req, resp) {//get best employee
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query(//create max e view
+				"CREATE VIEW MaxE AS SELECT Social_security_number, Sales_data.Number_of_units * Unit_price AS Revenue FROM Advertisements_data LEFT JOIN Employee_data ON Employee_data.Social_security_number=Advertisements_data.EmployeeId LEFT JOIN Sales_data ON Advertisements_data.AdvertisementId=Sales_data.AdvertisementId",  function(error,rows,fields){
+				if (error){
+					console.log('Error in the query1'+error);
+					resp.jsonp("error");
+					resp.end();
+				}
+				else{
+					tempCont.query(//create Best Employee view
+						"CREATE VIEW BestEmployee AS SELECT Social_security_number, SUM(Revenue) AS Total FROM MaxE GROUP BY Social_Security_number",  function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query2'+error);
+							resp.jsonp("error");
+							resp.end();
+						}
+						else{
+							tempCont.query(//get the employee
+								"SELECT U.First_name, U.Last_name FROM User U WHERE U.EmployeeId = (SELECT Social_security_number FROM BestEmployee WHERE Total=(SELECT MAX(TOTAL) FROM BestEmployee))",  function(error,rows3,fields){
+								if (error){
+									console.log('Error in the query3'+error);
+									resp.jsonp("error");
+									resp.end();
+								}
+								else{
+									tempCont.query(//drop view maxc
+										"DROP VIEW MaxE",  function(error,rows4,fields){
+										if (error){
+											console.log('Error in the query4'+error);
+											resp.jsonp("error");
+											resp.end();
+										}
+										else{
+											tempCont.query(//drop view best customer
+												"DROP VIEW BestEmployee",  function(error,rows5,fields){
+												if (error){
+													console.log('Error in the query5'+error);
+													resp.jsonp("error");
+													resp.end();
+												}
+												else{
+													resp.json(rows3);
+													resp.end();
+												}
+											});
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}
+	});
+});
+
+
+
 
 app.listen(1337);
