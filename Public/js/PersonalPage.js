@@ -764,7 +764,7 @@ function CreateGroup(){
       },
       success: function(data) {
           var listElement = document.createElement('li');
-          listElement.setAttribute('class', 'listElement');
+          listElement.setAttribute('class', 'listElement list-group-item');
           var form = document.createElement('form');
           form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
           form.setAttribute('method', 'post');
