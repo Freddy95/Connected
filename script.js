@@ -1753,6 +1753,31 @@ app.get('/getAllItemTypes',function(req,resp){// gets all item types
 
 });
 
+app.get('/getAllCompanies',function(req,resp){// gets all item types
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select Distinct Company from Advertisements_data;", function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.jsonp(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
 app.post('/getUserTransactions',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -1899,6 +1924,32 @@ app.post('/getPurchasers',function(req,resp){
 		}
 		else{
 			tempCont.query("select U.First_name , U.Last_name from Sales_data S, Accounts A, User U, Advertisements_data Ad where Ad.AdvertisementId = S.AdvertisementId and S.Account_number = A.Account_number and A.UserId = U.UserId and Ad.Item_name=?;", [req.body.Item_name], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					resp.jsonp(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+});
+
+app.post('/getCompanyItems',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("select Distinct Item_name from Advertisements_data where Company=?;", [req.body.Company], function(error,rows,fields){
 				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);
