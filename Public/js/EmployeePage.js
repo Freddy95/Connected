@@ -93,6 +93,7 @@ function initiate() {
         a.innerHTML=data[i].UserId + " "+data[i].First_name +" "+ data[i].Last_name;
         a.setAttribute('onclick', 'UserDropdown(' + data[i].UserId +", '"+data[i].First_name+"', '"+data[i].Last_name+"')");
         listElement.appendChild(a);
+        listElement.setAttribute('align','center');
         ItemList.appendChild(listElement);
 
 
