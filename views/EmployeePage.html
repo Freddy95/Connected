@@ -33,18 +33,41 @@
             <div class="row">
                 <div class="col-md-8"><!--Everything else-->
 
-                    <button class="btn-primary" data-toggle="#myAdModal" data-target="modal">Create Advertisement</button>
+                    <button class="btn-primary" data-target="#myAdModal" data-toggle="modal">Create Advertisement</button>
 
                     <hr>
                     <h1>
                         Record a Transaction:
                     </h1>
+                    <div class="row">
+                      <div class="col-md-12">
 
                     <form action="http://localhost:1337/recordTransaction" method="post">
-                        <input class="form-control" type="text" placeholder="Item Name" name="Item_name">
-                        <input class="form-control" type="text" placeholder="Account Number" name="Account_number">
-                        <input class="btn-primary" type="submit" value="Record">
-                    </form>
+
+                          <div class="col-md-3">
+                          <div class="container">
+
+                              <div class="dropdown">
+                                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">AdvertisementId
+                                      <span class="caret"></span></button>
+                                          <ul class="dropdown-menu" id="AdvertisementIds">
+                                            <li><a></a></li>
+                                          </ul>
+                              </div>
+                            </div>
+                          </div>
+                            <input class="form-control" type="text" id="RecordAdId" name="AdvertisementId" style="display:none"><!--Hide this-->
+                            <div class="col-md-3">
+                              <input class="form-control" type="text" placeholder="Account Number" name="Account_number">
+                            </div>
+                            <div class="col-md-3">
+                            <input class="form-control" type="text" placeholder="Number Of Units" name="Number_of_units">
+                            <input class="btn-primary" type="submit" value="Record">
+                          </div>
+
+                        </form>
+                    </div>
+                   </div>
                     <hr>
                     <h1>
                         Get Customer Groups:
@@ -88,14 +111,7 @@
 
                 </ul>
 
-                 <h2>
-                   Users
-                 </h2>
-                  <ul class="list-group" id="Users" align="center"><!--List of Users-->
 
-
-
-                 </ul>
 
 
 
@@ -111,14 +127,25 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit Post</h4>
+                <h4 class="modal-title">Create Advertisement</h4>
               </div>
               <div class="modal-body">
-                <input type="text" class="form-control" id="postValue">
+                <h4>Type</h4>
+                <input type="text" class="form-control" id="Type">
+                <h4>Company</h4>
+                <input type="text" class="form-control" id="Company">
+                <h4>Item Name</h4>
+                <input type="text" class="form-control" id="ItemName">
+                <h4>Content</h4>
+                <input type="text" class="form-control" id="Content">
+                <h4>Unit Price</h4>
+                <input type="text" class="form-control" id="UnitPrice">
+                <h4>Number Of Available Units</h4>
+                <input type="text" class="form-control" id="NumberOfUnits">
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" id="Post_modal_button">Finish</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="Post_modal_button" onclick="createAdvertisement()">Create</button>
               </div>
             </div>
 
