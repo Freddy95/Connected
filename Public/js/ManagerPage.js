@@ -171,6 +171,31 @@ function initiate() {
     },
   });
 
+  $.ajax({// gets list of all distinct item names This is Used for Transaction 37,38,42,36
+    type: 'GET',
+    url: 'http://localhost:1337/getAllCompanies',
+    dataType: 'json',
+    success: function(data) {
+
+      // Transaction 37
+      var ItemList = document.getElementById('CompanyItemList');
+
+      for(var i = 0; i < data.length; i++){
+
+        // Transaction 37
+        var listElement = document.createElement('li');
+        var a = document.createElement('a');
+        a.innerHTML=data[i].Company;
+        a.setAttribute('onclick', 'generateCompanyProductList(' + "'" +data[i].Company+"'" +")");
+        listElement.appendChild(a);
+        ItemList.appendChild(listElement);
+
+
+
+      }
+    },
+  });
+
 
 
 
@@ -372,176 +397,6 @@ function getSalesReport(Month) {
   });
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 function generateListOfPurchasers(ItemName){
     $.ajax({// gets list of all distinct User Names
@@ -559,6 +414,32 @@ function generateListOfPurchasers(ItemName){
         for(var i = 0; i < data.length; i++){
             var listElement = document.createElement('li');
             listElement.innerHTML=data[i].First_name + " "+ data[i].Last_name;
+            ItemList.appendChild(listElement);
+            div.appendChild(ItemList);
+
+
+        }
+      },
+    });
+
+}
+
+function generateCompanyProductList(Company){
+    $.ajax({// gets list of all distinct User Names
+      type: 'POST',
+      url: 'http://localhost:1337/getCompanyItems',
+      dataType: 'json',
+      data:{
+        Company : Company
+      },
+      success: function(data) {
+        document.getElementById("CompanyItemListList").remove();
+        var div = document.getElementById('CompanyItemDiv');
+        var ItemList = document.createElement('ul');
+        ItemList.setAttribute('id', 'CompanyItemListList');
+        for(var i = 0; i < data.length; i++){
+            var listElement = document.createElement('li');
+            listElement.innerHTML=data[i].Item_name;
             ItemList.appendChild(listElement);
             div.appendChild(ItemList);
 
