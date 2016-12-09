@@ -2064,7 +2064,7 @@ app.get('/deleteEmployee',function(req,resp){//delete employee
 });
 
 
-app.get('/makeEmployee',function(req,resp){//delete employee
+app.get('/makeEmployee',function(req,resp){//make employee
 	resp.render('MakeEmployee.html');
 
 });
@@ -2148,6 +2148,161 @@ app.get('/getMonthlyReport',function(req,resp){//delete employee
 				else{
 					console.log("SUCCESS getting montly report");
 					resp.json(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+
+app.get('/createAdvertisement',function(req,resp){//delete employee
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("INSERT INTO Advertisements_data (EmployeeId, Type, Date, Company, Item_name, Content, Unit_price, Number_of_available_units) VALUES (?,?,CURDATE(),?,?,?,?,?)", [req.query.EmployeeId, req.query.Type, req.query.Company, req.query.Item_name, req.query.Content, req.query.Unit_price, req.query.Number_of_available_units], function(error,rows,fields){
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS create ad");
+					tempCont.query("Select Item_name, AdvertisementId from Advertisements_data ORDER BY AdvertisementId DESC LIMIT 1", function(error,rows,fields){
+						tempCont.release();
+						if (error){
+							console.log('Error in the query'+error);
+							resp.end();
+						}
+						else{
+							console.log("SUCCESS getting ad");
+							resp.json(rows);
+							resp.end();
+						}
+
+					});
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.get('/getEmployeeId',function(req,resp){//get employee id
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("Select EmployeeId FROM User WHERE UserId=?", [sess.user], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS getting EmployeeId 1");
+					resp.json(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.get('/getAdvertisements',function(req,resp){//get employee id
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("Select DISTINCT * FROM Advertisements_data WHERE EmployeeId=?", [req.query.EmployeeId], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS getting ads");
+					resp.json(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.get('/deleteAdvertisement',function(req,resp){//get employee id
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("DELETE FROM Advertisements_data WHERE AdvertisementId=?", [req.query.AdvertisementId], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS deleting ad");
+					resp.json('success');
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+app.post('/recordTransaction',function(req,resp){//get employee id
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("INSERT INTO Sales_data (Sale_date_time, AdvertisementId, Number_of_units, Account_number) VALUES (CURDATE(),?,?,?)", [req.body.AdvertisementId, req.body.Number_of_units,  req.body.Account_number], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS recording transactions");
+					resp.render('EmployeePage.html');
 					resp.end();
 				}
 

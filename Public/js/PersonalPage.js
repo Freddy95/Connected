@@ -33,7 +33,6 @@ function initiate() {
       var man = document.getElementById('ManagerButton');
       var emp = document.getElementById('EmployeeButton');
       console.log("LENGTH -> " + data.length);
-      console.log("Role -> " + data[0].Role);
       if(data.length == 1){//is an employee
         if(data[0].Role=='Employee'){//not manager
           man.setAttribute('style', 'display:none');
