@@ -501,8 +501,9 @@ function addComment(PostId) {
           var cDiv = document.createElement('div');
           cDiv.setAttribute('class', 'col-md-12 comment');
           cDiv.setAttribute('id', 'comment ' + rows[0].CommentId);
-          var name = document.createElement('h1');
+          var name = document.createElement('h4');
           var comment = document.createElement('p');
+          comment.setAttribute('id', 'Comment' + rows[0].CommentId);
           var likes = document.createElement('p');
           likes.setAttribute('style', 'display:inline-block');
           var likeCommentButton = document.createElement('button');
