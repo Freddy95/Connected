@@ -144,10 +144,10 @@ function CustomerAcctHistory(User){
             var listElement = document.createElement('li');
             listElement.innerHTML="<b>TransactionId:</b> "+data[i].TransactionId + "   <b>Sale Time:</b> "+data[i].Sale_date_time +"   <b>#Purchased</b> "+ data[i].Number_of_units;
 
-
+            ItemList.appendChild(listElement);
 
         }
-        ItemList.appendChild(listElement);
+
         div.appendChild(ItemList);
       },
     });
