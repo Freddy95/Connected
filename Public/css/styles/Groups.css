@@ -11,3 +11,12 @@
 .list-group-item:hover{
   background-color: gray;
 }
+#companyTitle{
+     background:none!important;
+     border:none;
+     padding:0!important;
+     font-size: 2em;
+     /*border is optional*/
+     cursor: pointer;
+
+}

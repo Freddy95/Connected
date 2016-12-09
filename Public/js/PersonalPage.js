@@ -65,7 +65,7 @@ function initiate() {
         // group.appendChild(link);
         // document.getElementById("groups").appendChild(group);
         var listElement = document.createElement('li');
-        listElement.setAttribute('class', 'listElement');
+        listElement.setAttribute('class', 'listElement list-group-item');
         var form = document.createElement('form');
         form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
         form.setAttribute('method', 'post');
@@ -112,7 +112,7 @@ function initiate() {
         // group.appendChild(link);
         // document.getElementById("groups").appendChild(group);
         var listElement = document.createElement('li');
-        listElement.setAttribute('class', 'listElement');
+        listElement.setAttribute('class', 'listElement list-group-item');
         var form = document.createElement('form');
         form.setAttribute('action', 'http://localhost:1337/goToGroupPage');
         form.setAttribute('method', 'post');
@@ -152,9 +152,10 @@ function initiate() {
     success: function(data) {
       for(var i = 0; i < data.length; i++){
         var listElement = document.createElement('li');
-        listElement.setAttribute('class', 'listElement');
+        listElement.setAttribute('class', 'listElement list-group-item');
+
         var form = document.createElement('form');
-        form.setAttribute('action', 'http://localhost:1337/goToUserPage');
+        form.setAttribute('action', 'http://localhost:1337/goToFriendPage');
         form.setAttribute('method', 'post');
         var friendId = document.createElement('input');
         friendId.setAttribute('name', 'UserId');
@@ -170,6 +171,34 @@ function initiate() {
         form.appendChild(friend);//submit button
         listElement.appendChild(form);
         document.getElementById("friends").appendChild(listElement);
+      }
+    },
+  });
+
+
+  $.ajax({ // populate list of advertisements
+    type: 'POST',
+    url: 'http://localhost:1337/getAdvertisements',
+    dataType: 'json',
+
+    success: function(data) {
+      var ads = document.getElementById('advertisements');
+      for(var i = 0; i < data.length; i++){
+        var adDiv = document.createElement('div');
+        adDiv.setAttribute('class', 'col-md-12 advertisement');
+
+        var itemName = document.createElement('h4');
+        var content = document.createElement('p');
+
+        itemName.innerHTML = data[i].Item_name +" Price: " +  data[i].Unit_price;
+
+        content.innerHTML = data[i].Content;
+
+        adDiv.appendChild(itemName);
+        adDiv.appendChild(content);
+        ads.appendChild(adDiv);
+        ads.appendChild(document.createElement('hr'));
+
       }
     },
   });
@@ -251,20 +280,21 @@ function initiate() {
                 var editCommentButton = document.createElement('button');
                 editCommentButton.innerHTML = "Edit";
                 editCommentButton.setAttribute('onclick', 'editComment(' + rows[x].CommentId + ')');
-                editCommentButton.setAttribute('class', 'btn-info');
+                editCommentButton.setAttribute('class', 'btn-info button');
                 editCommentButton.setAttribute('data-toggle', 'modal');
                 editCommentButton.setAttribute('data-target', '#myModal');
                 cDiv.appendChild(editCommentButton);
 
                 var deleteCommentButton = document.createElement('button');
                 deleteCommentButton.innerHTML = "Delete";
-                deleteCommentButton.setAttribute('class', 'btn-danger');
+                deleteCommentButton.setAttribute('class', 'btn-danger button');
                 deleteCommentButton.setAttribute('onclick', 'deleteComment(' + rows[x].CommentId + "," + data[i].PostId + ')');
                 cDiv.appendChild(deleteCommentButton);
               }
 
               commentsDiv.appendChild(cDiv);
               likeCommentButton.setAttribute('id', "LikeComment"+ rows[x].CommentId);
+              likeCommentButton.setAttribute('class', 'btn-success');
               comment.innerHTML = rows[x].Content;
               name.innerHTML = rows[x].First_name + " " + rows[x].Last_name;
               $.ajax({//get likes for each comment
@@ -325,16 +355,16 @@ function initiate() {
         });
         var span = document.createElement('span');
         var likeButton = document.createElement('button');
-        likeButton.setAttribute('class', 'btn');
+        likeButton.setAttribute('class', 'btn-success');
         likeButton.setAttribute('id', "LikePost" + data[i].PostId);
 
         var editPostButton = document.createElement('button');
         var commentButton = document.createElement('button');
-        editPostButton.setAttribute('class', 'btn-info');
+        editPostButton.setAttribute('class', 'btn-danger button');
         editPostButton.setAttribute('data-toggle', 'modal');
         editPostButton.setAttribute('data-target', '#myPostModal');
 
-        commentButton.setAttribute('class', 'btn');
+        commentButton.setAttribute('class', 'btn-info button');
         commentButton.setAttribute('data-toggle', 'modal');
         commentButton.setAttribute('data-target', '#myModal');
 

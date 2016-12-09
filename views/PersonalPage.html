@@ -30,16 +30,15 @@ and open the template in the editor.
                     <input type="submit" class="btn" value="Manager Page" id="ManagerButton">
                 </form>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" align="center">
               <h1 id="companyTitle">Connected</h1>
             </div>
             <div class="col-md-3" align="right">
-              <form action ="http://localhost:1337/getMessagesPage" method="get">
+              <form action ="http://localhost:1337/getMessagesPage" method="get" style="width:30%; display:inline-block">
                 <input type="submit" class="btn" value="Messages">
               </form>
-              <button type="button" class="btn" id="Options" >Options</button>
-              <button type="button" data-target="#CreateModal" data-toggle="modal" class="btn"  id="CreateGroup">Create Group</button>
-              <form action ="http://localhost:1337/logout">
+              <button type="button" data-target="#CreateModal" data-toggle="modal" class="btn"  id="CreateGroup" style="width:40%; display:inline-block">Create Group</button>
+              <form action ="http://localhost:1337/logout" style="width:30%; display:inline-block">
                 <input type="submit" class="btn-danger"  id="Logout" value="Logout">
               </form>
             </div>
@@ -75,10 +74,7 @@ and open the template in the editor.
               </div>
             </div>
             <div class="col-md-3" id="advertisements">
-              <div class="col-md-12 advertisement" id="ad1">
-                <h4 class="adTitle">Advertisement Title</h4>
-                <p>Content</p>
-              </div>
+
             </div>
           </div>
         </div>

@@ -721,7 +721,18 @@ app.post('/PostMessage',function(req,resp){
 
 });
 
+app.get('/Home', function (req, resp) {
+	sess = req.session;
 
+	if(sess.user){
+		resp.render('PersonalPage.html');
+		resp.end();
+	}else{
+		resp.json('error');
+		resp.end();
+	}
+
+});
 app.get('/sendMessage',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -1128,11 +1139,11 @@ app.post('/goToUserPage',function(req,resp){
 	resp.end();
 });
 
-app.post('/goToUserPage',function(req,resp){
+app.post('/goToFriendPage',function(req,resp){
 	sess = req.session;//get session
 	if(sess.user){
-		sess.GroupId= req.body.GroupId;
-		resp.render('GroupPage.html')
+		sess.otherUser= req.body.UserId;
+		resp.render('FriendPage.html')
 	}
 	resp.end();
 });
@@ -2238,6 +2249,35 @@ app.get('/getAdvertisements',function(req,resp){//get employee id
 		}
 		else{
 			tempCont.query("Select DISTINCT * FROM Advertisements_data WHERE EmployeeId=?", [req.query.EmployeeId], function(error,rows,fields){
+				tempCont.release();
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					console.log("SUCCESS getting ads");
+					resp.json(rows);
+					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+
+app.post('/getAdvertisements',function(req,resp){//get employee id
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("Select * FROM Advertisements_data ORDER BY RAND() LIMIT 3", function(error,rows,fields){
 				tempCont.release();
 				if (error){
 					console.log('Error in the query'+error);

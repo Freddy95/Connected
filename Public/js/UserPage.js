@@ -36,7 +36,25 @@ function initiate() {
     },
   });
 
-
+  $.ajax({//Check if user already in group
+    type: 'GET',
+    url: 'http://localhost:1337/getPersonInGroup',
+    dataType: 'json',
+    async: false,
+    data:{
+      user: User
+    },
+    success: function(data) {
+      console.log("DATA -> " + FriendId);
+      console.log("index -> " + data.indexOf(FriendId));
+      if(data.length == 1){
+        var addUserButton = document.getElementById("AddUserButton");
+        addUserButton.setAttribute('value', 'Remove User From Group');
+        addUserButton.setAttribute('class', 'btn-danger');
+        addUserButton.setAttribute('onclick', 'removeUser()');
+      }
+    },
+  });
 
   $.ajax({//get groups user is the owner of
     type: 'GET',

@@ -15,7 +15,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="css/styles/UserPage.css">
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/FriendPage.js"></script>
+        <script src="js/UserPage.js"></script>
     </head>
     <body onload="initiate();">
         <div class="container-fluid">
@@ -23,8 +23,10 @@ and open the template in the editor.
             <div class="col-md-3">
 
             </div>
-            <div class="col-md-6">
-              <h1 id="companyTitle">Connected</h1>
+            <div class="col-md-6" align="center">
+              <form action="http://localhost:1337/Home">
+                <input id="companyTitle" value="Connected" type="submit">
+              </form>
             </div>
             <div class="col-md-6"></div>
 
@@ -59,10 +61,7 @@ and open the template in the editor.
               </div>
             </div>
             <div class="col-md-3" id="advertisements">
-              <div class="col-md-12 advertisement" id="ad1">
-                <h4 class="adTitle">Advertisement Title</h4>
-                <p>Content</p>
-              </div>
+
             </div>
           </div>
         </div>
