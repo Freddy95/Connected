@@ -1778,6 +1778,31 @@ app.get('/getAllCompanies',function(req,resp){// gets all item types
 
 });
 
+app.get('/getMailingList',function(req,resp){// gets all item types
+		connection.getConnection(function(error,tempCont){
+			if (error){
+				tempCont.release();
+				console.log('Error');
+			}
+			else{
+				tempCont.query("select Email From User;", function(error,rows,fields){
+					tempCont.release();
+					if (error){
+						console.log('Error in the query'+error);
+						resp.jsonp("error");
+						resp.end();
+					}
+					else{
+						resp.jsonp(rows);
+						resp.end();
+					}
+
+				});
+			}
+		});
+
+});
+
 app.post('/getUserTransactions',function(req,resp){
 	sess = req.session;
 	//about mysql
@@ -1797,6 +1822,51 @@ app.post('/getUserTransactions',function(req,resp){
 				else{
 					resp.jsonp(rows);
 					resp.end();
+				}
+
+			});
+		}
+	});
+
+});
+
+app.post('/getSimilarItems',function(req,resp){
+	sess = req.session;
+	//about mysql
+	//to query
+	connection.getConnection(function(error,tempCont){
+		if (error){
+			tempCont.release();
+			console.log('Error');
+		}
+		else{
+			tempCont.query("CREATE VIEW V AS (SELECT DISTINCT A.Type FROM Advertisements_data A, Sales_data S, User U , Accounts Ac  where S.AdvertisementId=A.AdvertisementId and S.Account_number=Ac.Account_number and Ac.UserId = U.UserId and U.UserId=?); ", [req.body.UserId], function(error,rows,fields){
+				if (error){
+					console.log('Error in the query'+error);
+					resp.end();
+				}
+				else{
+					tempCont.query("SELECT distinct A.Item_name FROM Advertisements_data A INNER JOIN V V WHERE A.Type = V.Type; ", function(error,rows2,fields){
+						if (error){
+							console.log('Error in the query'+error);
+							resp.end();
+						}
+						else{
+							tempCont.query("DROP VIEW V; ", function(error,rows3,fields){
+								tempCont.release();
+								if (error){
+									console.log('Error in the query'+error);
+									resp.end();
+								}
+								else{
+									resp.jsonp(rows2);
+									resp.end();
+								}
+
+							});
+						}
+
+					});
 				}
 
 			});
@@ -2088,267 +2158,6 @@ app.get('/getMonthlyReport',function(req,resp){//delete employee
 });
 
 app.listen(1337);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
