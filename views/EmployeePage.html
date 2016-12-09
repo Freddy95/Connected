@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>Manager Page</title>
+        <title>Employee Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -11,230 +11,112 @@
         <link rel="stylesheet" href="css/styles/ManegerPage.css">
         <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/ManagerPage.js"></script>
+        <script src="js/EmployeePage.js"></script>
     </head>
     <body onload="initiate();">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
                     <h1>
-                        Manager Page
+                        Employee Page
                     </h1>
                 </div>
                 <div class="col-md-3">
-                    <h3>
-                        Top Customer: <p id="BestCustomer"></p>
-                    </h3>
+
                 </div>
                 <div class="col-md-3">
-                    <h3>
-                        Top Employee: <p id="BestEmployee"></p>
-                    </h3>
+
                 </div>
             </div>
 
             <!--edit employee info  -->
             <div class="row">
-                <div class="col-md-8">
-                    <form action="http://localhost:1337/updateEmployeeInfo" method="post">
-                        <h4>First Name</h4>
-                        <input class="form-control" id="FirstName" type="text" placeholder="First Name"   name="First_name" required>
-                        <h4>Last Name</h4>
-                        <input class="form-control" id="LastName" type="text" placeholder="Last Name"   name="Last_name" required>
-                        <h4>Address</h4>
-                        <input class="form-control" id="Address" type="text" placeholder="Address"   name="Address">
-                        <h4>City</h4>
-                        <input class="form-control" id="City" type="text" placeholder="City"   name="City">
-                        <h4>State</h4>
-                        <input class="form-control" id="State" type="text" placeholder="State"   name="State">
-                        <h4>Zip Code</h4>
-                        <input class="form-control" id="ZipCode" type="text" placeholder="Zip Code"   name="Zip_code">
-                        <h4>Telephone Number</h4>
-                        <input class="form-control" id="Phone" type="text" placeholder="Phone"   name="Phone">
-                        <h4>Preferences</h4>
-                        <input class="form-control" id="Preferences" type="text" placeholder="Preferences"   name="Preferences">
-                        <h4>Hourly Rate</h4>
-                        <input class="form-control" id="HourlyRate" type="text" placeholder="Hourly Rate"   name="Hourly_rate" required maxlength="5">
-                        <input class="form-control" id="UserId" type="text" style="display:none" name="UserId" >
-                        <input class="btn-primary" type="submit" value="Edit">
-                        <button class="btn-danger" onclick="deleteEmployee()">Delete Employee</button>
-                    </form>
+                <div class="col-md-8"><!--Everything else-->
+
+                  <button class="btn-primary" data-toggle="#myAdModal">Create Advertisement</button>
+
+                  <hr>
+                  <h1>
+                      Record a Transaction:
+                  </h1>
+
+                  <form action="http://localhost:1337/recordTransaction">
+                    <input class="form-control" type="text" placeholder="Item Name" name="Item_name">
+                    <input class="form-control" type="text" placeholder="Account Number" name="Account_number">
+                    <input class="btn-primary" type="submit" value="Record">
+                  </form>
+                  <hr>
+                  <h1>
+                      Get Customer Groups:
+                  </h1>
+
+                  <div class="container">
+                      <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User
+                              <span class="caret"></span></button>
+                              <ul class="dropdown-menu" id="Users">
+                              </ul>
+                      </div>
+                  </div>
+
+                  <ul id="UserGroups">
+                  </ul>
+
+                  <hr>
+
+                  <h1>
+                      Get Account History:
+                  </h1>
+
+                  <div class="container">
+                      <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User
+                              <span class="caret"></span></button>
+                              <ul class="dropdown-menu" id="Users">
+                              </ul>
+                      </div>
+                  </div>
+
+                  <ul id="UserAccountHistory">
+                  </ul>
+
+
+
                 </div>
 
                 <div class="col-md-4 well">
-                  <h2>Employees</h2>
-                  <form action="http://localhost:1337/makeEmployee">
-                    <input class="btn-success" type="submit" value="Add Employee">
-                  </form>
-                  <ul class="list-group" id="Employees" align="center"><!--List of employees-->
+
+                  <h2>
+                    Top 5 Selling Items
+                  </h2>
+                  <ul class="list-group" id="BestItems" align="center"><!--List of best items-->
+
+
+
+                 </ul>
+                 <h2>
+                   Advertisements
+                 </h2>
+                 <ul class="list-group" id="Advertisements" align="center"><!--List of advertisements have item name and price and delete button-->
+
+
+
+                </ul>
+
+                 <h2>
+                   Users
+                 </h2>
+                  <ul class="list-group" id="Users" align="center"><!--List of Users-->
 
 
 
                  </ul>
 
-                 <h2>
-                   Top 5 Selling Items
-                 </h2>
-                 <ul class="list-group" id="BestItems" align="center"><!--List of employees-->
 
-
-
-                </ul>
-
-                 <h2>
-                   All Items
-                 </h2>
-                 <ul class="list-group" id="AllItems" align="center"><!--List of employees-->
-
-
-
-                </ul>
-                </div>
-            </div>
-            <hr>
-            <!--sales report for a month  -->
-            <div class="row">
-              <h1>
-                  Get Monthly Report:
-              </h1>
-                <div class="col-md-2">
-
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Month
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a onclick="getSalesReport(1)">Janurary</a></li>
-                                    <li><a onclick="getSalesReport(2)">Feburary</a></li>
-                                    <li><a onclick="getSalesReport(3)">March</a></li>
-                                    <li><a  onclick="getSalesReport(4)">April</a></li>
-                                    <li><a  onclick="getSalesReport(5)">May</a></li>
-                                    <li><a  onclick="getSalesReport(6)">June</a></li>
-                                    <li><a  onclick="getSalesReport(7)">July</a></li>
-                                    <li><a  onclick="getSalesReport(8)">August</a></li>
-                                    <li><a  onclick="getSalesReport(9)">September</a></li>
-                                    <li><a  onclick="getSalesReport(10)">October</a></li>
-                                    <li><a  onclick="getSalesReport(11)">November</a></li>
-                                    <li><a  onclick="getSalesReport(12)">December</a></li>
-                                </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-10" id="MonthReportDiv">
-                    <ul id="MonthReport">
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <!-- list of all items being sold -->
-
-            <div class="row">
-                <div class="col-md-12">
-                    <ul>
-
-                    </ul>
-                </div>
-            </div>
-            <hr>
-            <!-- Produce List By Item Name User Name -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>
-                        Produce a List of Transactions By User or Item Name
-                    </h1>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Item Name
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="ItemTrans">
-                                </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User Name
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="UserTrans">
-                                </ul>
-                        </div>
-                    </div>
 
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12" id="TransactionReport">
-                    <ul id="TransactionReportList">
-
-                    </ul>
-
-                </div>
-            </div>
-            <hr>
-            <!-- Produce Summary Of revenue generated by Item Item Type or Cuttomer -->
-            <div class="row">
-                <div class="col-md-12">
-                    <h1>
-                        Produce Summary of revenue generated by Item Item Type or Customer
-                    </h1>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Item Name
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="ItemSummary">
-                                </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Item Type
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="ItemTypeSummary">
-                                </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="container">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">User Name
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu" id="UserSummary">
-                                </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 id="Summary">
-                    </h3>
-
-                </div>
-            </div>
-            <hr>
-
-
-
-
-
-
-
+            
         </div>
         <!-- Put all Modals here PLease be neat! -->
 
