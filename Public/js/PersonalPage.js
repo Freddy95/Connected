@@ -42,6 +42,12 @@ function initiate() {
         emp.setAttribute('style', 'display:none');
       }
     },
+    error: function (data) {
+      var man = document.getElementById('ManagerButton');
+      var emp = document.getElementById('EmployeeButton');
+      man.setAttribute('style', 'display:none');
+      emp.setAttribute('style', 'display:none');
+    }
   });
 
   $.ajax({//get groups user is the owner of

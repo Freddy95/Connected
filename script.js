@@ -1442,7 +1442,7 @@ app.get('/getEmployeeStatus',function(req,resp){//check if user is an employee a
 				console.log('Error');
 			}
 			else{
-				tempCont.query("SELECT E.role FROM Employee_data E, User U WHERE U.UserId=? AND E.Social_security_number=U.EmployeeId", [sess.user], function(error,rows,fields){
+				tempCont.query("SELECT E.Role FROM Employee_data E, User U WHERE U.UserId=? AND E.Social_security_number=U.EmployeeId", [sess.user], function(error,rows,fields){
 					tempCont.release();
 					if (error){
 						console.log('Error in the query'+error);
