@@ -4,10 +4,10 @@ Connected is a Social Media Web application that uses a Node.Js Backend and MySQ
 
 Users can :
   Message other users,
-  Delete messages,
-  Create groups,
-  Delete groups,
-  Add users to their groups,
-  Make/Edit posts,
-  Comment on posts,
-  Like posts
+  delete messages,
+  create groups,
+  delete groups,
+  add users to their groups,
+  make/Edit posts,
+  comment on posts,
+  and like posts
