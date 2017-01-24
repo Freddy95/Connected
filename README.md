@@ -1,6 +1,6 @@
 # Connected
 
-Connected is a Social Media Web application that uses a Node.Js Backend and MySQL Database to store data.
+Connected is a Social Media Website that uses a Node.Js Backend and MySQL Database to store data.
 
 Users can :
 
