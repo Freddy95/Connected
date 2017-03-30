@@ -1,21 +1,21 @@
-# Connected
+# Connected 
+Connected is a social media web application that allows users to follow their friends and other users of the site. Currently it is not deployed online.
 
-Connected is a Social Media Website that uses a Node.Js Backend and MySQL Database to store data.
+## Usage
+After cloning the repository, first create the mysql database and tables with the command:
 
-Users can :
+`mysql connected.sql`
 
-    Message other users,
+To run the Node.js server, in the root directory use the command:
 
-    delete messages,
+`node script`
 
-    create groups,
+Then navigate to localhost:1337 via your browser.
 
-    delete groups,
+First create an account by supplying an email and password and ta-da. You are now a user of connected.
 
-    add users to their groups,
+## Authors
+Freddy Estevez
+Joesph Gardina
 
-    make/Edit posts,
 
-    comment on posts,
-
-    and like posts.
